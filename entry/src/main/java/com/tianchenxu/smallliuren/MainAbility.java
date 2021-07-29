@@ -6,21 +6,37 @@ import ohos.aafwk.ability.Ability;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.ability.ProviderFormInfo;
 import ohos.aafwk.content.Intent;
+import ohos.aafwk.content.Operation;
+import ohos.data.DatabaseHelper;
+import ohos.data.orm.OrmContext;
 import ohos.hiviewdfx.HiLog;
 import ohos.hiviewdfx.HiLogLabel;
 
 public class MainAbility extends Ability {
-    public static final int DEFAULT_DIMENSION_2X2 = 2;
-    public static final int DIMENSION_1X2 = 1;
-    public static final int DIMENSION_2X4 = 3;
     public static final int DIMENSION_4X4 = 4;
+    private int dimension = DIMENSION_4X4;
     private static final int INVALID_FORM_ID = -1;
+    private static final String EMPTY_STRING = "";
+    private String formName;
+    private long formId;
+    private ProviderFormInfo providerFormInfo;
+    private DatabaseHelper helper = new DatabaseHelper(this);
+    private OrmContext connect;
     private static final HiLogLabel TAG = new HiLogLabel(HiLog.DEBUG, 0x0, MainAbility.class.getName());
     private String topWidgetSlice;
 
     @Override
     public void onStart(Intent intent) {
         super.onStart(intent);
+        // 启动TimerAbility
+        Intent timer = new Intent();
+        Operation operation = new Intent.OperationBuilder()
+                .withDeviceId("")
+                .withBundleName(getBundleName())
+                .withAbilityName(TimerAbility.class.getName())
+                .build();
+        timer.setOperation(operation);
+        startAbility(timer);
         super.setMainRoute(MainAbilitySlice.class.getName());
         if (intentFromWidget(intent)) {
             topWidgetSlice = getRoutePageSlice(intent);
@@ -34,9 +50,26 @@ public class MainAbility extends Ability {
     @Override
     protected ProviderFormInfo onCreateForm(Intent intent) {
         HiLog.info(TAG, "onCreateForm");
-        long formId = intent.getLongParam(AbilitySlice.PARAM_FORM_IDENTITY_KEY, INVALID_FORM_ID);
-        String formName = intent.getStringParam(AbilitySlice.PARAM_FORM_NAME_KEY);
-        int dimension = intent.getIntParam(AbilitySlice.PARAM_FORM_DIMENSION_KEY, DIMENSION_2X4);
+        if (intent == null) {
+            return new ProviderFormInfo();
+        }
+
+        // 获取卡片Id
+        formId = INVALID_FORM_ID
+        if (intent.hasParameter(AbilitySlice.PARAM_FORM_IDENTITY_KEY)) {
+            formId = intent.getLongParam(AbilitySlice.PARAM_FORM_IDENTITY_KEY, INVALID_FORM_ID);
+        } else {
+            return new ProviderFormInfo();
+        }
+        // 获取卡片名称
+        formName = EMPTY_STRING;
+        if (intent.hasParameter(AbilitySlice.PARAM_FORM_NAME_KEY)) {
+            formName = intent.getStringParam(AbilitySlice.PARAM_FORM_NAME_KEY);
+        }
+        // 获取卡片规格
+        if (intent.hasParameter(AbilitySlice.PARAM_FORM_DIMENSION_KEY)) {
+            dimension = intent.getIntParam(AbilitySlice.PARAM_FORM_DIMENSION_KEY, DIMENSION_4X4);
+        }
         HiLog.info(TAG, "onCreateForm: formId=" + formId + ",formName=" + formName);
         FormControllerManager formControllerManager = FormControllerManager.getInstance(this);
         FormController formController = formControllerManager.getController(formId);
