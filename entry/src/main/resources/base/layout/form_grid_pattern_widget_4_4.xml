@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DependentLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="match_parent"
+    ohos:width="match_parent"
+    ohos:background_element="#A4D3EE"
+    ohos:remote="true">
+
+    <DirectionalLayout
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:orientation="horizontal"
+        ohos:top_padding="10fp"
+        >
+
+        <Text
+            ohos:id="$+id:date"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:left_margin="20fp"
+            ohos:text="2021-03-24"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:week"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:date"
+            ohos:text="星期"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:time"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:week"
+            ohos:text="00:00:00"
+            ohos:text_font="HwChinese-medium"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+    </DirectionalLayout>
+
+    <DirectionalLayout
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:orientation="horizontal"
+        ohos:top_margin="35fp">
+
+        <Text
+            ohos:id="$+id:lunar_year"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:left_margin="15fp"
+            ohos:text="甲子年"
+            ohos:text_font="HwChinese-medium"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:lunar_mouth"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:lunar_year"
+            ohos:text="甲子月"
+            ohos:text_font="HwChinese-medium"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:lunar_day"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:lunar_mouth"
+            ohos:text="甲子日"
+            ohos:text_font="HwChinese-medium"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:clutchtime"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:lunar_day"
+            ohos:text="子时"
+            ohos:text_font="HwChinese-medium"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+    </DirectionalLayout>
+
+    <DirectionalLayout
+        ohos:height="150fp"
+        ohos:width="match_parent"
+        ohos:background_element="$media:base"
+        ohos:orientation="horizontal"
+        ohos:top_margin="60fp"
+        >
+
+        <Image
+            ohos:id="$+id:aided_label"
+            ohos:height="50fp"
+            ohos:width="15fp"
+            ohos:left_margin="50fp"
+            ohos:image_src="$media:aided"
+            ohos:scale_mode="inside"
+            ohos:top_margin="30fp">
+        </Image>
+
+        <Image
+            ohos:id="$+id:aided"
+            ohos:height="80fp"
+            ohos:width="40fp"
+            ohos:image_src="$media:daan"
+            ohos:right_of="$id:aided_label"
+            ohos:scale_mode="inside"
+            ohos:scale_x="0.8"
+            ohos:scale_y="1.3"
+            ohos:top_margin="50fp">
+        </Image>
+
+        <Image
+            ohos:id="$+id:assistant_label"
+            ohos:height="50fp"
+            ohos:width="15fp"
+            ohos:image_src="$media:assistant"
+            ohos:right_of="$id:aided"
+            ohos:scale_mode="inside">
+        </Image>
+
+        <Image
+            ohos:id="$+id:assistant"
+            ohos:height="80fp"
+            ohos:width="40fp"
+            ohos:image_src="$media:daan"
+            ohos:right_of="$id:assistant_label"
+            ohos:scale_mode="inside"
+            ohos:scale_x="0.8"
+            ohos:scale_y="1.3"
+            ohos:top_margin="50fp">
+        </Image>
+
+        <Image
+            ohos:id="$+id:main_label"
+            ohos:height="60fp"
+            ohos:width="15fp"
+            ohos:image_src="$media:main"
+            ohos:right_of="$id:assistant"
+            ohos:scale_mode="inside"
+            ohos:top_margin="30fp">
+        </Image>
+
+        <Image
+            ohos:id="$+id:main"
+            ohos:height="80fp"
+            ohos:width="40fp"
+            ohos:image_src="$media:daan"
+            ohos:right_of="$id:main_label"
+            ohos:scale_mode="inside"
+            ohos:scale_y="1.5"
+            ohos:top_margin="40fp">
+        </Image>
+    </DirectionalLayout>
+
+    <DirectionalLayout
+        ohos:width="match_parent"
+        ohos:height="match_parent">
+
+    </DirectionalLayout>
+</DependentLayout>
