@@ -19,6 +19,10 @@
     {
       "name": "widget_introduction",
       "value": "Introduction"
+    },
+    {
+      "name": "timerability_description",
+      "value": "hap sample empty service"
     }
   ]
 }

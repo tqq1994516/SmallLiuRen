@@ -66,6 +66,17 @@
             "updateDuration": 1
           }
         ]
+      },
+      {
+        "name": "com.tianchenxu.smallliuren.TimerAbility",
+        "icon": "$media:icon",
+        "description": "$string:timerability_description",
+        "type": "service",
+        "visible": true,
+        "backgroundModes": [
+          "dataTransfer",
+          "location"
+        ]
       }
     ]
   }
