@@ -12,15 +12,15 @@ import java.util.Calendar;
  * Component ProviderUtils
  */
 public class ComponentProviderUtils {
-    // 当前星期颜色
-    private static Color nowWeekColor = new Color(Color.rgb(255, 245, 238));
-
-    // 原色星期
-    private static Color primaryWeekColor = new Color(Color.rgb(192, 192, 192));
+//    // 当前星期颜色
+//    private static Color nowWeekColor = new Color(Color.rgb(255, 245, 238));
+//
+//    // 原色星期
+//    private static Color primaryWeekColor = new Color(Color.rgb(192, 192, 192));
 
     private static final int WEEK_DAYS = 7;
     private static final int STRING_LENGTH = 2;
-    private static final int DIM_VERSION = 3;
+    private static final int DIM_VERSION = 2;
     private static final int SUNDAY = 1;
     private static final int MONDAY = 2;
     private static final int TUESDAY = 3;
@@ -34,11 +34,12 @@ public class ComponentProviderUtils {
      *
      * @return week
      */
-    public static int getWeekDayId() {
-        Calendar calendar = Calendar.getInstance();
-        int week = calendar.get(Calendar.DAY_OF_WEEK);
-        return getWeekIdResult(week);
-    }
+//    public static int getWeekDayId() {
+//        Calendar calendar = Calendar.getInstance();
+//        int week = calendar.get(Calendar.DAY_OF_WEEK);
+////        return getWeekIdResult(week);
+//        return week;
+//    }
 
     /**
      * get week component id
@@ -46,36 +47,36 @@ public class ComponentProviderUtils {
      * @param week week
      * @return component id
      */
-    private static int getWeekIdResult(int week) {
-        int result = ResourceTable.Id_mon;
-        switch (week) {
-            case SUNDAY:
-                result = ResourceTable.Id_sun;
-                break;
-            case MONDAY:
-                result = ResourceTable.Id_mon;
-                break;
-            case TUESDAY:
-                result = ResourceTable.Id_tue;
-                break;
-            case WEDNESDAY:
-                result = ResourceTable.Id_wed;
-                break;
-            case THURSDAY:
-                result = ResourceTable.Id_thu;
-                break;
-            case FRIDAY:
-                result = ResourceTable.Id_fri;
-                break;
-            case SATURDAY:
-                result = ResourceTable.Id_sat;
-                break;
-            default:
-                result = ResourceTable.Id_sun;
-                break;
-        }
-        return result;
-    }
+//    private static int getWeekIdResult(int week) {
+//        int result = ResourceTable.Id_mon;
+//        switch (week) {
+//            case SUNDAY:
+//                result = ResourceTable.Id_sun;
+//                break;
+//            case MONDAY:
+//                result = ResourceTable.Id_mon;
+//                break;
+//            case TUESDAY:
+//                result = ResourceTable.Id_tue;
+//                break;
+//            case WEDNESDAY:
+//                result = ResourceTable.Id_wed;
+//                break;
+//            case THURSDAY:
+//                result = ResourceTable.Id_thu;
+//                break;
+//            case FRIDAY:
+//                result = ResourceTable.Id_fri;
+//                break;
+//            case SATURDAY:
+//                result = ResourceTable.Id_sat;
+//                break;
+//            default:
+//                result = ResourceTable.Id_sun;
+//                break;
+//        }
+//        return result;
+//    }
 
     /**
      * Obtains the ComponentProvider object
@@ -85,9 +86,9 @@ public class ComponentProviderUtils {
      * @return component provider
      */
     public static ComponentProvider getComponentProvider(Form form, Context context) {
-        int layoutId = ResourceTable.Layout_form_grid_pattern_widget_2_2;
+        int layoutId = ResourceTable.Layout_form_grid_pattern_widget_4_4;
         if (form.getDimension() == DIM_VERSION) {
-            layoutId = ResourceTable.Layout_form_grid_pattern_widget_4_4;
+            layoutId = ResourceTable.Layout_form_grid_pattern_widget_2_2;
         }
         ComponentProvider componentProvider = new ComponentProvider(layoutId, context);
         setComponentProviderValue(componentProvider);
@@ -116,41 +117,43 @@ public class ComponentProviderUtils {
      * @param componentProvider component provider
      */
     private static void setComponentProviderValue(ComponentProvider componentProvider) {
-        Calendar now = Calendar.getInstance();
-        int hour = now.get(Calendar.HOUR_OF_DAY);
-        int min = now.get(Calendar.MINUTE);
-        int second = now.get(Calendar.SECOND);
-        String hourString = int2String(hour);
-        String minString = int2String(min);
-        String secondString = int2String(second);
+//        Calendar now = Calendar.getInstance();
+//        int hour = now.get(Calendar.HOUR_OF_DAY);
+//        int min = now.get(Calendar.MINUTE);
+//        int second = now.get(Calendar.SECOND);
+//        String hourString = int2String(hour);
+//        String minString = int2String(min);
+//        String secondString = int2String(second);
         componentProvider.setText(ResourceTable.Id_date, DateUtils.getCurrentDate("yyyy-MM-dd"));
-        componentProvider.setText(ResourceTable.Id_hour, hourString);
-        componentProvider.setText(ResourceTable.Id_min, minString);
-        componentProvider.setText(ResourceTable.Id_sec, secondString);
+        componentProvider.setText(ResourceTable.Id_time, DateUtils.getCurrentDate("HH:mm:ss"));
+        componentProvider.setText(ResourceTable.Id_week, DateUtils.getCurrentDate("E"));
+//        componentProvider.setText(ResourceTable.Id_hour, hourString);
+//        componentProvider.setText(ResourceTable.Id_min, minString);
+//        componentProvider.setText(ResourceTable.Id_sec, secondString);
 
-        // 获取当前星期
-        int weekDayId = getWeekDayId();
-        componentProvider.setTextColor(weekDayId, nowWeekColor);
-
-        // 将前一天的星期改回原色
-        int lastWeekId = getLastWeekDayId();
-        componentProvider.setTextColor(lastWeekId, primaryWeekColor);
+//        // 获取当前星期
+//        int weekDayId = getWeekDayId();
+//        componentProvider.setTextColor(weekDayId, nowWeekColor);
+//
+//        // 将前一天的星期改回原色
+//        int lastWeekId = getLastWeekDayId();
+//        componentProvider.setTextColor(lastWeekId, primaryWeekColor);
     }
 
-    /**
-     * obtain previous day of the week
-     *
-     * @return previous day of the week
-     */
-    public static int getLastWeekDayId() {
-        Calendar calendar = Calendar.getInstance();
-        int week = calendar.get(Calendar.DAY_OF_WEEK);
-        int lastWeek;
-        if (week == 1) {
-            lastWeek = WEEK_DAYS;
-        } else {
-            lastWeek = week - 1;
-        }
-        return getWeekIdResult(lastWeek);
-    }
+//    /**
+//     * obtain previous day of the week
+//     *
+//     * @return previous day of the week
+//     */
+//    public static int getLastWeekDayId() {
+//        Calendar calendar = Calendar.getInstance();
+//        int week = calendar.get(Calendar.DAY_OF_WEEK);
+//        int lastWeek;
+//        if (week == 1) {
+//            lastWeek = WEEK_DAYS;
+//        } else {
+//            lastWeek = week - 1;
+//        }
+//        return getWeekIdResult(lastWeek);
+//    }
 }
