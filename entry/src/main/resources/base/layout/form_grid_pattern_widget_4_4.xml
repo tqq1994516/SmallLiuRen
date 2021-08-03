@@ -50,10 +50,62 @@
         ohos:height="match_content"
         ohos:width="match_parent"
         ohos:orientation="horizontal"
-        ohos:top_margin="35fp">
+        ohos:top_margin="35fp"
+        >
 
         <Text
             ohos:id="$+id:lunar_year"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:left_margin="20fp"
+            ohos:text="二〇二一"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:lunar_mouth"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:lunar_year"
+            ohos:text="六"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:lunar_day"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:lunar_mouth"
+            ohos:text="廿五"
+            ohos:text_font="HwChinese-medium"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:solarTerms"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:lunar_day"
+            ohos:text="立春"
+            ohos:text_font="HwChinese-medium"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+
+    </DirectionalLayout>
+
+    <DirectionalLayout
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:orientation="horizontal"
+        ohos:top_margin="60fp">
+
+        <Text
+            ohos:id="$+id:ganzhi_year"
             ohos:height="match_content"
             ohos:width="match_content"
             ohos:left_margin="15fp"
@@ -64,10 +116,10 @@
         </Text>
 
         <Text
-            ohos:id="$+id:lunar_mouth"
+            ohos:id="$+id:ganzhi_mouth"
             ohos:height="match_content"
             ohos:width="match_content"
-            ohos:right_of="$id:lunar_year"
+            ohos:right_of="$id:ganzhi_year"
             ohos:text="甲子月"
             ohos:text_font="HwChinese-medium"
             ohos:text_size="20fp"
@@ -75,10 +127,10 @@
         </Text>
 
         <Text
-            ohos:id="$+id:lunar_day"
+            ohos:id="$+id:ganzhi_day"
             ohos:height="match_content"
             ohos:width="match_content"
-            ohos:right_of="$id:lunar_mouth"
+            ohos:right_of="$id:ganzhi_mouth"
             ohos:text="甲子日"
             ohos:text_font="HwChinese-medium"
             ohos:text_size="20fp"
@@ -86,10 +138,10 @@
         </Text>
 
         <Text
-            ohos:id="$+id:clutchtime"
+            ohos:id="$+id:ganzhi_time"
             ohos:height="match_content"
             ohos:width="match_content"
-            ohos:right_of="$id:lunar_day"
+            ohos:right_of="$id:ganzhi_day"
             ohos:text="子时"
             ohos:text_font="HwChinese-medium"
             ohos:text_size="20fp"
@@ -98,81 +150,101 @@
     </DirectionalLayout>
 
     <DirectionalLayout
-        ohos:height="150fp"
+        ohos:height="180fp"
         ohos:width="match_parent"
         ohos:background_element="$media:base"
         ohos:orientation="horizontal"
-        ohos:top_margin="60fp"
+        ohos:top_margin="75fp"
         >
 
         <Image
             ohos:id="$+id:aided_label"
-            ohos:height="50fp"
-            ohos:width="15fp"
-            ohos:left_margin="50fp"
+            ohos:height="60fp"
+            ohos:width="20fp"
+            ohos:left_margin="15fp"
             ohos:image_src="$media:aided"
-            ohos:scale_mode="inside"
-            ohos:top_margin="30fp">
+            ohos:scale_mode="clip_center"
+            ohos:top_margin="20fp">
         </Image>
 
         <Image
             ohos:id="$+id:aided"
-            ohos:height="80fp"
-            ohos:width="40fp"
+            ohos:height="100fp"
+            ohos:width="55fp"
             ohos:image_src="$media:daan"
             ohos:right_of="$id:aided_label"
-            ohos:scale_mode="inside"
-            ohos:scale_x="0.8"
-            ohos:scale_y="1.3"
-            ohos:top_margin="50fp">
+            ohos:scale_mode="clip_center"
+            ohos:scale_y="1.2"
+            ohos:top_margin="30fp">
         </Image>
 
         <Image
             ohos:id="$+id:assistant_label"
-            ohos:height="50fp"
-            ohos:width="15fp"
+            ohos:height="60fp"
+            ohos:width="20fp"
             ohos:image_src="$media:assistant"
             ohos:right_of="$id:aided"
-            ohos:scale_mode="inside">
+            ohos:scale_mode="clip_center"
+            ohos:top_margin="20fp">
         </Image>
 
         <Image
             ohos:id="$+id:assistant"
-            ohos:height="80fp"
-            ohos:width="40fp"
+            ohos:height="100fp"
+            ohos:width="55fp"
             ohos:image_src="$media:daan"
             ohos:right_of="$id:assistant_label"
-            ohos:scale_mode="inside"
-            ohos:scale_x="0.8"
-            ohos:scale_y="1.3"
-            ohos:top_margin="50fp">
+            ohos:scale_mode="clip_center"
+            ohos:scale_y="1.2"
+            ohos:top_margin="30fp">
         </Image>
 
         <Image
             ohos:id="$+id:main_label"
             ohos:height="60fp"
-            ohos:width="15fp"
+            ohos:width="20fp"
             ohos:image_src="$media:main"
             ohos:right_of="$id:assistant"
-            ohos:scale_mode="inside"
-            ohos:top_margin="30fp">
+            ohos:scale_mode="clip_center"
+            ohos:top_margin="5fp">
         </Image>
 
         <Image
             ohos:id="$+id:main"
-            ohos:height="80fp"
-            ohos:width="40fp"
+            ohos:height="100fp"
+            ohos:width="55fp"
             ohos:image_src="$media:daan"
             ohos:right_of="$id:main_label"
-            ohos:scale_mode="inside"
-            ohos:scale_y="1.5"
-            ohos:top_margin="40fp">
+            ohos:scale_mode="clip_center"
+            ohos:scale_y="1.2"
+            ohos:top_margin="20fp">
+        </Image>
+
+        <Image
+            ohos:id="$+id:destiny_label"
+            ohos:height="60fp"
+            ohos:width="20fp"
+            ohos:image_src="$media:destiny"
+            ohos:right_of="$id:main"
+            ohos:scale_mode="clip_center"
+            ohos:top_margin="20fp">
+        </Image>
+
+        <Image
+            ohos:id="$+id:destiny"
+            ohos:height="100fp"
+            ohos:width="55fp"
+            ohos:image_src="$media:daan"
+            ohos:right_of="$id:destiny_label"
+            ohos:scale_mode="clip_center"
+            ohos:scale_y="1.2"
+            ohos:top_margin="30fp">
         </Image>
     </DirectionalLayout>
 
-    <DirectionalLayout
-        ohos:width="match_parent"
-        ohos:height="match_parent">
+<!--    <DirectionalLayout-->
+<!--        ohos:width="match_parent"-->
+<!--        ohos:height="match_parent">-->
 
-    </DirectionalLayout>
+<!--    </DirectionalLayout>-->
 </DependentLayout>

@@ -1,93 +1,34 @@
 package com.tianchenxu.smallliuren.utils;
 
+import com.nlf.calendar.Lunar;
 import com.tianchenxu.smallliuren.ResourceTable;
-import com.tianchenxu.smallliuren.database.Form;
+import com.tianchenxu.smallliuren.widget.controller.FormController;
 import ohos.agp.components.ComponentProvider;
 import ohos.agp.utils.Color;
 import ohos.app.Context;
+import ohos.hiviewdfx.HiLog;
+import ohos.media.image.PixelMap;
 
 import java.util.Calendar;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 /**
  * Component ProviderUtils
  */
 public class ComponentProviderUtils {
-//    // 当前星期颜色
-//    private static Color nowWeekColor = new Color(Color.rgb(255, 245, 238));
-//
-//    // 原色星期
-//    private static Color primaryWeekColor = new Color(Color.rgb(192, 192, 192));
-
-    private static final int WEEK_DAYS = 7;
-    private static final int STRING_LENGTH = 2;
     private static final int DIM_VERSION = 2;
-    private static final int SUNDAY = 1;
-    private static final int MONDAY = 2;
-    private static final int TUESDAY = 3;
-    private static final int WEDNESDAY = 4;
-    private static final int THURSDAY = 5;
-    private static final int FRIDAY = 6;
-    private static final int SATURDAY = 7;
-
-    /**
-     * Obtain the day of the week
-     *
-     * @return week
-     */
-//    public static int getWeekDayId() {
-//        Calendar calendar = Calendar.getInstance();
-//        int week = calendar.get(Calendar.DAY_OF_WEEK);
-////        return getWeekIdResult(week);
-//        return week;
-//    }
-
-    /**
-     * get week component id
-     *
-     * @param week week
-     * @return component id
-     */
-//    private static int getWeekIdResult(int week) {
-//        int result = ResourceTable.Id_mon;
-//        switch (week) {
-//            case SUNDAY:
-//                result = ResourceTable.Id_sun;
-//                break;
-//            case MONDAY:
-//                result = ResourceTable.Id_mon;
-//                break;
-//            case TUESDAY:
-//                result = ResourceTable.Id_tue;
-//                break;
-//            case WEDNESDAY:
-//                result = ResourceTable.Id_wed;
-//                break;
-//            case THURSDAY:
-//                result = ResourceTable.Id_thu;
-//                break;
-//            case FRIDAY:
-//                result = ResourceTable.Id_fri;
-//                break;
-//            case SATURDAY:
-//                result = ResourceTable.Id_sat;
-//                break;
-//            default:
-//                result = ResourceTable.Id_sun;
-//                break;
-//        }
-//        return result;
-//    }
 
     /**
      * Obtains the ComponentProvider object
      *
-     * @param form form info
-     * @param context context
+     * @param controller form info
+     * @param context    context
      * @return component provider
      */
-    public static ComponentProvider getComponentProvider(Form form, Context context) {
+    public static ComponentProvider getComponentProvider(FormController controller, Context context) {
         int layoutId = ResourceTable.Layout_form_grid_pattern_widget_4_4;
-        if (form.getDimension() == DIM_VERSION) {
+        if (controller.getDimension() == DIM_VERSION) {
             layoutId = ResourceTable.Layout_form_grid_pattern_widget_2_2;
         }
         ComponentProvider componentProvider = new ComponentProvider(layoutId, context);
@@ -95,21 +36,6 @@ public class ComponentProviderUtils {
         return componentProvider;
     }
 
-    /**
-     * Time converted to string
-     *
-     * @param time time
-     * @return time string
-     */
-    private static String int2String(int time) {
-        String timeString;
-        if (String.valueOf(time).length() < STRING_LENGTH) {
-            timeString = "0" + time;
-        } else {
-            timeString = time + "";
-        }
-        return timeString;
-    }
 
     /**
      * Set the value of componentProvider
@@ -117,43 +43,106 @@ public class ComponentProviderUtils {
      * @param componentProvider component provider
      */
     private static void setComponentProviderValue(ComponentProvider componentProvider) {
-//        Calendar now = Calendar.getInstance();
-//        int hour = now.get(Calendar.HOUR_OF_DAY);
-//        int min = now.get(Calendar.MINUTE);
-//        int second = now.get(Calendar.SECOND);
-//        String hourString = int2String(hour);
-//        String minString = int2String(min);
-//        String secondString = int2String(second);
-        componentProvider.setText(ResourceTable.Id_date, DateUtils.getCurrentDate("yyyy-MM-dd"));
-        componentProvider.setText(ResourceTable.Id_time, DateUtils.getCurrentDate("HH:mm:ss"));
-        componentProvider.setText(ResourceTable.Id_week, DateUtils.getCurrentDate("E"));
-//        componentProvider.setText(ResourceTable.Id_hour, hourString);
-//        componentProvider.setText(ResourceTable.Id_min, minString);
-//        componentProvider.setText(ResourceTable.Id_sec, secondString);
-
-//        // 获取当前星期
-//        int weekDayId = getWeekDayId();
-//        componentProvider.setTextColor(weekDayId, nowWeekColor);
-//
-//        // 将前一天的星期改回原色
-//        int lastWeekId = getLastWeekDayId();
-//        componentProvider.setTextColor(lastWeekId, primaryWeekColor);
+        componentProvider.setText(ResourceTable.Id_date, DateUtils.getCurrentSolar().toYmd());
+        componentProvider.setText(ResourceTable.Id_time, DateUtils.getCurrentSolar().getHour() + ":" + DateUtils.getCurrentSolar().getMinute() + ":" + DateUtils.getCurrentSolar().getSecond());
+        componentProvider.setText(ResourceTable.Id_week, "星期" + DateUtils.getCurrentSolar().getWeekInChinese());
+        componentProvider.setText(ResourceTable.Id_lunar_year, DateUtils.getCurrentLunar().getYearInChinese() + "年");
+        componentProvider.setText(ResourceTable.Id_lunar_mouth, DateUtils.getCurrentLunar().getMonthInChinese() + "月");
+        componentProvider.setText(ResourceTable.Id_lunar_day, DateUtils.getCurrentLunar().getDayInChinese() + "日");
+        componentProvider.setText(ResourceTable.Id_solarTerms, DateUtils.getCurrentLunar().getJieQi());
+        componentProvider.setText(ResourceTable.Id_ganzhi_year, DateUtils.getCurrentLunar().getYearInGanZhiByLiChun() + "年");
+        componentProvider.setText(ResourceTable.Id_ganzhi_mouth, DateUtils.getCurrentLunar().getMonthInGanZhiExact() + "月");
+        componentProvider.setText(ResourceTable.Id_ganzhi_day, DateUtils.getCurrentLunar().getDayInGanZhiExact() + "日");
+        componentProvider.setText(ResourceTable.Id_ganzhi_time, DateUtils.getCurrentLunar().getTimeInGanZhi() + "时");
+        getSmallLiuRen(DateUtils.getCurrentLunar(), componentProvider);
     }
 
-//    /**
-//     * obtain previous day of the week
-//     *
-//     * @return previous day of the week
-//     */
-//    public static int getLastWeekDayId() {
-//        Calendar calendar = Calendar.getInstance();
-//        int week = calendar.get(Calendar.DAY_OF_WEEK);
-//        int lastWeek;
-//        if (week == 1) {
-//            lastWeek = WEEK_DAYS;
-//        } else {
-//            lastWeek = week - 1;
-//        }
-//        return getWeekIdResult(lastWeek);
-//    }
+    private static final Dictionary<String, Integer> lunarTimeNums() {
+        Dictionary<String, Integer> lunarTime = new Hashtable<>();
+        lunarTime.put("子", 1);
+        lunarTime.put("丑", 2);
+        lunarTime.put("寅", 3);
+        lunarTime.put("卯", 4);
+        lunarTime.put("辰", 5);
+        lunarTime.put("巳", 6);
+        lunarTime.put("午", 7);
+        lunarTime.put("未", 8);
+        lunarTime.put("申", 9);
+        lunarTime.put("酉", 10);
+        lunarTime.put("戌", 11);
+        lunarTime.put("亥", 12);
+        return lunarTime;
+    }
+
+    private static void getSmallLiuRen(Lunar lunar, ComponentProvider componentProvider) {
+        Dictionary<String, Integer> lunTimeNums = lunarTimeNums();
+        int lunarMonthNum = (int) lunar.getMonth();
+        int lunarDayNum = (int) lunar.getDay();
+        int lunarTimeNum = lunTimeNums.get(lunar.getTimeZhi());
+        int monthStepNum = lunarMonthNum % 6;
+        switch (monthStepNum) {
+            case 0:
+                componentProvider.setImageContent(ResourceTable.Id_aided, ResourceTable.Media_kongwang);
+                break;
+            case 1:
+                componentProvider.setImageContent(ResourceTable.Id_aided, ResourceTable.Media_daan);
+                break;
+            case 2:
+                componentProvider.setImageContent(ResourceTable.Id_aided, ResourceTable.Media_liulian);
+                break;
+            case 3:
+                componentProvider.setImageContent(ResourceTable.Id_aided, ResourceTable.Media_suxi);
+                break;
+            case 4:
+                componentProvider.setImageContent(ResourceTable.Id_aided, ResourceTable.Media_chikou);
+                break;
+            case 5:
+                componentProvider.setImageContent(ResourceTable.Id_aided, ResourceTable.Media_xiaoji);
+                break;
+        }
+
+        int dayStepNum = (lunarDayNum + monthStepNum) % 6;
+        switch (dayStepNum) {
+            case 0:
+                componentProvider.setImageContent(ResourceTable.Id_assistant, ResourceTable.Media_kongwang);
+                break;
+            case 1:
+                componentProvider.setImageContent(ResourceTable.Id_assistant, ResourceTable.Media_daan);
+                break;
+            case 2:
+                componentProvider.setImageContent(ResourceTable.Id_assistant, ResourceTable.Media_liulian);
+                break;
+            case 3:
+                componentProvider.setImageContent(ResourceTable.Id_assistant, ResourceTable.Media_suxi);
+                break;
+            case 4:
+                componentProvider.setImageContent(ResourceTable.Id_assistant, ResourceTable.Media_chikou);
+                break;
+            case 5:
+                componentProvider.setImageContent(ResourceTable.Id_assistant, ResourceTable.Media_xiaoji);
+                break;
+        }
+
+        int timeStepNum = (lunarTimeNum + dayStepNum) % 6;
+        switch (dayStepNum) {
+            case 0:
+                componentProvider.setImageContent(ResourceTable.Id_main, ResourceTable.Media_kongwang);
+                break;
+            case 1:
+                componentProvider.setImageContent(ResourceTable.Id_main, ResourceTable.Media_daan);
+                break;
+            case 2:
+                componentProvider.setImageContent(ResourceTable.Id_main, ResourceTable.Media_liulian);
+                break;
+            case 3:
+                componentProvider.setImageContent(ResourceTable.Id_main, ResourceTable.Media_suxi);
+                break;
+            case 4:
+                componentProvider.setImageContent(ResourceTable.Id_main, ResourceTable.Media_chikou);
+                break;
+            case 5:
+                componentProvider.setImageContent(ResourceTable.Id_main, ResourceTable.Media_xiaoji);
+                break;
+        }
+    }
 }

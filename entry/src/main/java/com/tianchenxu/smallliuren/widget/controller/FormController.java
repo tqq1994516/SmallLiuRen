@@ -30,6 +30,18 @@ public abstract class FormController {
         this.dimension = dimension;
     }
 
+    public Context getContext() {
+        return context;
+    }
+
+    public String getFormName() {
+        return formName;
+    }
+
+    public int getDimension() {
+        return dimension;
+    }
+
     /**
      * Bind data for a form
      *

@@ -1,18 +1,14 @@
 package com.tianchenxu.smallliuren;
 
-import com.tianchenxu.smallliuren.database.Form;
-import com.tianchenxu.smallliuren.database.FormDatabase;
 import com.tianchenxu.smallliuren.utils.ComponentProviderUtils;
-import com.tianchenxu.smallliuren.utils.DatabaseUtils;
 import com.tianchenxu.smallliuren.utils.DateUtils;
 
+import com.tianchenxu.smallliuren.widget.controller.FormController;
+import com.tianchenxu.smallliuren.widget.controller.FormControllerManager;
 import ohos.aafwk.ability.Ability;
 import ohos.aafwk.ability.FormException;
 import ohos.aafwk.content.Intent;
 import ohos.agp.components.ComponentProvider;
-import ohos.data.DatabaseHelper;
-import ohos.data.orm.OrmContext;
-import ohos.data.orm.OrmPredicates;
 import ohos.event.notification.NotificationRequest;
 import ohos.rpc.IRemoteObject;
 import ohos.hiviewdfx.HiLog;
@@ -26,14 +22,12 @@ public class TimerAbility extends Ability {
     private static final HiLogLabel LABEL_LOG = new HiLogLabel(3, 0xD001100, "Demo");
     private static final long SEND_PERIOD = 1000L;
     private static final int NOTICE_ID = 1005;
-    // 初始化数据库工具
-    private DatabaseHelper helper = new DatabaseHelper(this);
-    private OrmContext connect;
+    private FormControllerManager formControllerManager;
 
     @Override
     public void onStart(Intent intent) {
         HiLog.error(LABEL_LOG, "TimerAbility::onStart");
-        connect = helper.getOrmContext("FormDatabase", "FormDatabase.db", FormDatabase.class);
+        formControllerManager = FormControllerManager.getInstance(this);
         // 启动定时器
         startTimer();
         super.onStart(intent);
@@ -58,7 +52,7 @@ public class TimerAbility extends Ability {
         NotificationRequest request = new NotificationRequest(NOTICE_ID);
         request.setAlertOneTime(true);
         NotificationRequest.NotificationNormalContent content = new NotificationRequest.NotificationNormalContent();
-        content.setText(DateUtils.getCurrentDate("yyyy-MM-dd HH:mm:ss"));
+        content.setText(DateUtils.getCurrentSolar().toYmdHms());
         NotificationRequest.NotificationContent notificationContent = new NotificationRequest.NotificationContent(content);
         request.setContent(notificationContent);
         // 绑定通知
@@ -66,22 +60,20 @@ public class TimerAbility extends Ability {
     }
 
     private void updateForms() {
-        // 从数据库获取卡片信息
-        OrmPredicates ormPredicates = new OrmPredicates(Form.class);
         // 获取卡片列表
-        List<Form> formList = connect.query(ormPredicates);
+        List<Long> formIdList = formControllerManager.getAllFormIdFromSharePreference();
         // 更新时分秒
-        if (formList.size() <= 0) {
+        if (formIdList.size() <= 0) {
             return;
         }
-        for (Form form : formList) {
-            // 遍历卡片列表更新卡片
-            ComponentProvider componentProvider = ComponentProviderUtils.getComponentProvider(form, this);
+        for (Long formId : formIdList) {
+            FormController controller = formControllerManager.getController(formId);
+            ComponentProvider componentProvider = ComponentProviderUtils.getComponentProvider(controller, this);
             try {
-                Long formFormId = form.getFormId();
-                updateForm(formFormId, componentProvider);
+                // 遍历卡片列表更新卡片
+                updateForm(formId, componentProvider);
             } catch (FormException e) {
-                DatabaseUtils.deleteFormData(form.getFormId(), connect);
+                formControllerManager.deleteFormController(formId);
                 HiLog.error(LABEL_LOG, "onUpdateForm updateForm error");
             }
         }

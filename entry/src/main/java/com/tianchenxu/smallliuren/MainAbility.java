@@ -1,7 +1,6 @@
 package com.tianchenxu.smallliuren;
 
 import com.tianchenxu.smallliuren.slice.MainAbilitySlice;
-import com.tianchenxu.smallliuren.utils.DatabaseUtils;
 import com.tianchenxu.smallliuren.widget.controller.*;
 
 import ohos.aafwk.ability.Ability;
@@ -97,7 +96,6 @@ public class MainAbility extends Ability {
     protected void onDeleteForm(long formId) {
         HiLog.info(TAG, "onDeleteForm: formId=" + formId);
         super.onDeleteForm(formId);
-        DatabaseUtils.deleteFormData(formId, connect);
         FormControllerManager formControllerManager = FormControllerManager.getInstance(this);
         formControllerManager.deleteFormController(formId);
     }
