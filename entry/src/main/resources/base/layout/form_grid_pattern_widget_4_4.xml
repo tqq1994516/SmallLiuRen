@@ -161,7 +161,7 @@
             ohos:id="$+id:aided_label"
             ohos:height="60fp"
             ohos:width="20fp"
-            ohos:left_margin="15fp"
+            ohos:left_margin="20fp"
             ohos:image_src="$media:aided"
             ohos:scale_mode="clip_center"
             ohos:top_margin="20fp">

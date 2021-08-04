@@ -21,7 +21,9 @@ import java.util.TimerTask;
 public class TimerAbility extends Ability {
     private static final HiLogLabel LABEL_LOG = new HiLogLabel(3, 0xD001100, "Demo");
     private static final long SEND_PERIOD = 1000L;
+    private static final long SEND_IMAGE_PERIOD = 60000L;
     private static final int NOTICE_ID = 1005;
+    private int step = 0;
     private FormControllerManager formControllerManager;
 
     @Override
@@ -68,7 +70,7 @@ public class TimerAbility extends Ability {
         }
         for (Long formId : formIdList) {
             FormController controller = formControllerManager.getController(formId);
-            ComponentProvider componentProvider = ComponentProviderUtils.getComponentProvider(controller, this);
+            ComponentProvider componentProvider = ComponentProviderUtils.updateTimeComponentProvider(controller, this);
             try {
                 // 遍历卡片列表更新卡片
                 updateForm(formId, componentProvider);
