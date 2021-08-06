@@ -25,7 +25,7 @@ public class ComponentProviderUtils {
      * @param context    context
      * @return component provider
      */
-    public static ComponentProvider updateTimeComponentProvider(FormController controller, Context context) {
+    public static ComponentProvider updateComponentProvider(FormController controller, Context context) {
         int layoutId = ResourceTable.Layout_form_grid_pattern_widget_4_4;
         if (controller.getDimension() == DIM_VERSION) {
             layoutId = ResourceTable.Layout_form_grid_pattern_widget_2_2;
@@ -80,7 +80,7 @@ public class ComponentProviderUtils {
         setImage(componentProvider, timeStepNum, ResourceTable.Id_main);
     }
 
-    private static final void setImage(ComponentProvider componentProvider, int stepNum, int componentId) {
+    private static void setImage(ComponentProvider componentProvider, int stepNum, int componentId) {
         switch (stepNum) {
             case 0:
                 componentProvider.setImageContent(componentId, ResourceTable.Media_kongwang);
@@ -103,7 +103,7 @@ public class ComponentProviderUtils {
         }
     }
 
-    private static final Dictionary<String, Integer> lunarTimeNums() {
+    private static Dictionary<String, Integer> lunarTimeNums() {
         Dictionary<String, Integer> lunarTime = new Hashtable<>();
         lunarTime.put("子", 1);
         lunarTime.put("丑", 2);

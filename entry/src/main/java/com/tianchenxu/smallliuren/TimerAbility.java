@@ -5,6 +5,7 @@ import com.tianchenxu.smallliuren.utils.DateUtils;
 
 import com.tianchenxu.smallliuren.widget.controller.FormController;
 import com.tianchenxu.smallliuren.widget.controller.FormControllerManager;
+import com.tianchenxu.smallliuren.widget.widget.WidgetImpl;
 import ohos.aafwk.ability.Ability;
 import ohos.aafwk.ability.FormException;
 import ohos.aafwk.content.Intent;
@@ -21,9 +22,7 @@ import java.util.TimerTask;
 public class TimerAbility extends Ability {
     private static final HiLogLabel LABEL_LOG = new HiLogLabel(3, 0xD001100, "Demo");
     private static final long SEND_PERIOD = 1000L;
-    private static final long SEND_IMAGE_PERIOD = 60000L;
     private static final int NOTICE_ID = 1005;
-    private int step = 0;
     private FormControllerManager formControllerManager;
 
     @Override
@@ -69,12 +68,12 @@ public class TimerAbility extends Ability {
             return;
         }
         for (Long formId : formIdList) {
-            FormController controller = formControllerManager.getController(formId);
-            ComponentProvider componentProvider = ComponentProviderUtils.updateTimeComponentProvider(controller, this);
+            WidgetImpl controller = (WidgetImpl) formControllerManager.getController(formId);
+            ComponentProvider componentProvider = ComponentProviderUtils.updateComponentProvider(controller, this);
             try {
                 // 遍历卡片列表更新卡片
                 updateForm(formId, componentProvider);
-            } catch (FormException e) {
+            } catch (Exception e) {
                 formControllerManager.deleteFormController(formId);
                 HiLog.error(LABEL_LOG, "onUpdateForm updateForm error");
             }
