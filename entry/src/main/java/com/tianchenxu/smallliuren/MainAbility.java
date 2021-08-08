@@ -1,63 +1,71 @@
+/*
+ * Copyright (c) 2021 Huawei Device Co., Ltd.
+ * Licensed under the Apache License,Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.tianchenxu.smallliuren;
 
-import com.tianchenxu.smallliuren.slice.MainAbilitySlice;
-import com.tianchenxu.smallliuren.utils.ComponentProviderUtils;
-import com.tianchenxu.smallliuren.widget.controller.*;
-
-import com.tianchenxu.smallliuren.widget.widget.WidgetImpl;
+import com.tianchenxu.smallliuren.database.Form;
+import com.tianchenxu.smallliuren.database.FormDatabase;
+import com.tianchenxu.smallliuren.slice.ClockCardSlice;
 import ohos.aafwk.ability.Ability;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.ability.ProviderFormInfo;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.Operation;
 import ohos.agp.components.ComponentProvider;
-import ohos.hiviewdfx.HiLog;
+import ohos.data.DatabaseHelper;
+import ohos.data.orm.OrmContext;
 import ohos.hiviewdfx.HiLogLabel;
 
+/**
+ * Card Main Ability
+ */
 public class MainAbility extends Ability {
-    public static final int DIMENSION_4X4 = 4;
+    private static final HiLogLabel LABEL_LOG = new HiLogLabel(0, 0, "com.huawei.cookbooks.MainAbility");
     private static final int DEFAULT_DIMENSION_2X2 = 2;
-    private int dimension = DIMENSION_4X4;
-    private static final int INVALID_FORM_ID = -1;
+    private static final int DEFAULT_DIMENSION_4X4 = 4;
     private static final String EMPTY_STRING = "";
+    private static final int INVALID_FORM_ID = -1;
+    private long formId;
     private ProviderFormInfo formInfo;
-    private WidgetImpl widget;
-    private ComponentProvider componentProvider;
-    private FormControllerManager formControllerManager;
-    private static final HiLogLabel TAG = new HiLogLabel(HiLog.DEBUG, 0x0, MainAbility.class.getName());
-    private String topWidgetSlice;
+    private DatabaseHelper helper = new DatabaseHelper(this);
+    private OrmContext connect;
 
     @Override
     public void onStart(Intent intent) {
         super.onStart(intent);
+        connect = helper.getOrmContext("FormDatabase", "FormDatabase.db", FormDatabase.class);
         // 启动TimerAbility
-        Intent timer = new Intent();
-        Operation operation = new Intent.OperationBuilder()
-                .withDeviceId("")
-                .withBundleName(getBundleName())
-                .withAbilityName(TimerAbility.class.getName())
-                .build();
-        timer.setOperation(operation);
-        startAbility(timer);
-        super.setMainRoute(MainAbilitySlice.class.getName());
-        if (intentFromWidget(intent)) {
-            topWidgetSlice = getRoutePageSlice(intent);
-            if (topWidgetSlice != null) {
-                setMainRoute(topWidgetSlice);
-            }
-        }
-        stopAbility(intent);
+        Intent intentService = new Intent();
+        Operation operation =
+                new Intent.OperationBuilder()
+                        .withDeviceId("")
+                        .withBundleName(getBundleName())
+                        .withAbilityName(TimerAbility.class.getName())
+                        .build();
+        intentService.setOperation(operation);
+        startAbility(intentService);
+        super.setMainRoute(ClockCardSlice.class.getName());
     }
 
     @Override
     protected ProviderFormInfo onCreateForm(Intent intent) {
-        HiLog.info(TAG, "onCreateForm");
         if (intent == null) {
             return new ProviderFormInfo();
         }
-
-        // 获取卡片Id
-        long formId;
+        // 获取卡片id
+        formId = INVALID_FORM_ID;
         if (intent.hasParameter(AbilitySlice.PARAM_FORM_IDENTITY_KEY)) {
             formId = intent.getLongParam(AbilitySlice.PARAM_FORM_IDENTITY_KEY, INVALID_FORM_ID);
         } else {
@@ -69,75 +77,35 @@ public class MainAbility extends Ability {
             formName = intent.getStringParam(AbilitySlice.PARAM_FORM_NAME_KEY);
         }
         // 获取卡片规格
+        int dimension = DEFAULT_DIMENSION_4X4;
         if (intent.hasParameter(AbilitySlice.PARAM_FORM_DIMENSION_KEY)) {
-            dimension = intent.getIntParam(AbilitySlice.PARAM_FORM_DIMENSION_KEY, DIMENSION_4X4);
+            dimension = intent.getIntParam(AbilitySlice.PARAM_FORM_DIMENSION_KEY, DEFAULT_DIMENSION_2X2);
         }
         int layoutId = ResourceTable.Layout_form_grid_pattern_widget_4_4;
         if (dimension == DEFAULT_DIMENSION_2X2) {
             layoutId = ResourceTable.Layout_form_grid_pattern_widget_2_2;
         }
-        HiLog.info(TAG, "onCreateForm: formId=" + formId + ",formName=" + formName);
-        formControllerManager = FormControllerManager.getInstance(this);
-        widget = new WidgetImpl(this, formName, dimension);
-        formInfo = widget.bindFormData();
-        componentProvider = ComponentProviderUtils.updateComponentProvider(widget, this);
+        formInfo = new ProviderFormInfo(layoutId, this);
+        // 存储卡片信息
+        Form form = new Form(formId, formName, dimension);
+        ComponentProvider componentProvider = ComponentProviderUtils.getComponentProvider(form, this, 1);
         formInfo.mergeActions(componentProvider);
-        if (widget == null) {
-            HiLog.error(TAG, "Get null controller. formId: " + formId + ", formName: " + formName);
-            return null;
+        if (connect == null) {
+            connect =
+                    helper.getOrmContext("FormDatabase", "FormDatabase.db", FormDatabase.class);
+        }
+        try {
+            DatabaseUtils.insertForm(form, connect);
+        } catch (Exception e) {
+            DatabaseUtils.deleteFormData(form.getFormId(), connect);
         }
         return formInfo;
     }
 
     @Override
-    protected void onUpdateForm(long formId) {
-        HiLog.info(TAG, "onUpdateForm");
-        super.onUpdateForm(formId);
-        widget.updateFormData(formId);
-    }
-
-    @Override
     protected void onDeleteForm(long formId) {
-        HiLog.info(TAG, "onDeleteForm: formId=" + formId);
         super.onDeleteForm(formId);
-        formControllerManager.deleteFormController(formId);
-    }
-
-    @Override
-    protected void onTriggerFormEvent(long formId, String message) {
-        HiLog.info(TAG, "onTriggerFormEvent: " + message);
-        super.onTriggerFormEvent(formId, message);
-        widget.onTriggerFormEvent(formId, message);
-    }
-
-    @Override
-    public void onNewIntent(Intent intent) {
-        if (intentFromWidget(intent)) { // Only response to it when starting from a service widget.
-            String newWidgetSlice = getRoutePageSlice(intent);
-            if (topWidgetSlice == null || !topWidgetSlice.equals(newWidgetSlice)) {
-                topWidgetSlice = newWidgetSlice;
-                restart();
-            }
-        }
-    }
-
-    private boolean intentFromWidget(Intent intent) {
-        long formId = intent.getLongParam(AbilitySlice.PARAM_FORM_IDENTITY_KEY, INVALID_FORM_ID);
-        return formId != INVALID_FORM_ID;
-    }
-
-    private String getRoutePageSlice(Intent intent) {
-        long formId = intent.getLongParam(AbilitySlice.PARAM_FORM_IDENTITY_KEY, INVALID_FORM_ID);
-        if (formId == INVALID_FORM_ID) {
-            return null;
-        }
-        if (widget == null) {
-            return null;
-        }
-        Class<? extends AbilitySlice> clazz = widget.getRoutePageSlice(intent);
-        if (clazz == null) {
-            return null;
-        }
-        return clazz.getName();
+        // 删除数据库中的卡片信息
+        DatabaseUtils.deleteFormData(formId, connect);
     }
 }

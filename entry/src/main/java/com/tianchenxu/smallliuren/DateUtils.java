@@ -15,14 +15,28 @@
 
 package com.tianchenxu.smallliuren;
 
-import ohos.aafwk.ability.AbilityPackage;
+import com.nlf.calendar.Lunar;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
- * MyApplication
+ * Date time util
  */
-public class MyApplication extends AbilityPackage {
-    @Override
-    public void onInitialize() {
-        super.onInitialize();
+public class DateUtils {
+    /**
+     * current time
+     *
+     * @param format format
+     * @return corresponding format string
+     */
+    public static String getCurrentDate(Calendar calendar, String format) {
+        DateFormat dateFormat = new SimpleDateFormat(format);
+        return dateFormat.format(calendar.getTime());
+    }
+
+    public static Lunar getLunar(Calendar calendar) {
+        return new Lunar(calendar.getTime());
     }
 }

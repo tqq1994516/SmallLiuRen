@@ -13,16 +13,15 @@
  * limitations under the License.
  */
 
-package com.tianchenxu.smallliuren;
+package com.tianchenxu.smallliuren.database;
 
-import ohos.aafwk.ability.AbilityPackage;
+import ohos.data.orm.OrmDatabase;
+import ohos.data.orm.annotation.Database;
 
 /**
- * MyApplication
+ * Card Database
  */
-public class MyApplication extends AbilityPackage {
-    @Override
-    public void onInitialize() {
-        super.onInitialize();
-    }
-}
+@Database(
+        entities = {Form.class},
+        version = 1)
+public abstract class FormDatabase extends OrmDatabase { }
