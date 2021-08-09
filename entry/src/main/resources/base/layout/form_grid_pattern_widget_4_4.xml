@@ -157,65 +157,119 @@
         ohos:top_margin="75fp"
         >
 
-        <Image
-            ohos:id="$+id:aided_label"
-            ohos:height="60fp"
+        <DirectionalLayout
+            ohos:id="$+id:aided_directionalLayout"
+            ohos:height="180fp"
             ohos:width="30fp"
-            ohos:left_margin="40fp"
-            ohos:image_src="$media:aided"
-            ohos:scale_mode="clip_center"
-            ohos:top_margin="25fp">
-        </Image>
+            ohos:orientation="vertical"
+            ohos:left_margin="40fp">
+
+            <Image
+                ohos:id="$+id:aided_label"
+                ohos:height="60fp"
+                ohos:width="30fp"
+                ohos:image_src="$media:aided"
+                ohos:scale_mode="clip_center"
+                ohos:top_margin="25fp">
+            </Image>
+
+            <Image
+                ohos:id="$+id:aided_flag"
+                ohos:height="40fp"
+                ohos:width="30fp"
+                ohos:below="$id:aided_label"
+                ohos:image_src="$media:yang"
+                ohos:scale_mode="clip_center"
+                ohos:top_margin="5fp">
+            </Image>
+
+        </DirectionalLayout>
 
         <Image
             ohos:id="$+id:aided"
             ohos:height="100fp"
             ohos:width="50fp"
             ohos:image_src="$media:suxi"
-            ohos:right_of="$id:aided_label"
+            ohos:right_of="$id:aided_directionalLayout"
             ohos:scale_mode="clip_center"
             ohos:scale_y="1.2"
             ohos:top_margin="35fp">
         </Image>
 
-        <Image
-            ohos:id="$+id:assistant_label"
-            ohos:height="60fp"
+        <DirectionalLayout
+            ohos:id="$+id:assistant_directionalLayout"
+            ohos:height="180fp"
             ohos:width="30fp"
-            ohos:image_src="$media:assistant"
-            ohos:right_of="$id:aided"
-            ohos:scale_mode="clip_center"
-            ohos:top_margin="25fp">
-        </Image>
+            ohos:orientation="vertical">
+
+            <Image
+                ohos:id="$+id:assistant_label"
+                ohos:height="60fp"
+                ohos:width="30fp"
+                ohos:image_src="$media:assistant"
+                ohos:right_of="$id:aided"
+                ohos:scale_mode="clip_center"
+                ohos:top_margin="25fp">
+            </Image>
+
+            <Image
+                ohos:id="$+id:assistant_flag"
+                ohos:height="40fp"
+                ohos:width="30fp"
+                ohos:below="$id:assistant_label"
+                ohos:image_src="$media:yang"
+                ohos:scale_mode="clip_center"
+                ohos:top_margin="5fp">
+            </Image>
+
+        </DirectionalLayout>
+
 
         <Image
             ohos:id="$+id:assistant"
             ohos:height="100fp"
             ohos:width="50fp"
             ohos:image_src="$media:daan"
-            ohos:right_of="$id:assistant_label"
+            ohos:right_of="$id:assistant_directionalLayout"
             ohos:scale_mode="clip_center"
             ohos:scale_y="1.2"
             ohos:top_margin="35fp">
         </Image>
 
-        <Image
-            ohos:id="$+id:main_label"
-            ohos:height="40fp"
+        <DirectionalLayout
+            ohos:id="$+id:main_directionalLayout"
+            ohos:height="180fp"
             ohos:width="30fp"
-            ohos:image_src="$media:main"
-            ohos:right_of="$id:assistant"
-            ohos:scale_mode="clip_center"
-            ohos:top_margin="15fp">
-        </Image>
+            ohos:orientation="vertical">
 
+            <Image
+                ohos:id="$+id:main_label"
+                ohos:height="40fp"
+                ohos:width="30fp"
+                ohos:image_src="$media:main"
+                ohos:right_of="$id:assistant"
+                ohos:scale_mode="clip_center"
+                ohos:top_margin="15fp">
+            </Image>
+
+            <Image
+                ohos:id="$+id:main_flag"
+                ohos:height="40fp"
+                ohos:width="30fp"
+                ohos:below="$id:main_label"
+                ohos:image_src="$media:yang"
+                ohos:scale_mode="clip_center"
+                ohos:top_margin="5fp">
+            </Image>
+
+        </DirectionalLayout>
 
         <Image
             ohos:id="$+id:main"
             ohos:height="100fp"
             ohos:width="50fp"
             ohos:image_src="$media:daan"
-            ohos:right_of="$id:main_label"
+            ohos:right_of="$id:main_directionalLayout"
             ohos:scale_mode="clip_center"
             ohos:scale_y="1.2"
             ohos:top_margin="25fp">

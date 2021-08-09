@@ -190,7 +190,6 @@ public class ComponentProviderUtils {
             case 0:
                 PixelMap pixelMapFromResource0 = getPixelMapFromResource(ResourceTable.Media_kongwang, context);
                 componentProvider.setImagePixelMap(componentId, pixelMapFromResource0);
-//                componentProvider.setImageContent(componentId, ResourceTable.Media_kongwang);
                 break;
             case 1:
                 PixelMap pixelMapFromResource1 = getPixelMapFromResource(ResourceTable.Media_daan, context);
@@ -199,22 +198,18 @@ public class ComponentProviderUtils {
             case 2:
                 PixelMap pixelMapFromResource2 = getPixelMapFromResource(ResourceTable.Media_liulian, context);
                 componentProvider.setImagePixelMap(componentId, pixelMapFromResource2);
-//                componentProvider.setImageContent(componentId, ResourceTable.Media_liulian);
                 break;
             case 3:
                 PixelMap pixelMapFromResource3 = getPixelMapFromResource(ResourceTable.Media_suxi, context);
                 componentProvider.setImagePixelMap(componentId, pixelMapFromResource3);
-//                componentProvider.setImageContent(componentId, ResourceTable.Media_suxi);
                 break;
             case 4:
                 PixelMap pixelMapFromResource4 = getPixelMapFromResource(ResourceTable.Media_chikou, context);
                 componentProvider.setImagePixelMap(componentId, pixelMapFromResource4);
-//                componentProvider.setImageContent(componentId, ResourceTable.Media_chikou);
                 break;
             case 5:
                 PixelMap pixelMapFromResource5 = getPixelMapFromResource(ResourceTable.Media_xiaoji, context);
                 componentProvider.setImagePixelMap(componentId, pixelMapFromResource5);
-//                componentProvider.setImageContent(componentId, ResourceTable.Media_xiaoji);
                 break;
         }
     }
