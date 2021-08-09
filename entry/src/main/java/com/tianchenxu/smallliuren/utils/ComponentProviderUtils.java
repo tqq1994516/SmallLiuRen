@@ -13,14 +13,23 @@
  * limitations under the License.
  */
 
-package com.tianchenxu.smallliuren;
+package com.tianchenxu.smallliuren.utils;
 
 import com.nlf.calendar.Lunar;
+import com.tianchenxu.smallliuren.ResourceTable;
 import com.tianchenxu.smallliuren.database.Form;
 import ohos.agp.components.ComponentProvider;
+import ohos.agp.components.Image;
 import ohos.agp.utils.Color;
 import ohos.app.Context;
+import ohos.global.resource.NotExistException;
+import ohos.hiviewdfx.HiLog;
+import ohos.hiviewdfx.HiLogLabel;
+import ohos.media.image.ImageSource;
+import ohos.media.image.PixelMap;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -29,6 +38,7 @@ import java.util.Hashtable;
  * Component ProviderUtils
  */
 public class ComponentProviderUtils {
+    private static final HiLogLabel LABEL_LOG = new HiLogLabel(3, 0xD001100, "Demo");
     // 当前星期颜色
     private static Color nowWeekColor = new Color(Color.rgb(255, 245, 238));
 
@@ -108,7 +118,7 @@ public class ComponentProviderUtils {
             layoutId = ResourceTable.Layout_form_grid_pattern_widget_2_2;
         }
         ComponentProvider componentProvider = new ComponentProvider(layoutId, context);
-        setComponentProviderValue(componentProvider, flag);
+        setComponentProviderValue(componentProvider, flag, context);
         return componentProvider;
     }
 
@@ -133,12 +143,12 @@ public class ComponentProviderUtils {
      *
      * @param componentProvider component provider
      */
-    private static void setComponentProviderValue(ComponentProvider componentProvider, int flag) {
+    private static void setComponentProviderValue(ComponentProvider componentProvider, int flag, Context context) {
         Calendar now = Calendar.getInstance();
         Lunar lunar = DateUtils.getLunar(now);
         String lunarHour = lunar.getTimeInGanZhi();
         componentProvider.setText(ResourceTable.Id_date, DateUtils.getCurrentDate(now,"yyyy-MM-dd"));
-        componentProvider.setText(ResourceTable.Id_time, DateUtils.getCurrentDate(now,"hh:mm:ss"));
+        componentProvider.setText(ResourceTable.Id_time, DateUtils.getCurrentDate(now,"HH:mm:ss"));
         componentProvider.setText(ResourceTable.Id_week, DateUtils.getCurrentDate(now,"EEEE"));
         componentProvider.setText(ResourceTable.Id_lunar_year, lunar.getYearInChinese());
         componentProvider.setText(ResourceTable.Id_lunar_mouth, lunar.getMonthInChinese() + "月");
@@ -149,7 +159,7 @@ public class ComponentProviderUtils {
         componentProvider.setText(ResourceTable.Id_ganzhi_day, lunar.getDayInGanZhiExact() + "日");
         componentProvider.setText(ResourceTable.Id_ganzhi_time, lunarHour + "时");
         if (flag == 1) {
-            setImageComponentProviderValue(componentProvider);
+            setImageComponentProviderValue(componentProvider, context);
         }
     }
 
@@ -158,7 +168,7 @@ public class ComponentProviderUtils {
      *
      * @param componentProvider component provider
      */
-    private static void setImageComponentProviderValue(ComponentProvider componentProvider) {
+    private static void setImageComponentProviderValue(ComponentProvider componentProvider, Context context) {
         Calendar now = Calendar.getInstance();
         Lunar lunar = DateUtils.getLunar(now);
         Dictionary<String, Integer> lunTimeNums = lunarTimeNums();
@@ -168,30 +178,43 @@ public class ComponentProviderUtils {
         int monthStepNum = lunarMonthNum % 6;
         int dayStepNum = (lunarDayNum + monthStepNum - 1) % 6;
         int timeStepNum = (lunarTimeNum + dayStepNum - 1) % 6;
-        setImage(componentProvider, monthStepNum, ResourceTable.Id_aided);
-        setImage(componentProvider, dayStepNum, ResourceTable.Id_assistant);
-        setImage(componentProvider, timeStepNum, ResourceTable.Id_main);
+        setImage(componentProvider, monthStepNum, ResourceTable.Id_aided, context);
+        setImage(componentProvider, dayStepNum, ResourceTable.Id_assistant, context);
+        setImage(componentProvider, timeStepNum, ResourceTable.Id_main, context);
     }
 
-    private static void setImage(ComponentProvider componentProvider, int stepNum, int componentId) {
+    private static void setImage(ComponentProvider componentProvider, int stepNum, int componentId, Context context) {
+        Image image;
+        PixelMap imagePixeMap;
         switch (stepNum) {
             case 0:
-                componentProvider.setImageContent(componentId, ResourceTable.Media_kongwang);
+                PixelMap pixelMapFromResource0 = getPixelMapFromResource(ResourceTable.Media_kongwang, context);
+                componentProvider.setImagePixelMap(componentId, pixelMapFromResource0);
+//                componentProvider.setImageContent(componentId, ResourceTable.Media_kongwang);
                 break;
             case 1:
-                componentProvider.setImageContent(componentId, ResourceTable.Media_daan);
+                PixelMap pixelMapFromResource1 = getPixelMapFromResource(ResourceTable.Media_daan, context);
+                componentProvider.setImagePixelMap(componentId, pixelMapFromResource1);
                 break;
             case 2:
-                componentProvider.setImageContent(componentId, ResourceTable.Media_liulian);
+                PixelMap pixelMapFromResource2 = getPixelMapFromResource(ResourceTable.Media_liulian, context);
+                componentProvider.setImagePixelMap(componentId, pixelMapFromResource2);
+//                componentProvider.setImageContent(componentId, ResourceTable.Media_liulian);
                 break;
             case 3:
-                componentProvider.setImageContent(componentId, ResourceTable.Media_suxi);
+                PixelMap pixelMapFromResource3 = getPixelMapFromResource(ResourceTable.Media_suxi, context);
+                componentProvider.setImagePixelMap(componentId, pixelMapFromResource3);
+//                componentProvider.setImageContent(componentId, ResourceTable.Media_suxi);
                 break;
             case 4:
-                componentProvider.setImageContent(componentId, ResourceTable.Media_chikou);
+                PixelMap pixelMapFromResource4 = getPixelMapFromResource(ResourceTable.Media_chikou, context);
+                componentProvider.setImagePixelMap(componentId, pixelMapFromResource4);
+//                componentProvider.setImageContent(componentId, ResourceTable.Media_chikou);
                 break;
             case 5:
-                componentProvider.setImageContent(componentId, ResourceTable.Media_xiaoji);
+                PixelMap pixelMapFromResource5 = getPixelMapFromResource(ResourceTable.Media_xiaoji, context);
+                componentProvider.setImagePixelMap(componentId, pixelMapFromResource5);
+//                componentProvider.setImageContent(componentId, ResourceTable.Media_xiaoji);
                 break;
         }
     }
@@ -211,6 +234,32 @@ public class ComponentProviderUtils {
         lunarTime.put("戌", 11);
         lunarTime.put("亥", 12);
         return lunarTime;
+    }
+
+    private static PixelMap getPixelMapFromResource(int resourceId, Context context) {
+        InputStream inputStream = null;
+        try {
+            inputStream = context.getResourceManager().getResource(resourceId);
+            ImageSource.SourceOptions sourceOptions = new ImageSource.SourceOptions();
+            sourceOptions.formatHint = "image/png";
+            ImageSource imageSource = ImageSource.create(inputStream, sourceOptions);
+            ImageSource.DecodingOptions decodingOptions = new ImageSource.DecodingOptions();
+            PixelMap pixelmap = imageSource.createPixelmap(decodingOptions);
+            return pixelmap;
+        } catch (IOException e) {
+            HiLog.info(LABEL_LOG, "IOException");
+        } catch (NotExistException e) {
+            HiLog.info(LABEL_LOG, "NotExistException");
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    HiLog.info(LABEL_LOG, "inputStream IOException");
+                }
+            }
+        }
+        return null;
     }
 
     /**

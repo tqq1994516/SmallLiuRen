@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.tianchenxu.smallliuren;
+package com.tianchenxu.smallliuren.utils;
 
 import com.nlf.calendar.Lunar;
 

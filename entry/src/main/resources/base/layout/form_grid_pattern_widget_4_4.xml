@@ -160,91 +160,67 @@
         <Image
             ohos:id="$+id:aided_label"
             ohos:height="60fp"
-            ohos:width="20fp"
-            ohos:left_margin="20fp"
+            ohos:width="30fp"
+            ohos:left_margin="40fp"
             ohos:image_src="$media:aided"
             ohos:scale_mode="clip_center"
-            ohos:top_margin="20fp">
+            ohos:top_margin="25fp">
         </Image>
 
         <Image
             ohos:id="$+id:aided"
             ohos:height="100fp"
-            ohos:width="55fp"
-            ohos:image_src="$media:daan"
+            ohos:width="50fp"
+            ohos:image_src="$media:suxi"
             ohos:right_of="$id:aided_label"
             ohos:scale_mode="clip_center"
             ohos:scale_y="1.2"
-            ohos:top_margin="30fp">
+            ohos:top_margin="35fp">
         </Image>
 
         <Image
             ohos:id="$+id:assistant_label"
             ohos:height="60fp"
-            ohos:width="20fp"
+            ohos:width="30fp"
             ohos:image_src="$media:assistant"
             ohos:right_of="$id:aided"
             ohos:scale_mode="clip_center"
-            ohos:top_margin="20fp">
+            ohos:top_margin="25fp">
         </Image>
 
         <Image
             ohos:id="$+id:assistant"
             ohos:height="100fp"
-            ohos:width="55fp"
+            ohos:width="50fp"
             ohos:image_src="$media:daan"
             ohos:right_of="$id:assistant_label"
             ohos:scale_mode="clip_center"
             ohos:scale_y="1.2"
-            ohos:top_margin="30fp">
+            ohos:top_margin="35fp">
         </Image>
 
         <Image
             ohos:id="$+id:main_label"
-            ohos:height="60fp"
-            ohos:width="20fp"
+            ohos:height="40fp"
+            ohos:width="30fp"
             ohos:image_src="$media:main"
             ohos:right_of="$id:assistant"
             ohos:scale_mode="clip_center"
-            ohos:top_margin="5fp">
+            ohos:top_margin="15fp">
         </Image>
+
 
         <Image
             ohos:id="$+id:main"
             ohos:height="100fp"
-            ohos:width="55fp"
+            ohos:width="50fp"
             ohos:image_src="$media:daan"
             ohos:right_of="$id:main_label"
             ohos:scale_mode="clip_center"
             ohos:scale_y="1.2"
-            ohos:top_margin="20fp">
+            ohos:top_margin="25fp">
         </Image>
 
-        <Image
-            ohos:id="$+id:destiny_label"
-            ohos:height="60fp"
-            ohos:width="20fp"
-            ohos:image_src="$media:destiny"
-            ohos:right_of="$id:main"
-            ohos:scale_mode="clip_center"
-            ohos:top_margin="20fp">
-        </Image>
-
-        <Image
-            ohos:id="$+id:destiny"
-            ohos:height="100fp"
-            ohos:width="55fp"
-            ohos:image_src="$media:daan"
-            ohos:right_of="$id:destiny_label"
-            ohos:scale_mode="clip_center"
-            ohos:scale_y="1.2"
-            ohos:top_margin="30fp">
-        </Image>
     </DirectionalLayout>
 
-<!--    <DirectionalLayout-->
-<!--        ohos:width="match_parent"-->
-<!--        ohos:height="match_parent">-->
-
-<!--    </DirectionalLayout>-->
 </DependentLayout>

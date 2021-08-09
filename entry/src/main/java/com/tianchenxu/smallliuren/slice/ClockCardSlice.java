@@ -15,9 +15,9 @@
 
 package com.tianchenxu.smallliuren.slice;
 
-import com.tianchenxu.smallliuren.ComponentProviderUtils;
-import com.tianchenxu.smallliuren.DateUtils;
-import com.tianchenxu.smallliuren.LogUtils;
+import com.tianchenxu.smallliuren.utils.ComponentProviderUtils;
+import com.tianchenxu.smallliuren.utils.DateUtils;
+import com.tianchenxu.smallliuren.utils.LogUtils;
 import com.tianchenxu.smallliuren.ResourceTable;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.tianchenxu.smallliuren;
+package com.tianchenxu.smallliuren.utils;
 
 import com.tianchenxu.smallliuren.database.Form;
 import ohos.data.orm.OrmContext;

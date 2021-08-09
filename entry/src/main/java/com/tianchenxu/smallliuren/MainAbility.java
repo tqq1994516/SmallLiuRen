@@ -20,13 +20,17 @@ import com.tianchenxu.smallliuren.database.FormDatabase;
 import com.tianchenxu.smallliuren.slice.ClockCardSlice;
 import ohos.aafwk.ability.Ability;
 import ohos.aafwk.ability.AbilitySlice;
+import ohos.aafwk.ability.FormException;
 import ohos.aafwk.ability.ProviderFormInfo;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.Operation;
 import ohos.agp.components.ComponentProvider;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
+import ohos.hiviewdfx.HiLog;
 import ohos.hiviewdfx.HiLogLabel;
+import com.tianchenxu.smallliuren.utils.ComponentProviderUtils;
+import com.tianchenxu.smallliuren.utils.DatabaseUtils;
 
 /**
  * Card Main Ability
@@ -89,7 +93,12 @@ public class MainAbility extends Ability {
         // 存储卡片信息
         Form form = new Form(formId, formName, dimension);
         ComponentProvider componentProvider = ComponentProviderUtils.getComponentProvider(form, this, 1);
-        formInfo.mergeActions(componentProvider);
+        try {
+            updateForm(formId, componentProvider);
+        } catch (FormException e) {
+            DatabaseUtils.deleteFormData(form.getFormId(), connect);
+            HiLog.error(LABEL_LOG, "onUpdateForm updateForm error");
+        }
         if (connect == null) {
             connect =
                     helper.getOrmContext("FormDatabase", "FormDatabase.db", FormDatabase.class);
