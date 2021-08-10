@@ -36,8 +36,8 @@
         "orientation": "unspecified",
         "name": "com.tianchenxu.smallliuren.MainAbility",
         "icon": "$media:icon",
-        "description": "$string:mainability_description",
-        "label": "$string:entry_MainAbility",
+        "description": "$string:project_description",
+        "label": "$string:project_name",
         "type": "page",
         "launchType": "standard",
         "formsEnabled": true,
@@ -70,7 +70,7 @@
       {
         "name": "com.tianchenxu.smallliuren.TimerAbility",
         "icon": "$media:icon",
-        "description": "$string:timerability_description",
+        "description": "$string:project_description",
         "type": "service",
         "visible": true,
         "backgroundModes": [

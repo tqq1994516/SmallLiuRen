@@ -39,71 +39,7 @@ import java.util.Hashtable;
  */
 public class ComponentProviderUtils {
     private static final HiLogLabel LABEL_LOG = new HiLogLabel(3, 0xD001100, "Demo");
-    // 当前星期颜色
-    private static Color nowWeekColor = new Color(Color.rgb(255, 245, 238));
-
-    // 原色星期
-    private static Color primaryWeekColor = new Color(Color.rgb(192, 192, 192));
-
-    private static final int WEEK_DAYS = 7;
-    private static final int STRING_LENGTH = 2;
     private static final int DIM_VERSION = 2;
-    private static final int SUNDAY = 1;
-    private static final int MONDAY = 2;
-    private static final int TUESDAY = 3;
-    private static final int WEDNESDAY = 4;
-    private static final int THURSDAY = 5;
-    private static final int FRIDAY = 6;
-    private static final int SATURDAY = 7;
-
-    /**
-     * Obtain the day of the week
-     *
-     * @return week
-     */
-    public static int getWeekDayId() {
-        Calendar calendar = Calendar.getInstance();
-        int week = calendar.get(Calendar.DAY_OF_WEEK);
-        int result = getWeekIdResult(week);
-        return result;
-    }
-
-    /**
-     * get week component id
-     *
-     * @param week week
-     * @return component id
-     */
-    private static int getWeekIdResult(int week) {
-        int result = ResourceTable.Id_mon;
-        switch (week) {
-            case SUNDAY:
-                result = ResourceTable.Id_sun;
-                break;
-            case MONDAY:
-                result = ResourceTable.Id_mon;
-                break;
-            case TUESDAY:
-                result = ResourceTable.Id_tue;
-                break;
-            case WEDNESDAY:
-                result = ResourceTable.Id_wed;
-                break;
-            case THURSDAY:
-                result = ResourceTable.Id_thu;
-                break;
-            case FRIDAY:
-                result = ResourceTable.Id_fri;
-                break;
-            case SATURDAY:
-                result = ResourceTable.Id_sat;
-                break;
-            default:
-                result = ResourceTable.Id_sun;
-                break;
-        }
-        return result;
-    }
 
     /**
      * Obtains the ComponentProvider object
@@ -123,22 +59,6 @@ public class ComponentProviderUtils {
     }
 
     /**
-     * Time converted to string
-     *
-     * @param time time
-     * @return time string
-     */
-    private static String int2String(int time) {
-        String timeString;
-        if (String.valueOf(time).length() < STRING_LENGTH) {
-            timeString = "0" + time;
-        } else {
-            timeString = time + "";
-        }
-        return timeString;
-    }
-
-    /**
      * Set the value of componentProvider
      *
      * @param componentProvider component provider
@@ -151,11 +71,11 @@ public class ComponentProviderUtils {
         componentProvider.setText(ResourceTable.Id_time, DateUtils.getCurrentDate(now,"HH:mm:ss"));
         componentProvider.setText(ResourceTable.Id_week, DateUtils.getCurrentDate(now,"EEEE"));
         componentProvider.setText(ResourceTable.Id_lunar_year, lunar.getYearInChinese());
-        componentProvider.setText(ResourceTable.Id_lunar_mouth, lunar.getMonthInChinese() + "月");
+        componentProvider.setText(ResourceTable.Id_lunar_month, lunar.getMonthInChinese() + "月");
         componentProvider.setText(ResourceTable.Id_lunar_day, lunar.getDayInChinese());
         componentProvider.setText(ResourceTable.Id_solarTerms, lunar.getJieQi());
         componentProvider.setText(ResourceTable.Id_ganzhi_year, lunar.getYearInGanZhiByLiChun() + "年");
-        componentProvider.setText(ResourceTable.Id_ganzhi_mouth, lunar.getMonthInGanZhiExact() + "月");
+        componentProvider.setText(ResourceTable.Id_ganzhi_month, lunar.getMonthInGanZhiExact() + "月");
         componentProvider.setText(ResourceTable.Id_ganzhi_day, lunar.getDayInGanZhiExact() + "日");
         componentProvider.setText(ResourceTable.Id_ganzhi_time, lunarHour + "时");
         if (flag == 1) {
@@ -178,39 +98,60 @@ public class ComponentProviderUtils {
         int monthStepNum = lunarMonthNum % 6;
         int dayStepNum = (lunarDayNum + monthStepNum - 1) % 6;
         int timeStepNum = (lunarTimeNum + dayStepNum - 1) % 6;
-        setImage(componentProvider, monthStepNum, ResourceTable.Id_aided, context);
-        setImage(componentProvider, dayStepNum, ResourceTable.Id_assistant, context);
-        setImage(componentProvider, timeStepNum, ResourceTable.Id_main, context);
+        String monthtiangan = lunar.getMonthGanExact();
+        String daytiangan = lunar.getDayGanExact();
+        String timetiangan = lunar.getTimeGan();
+        Dictionary<String, Integer> tianganyinyang_property = tianganyinyangProperty();
+        int month_yinyang = tianganyinyang_property.get(monthtiangan);
+        int day_yinyang = tianganyinyang_property.get(daytiangan);
+        int time_yinyang = tianganyinyang_property.get(timetiangan);
+        setImage(componentProvider, monthStepNum, ResourceTable.Id_aided, context, 1);
+        setImage(componentProvider, dayStepNum, ResourceTable.Id_assistant, context, 1);
+        setImage(componentProvider, timeStepNum, ResourceTable.Id_main, context, 1);
+        setImage(componentProvider, month_yinyang, ResourceTable.Id_aided_flag, context, 2);
+        setImage(componentProvider, day_yinyang, ResourceTable.Id_assistant_flag, context, 2);
+        setImage(componentProvider, time_yinyang, ResourceTable.Id_main_flag, context, 2);
     }
 
-    private static void setImage(ComponentProvider componentProvider, int stepNum, int componentId, Context context) {
-        Image image;
-        PixelMap imagePixeMap;
-        switch (stepNum) {
-            case 0:
-                PixelMap pixelMapFromResource0 = getPixelMapFromResource(ResourceTable.Media_kongwang, context);
-                componentProvider.setImagePixelMap(componentId, pixelMapFromResource0);
-                break;
-            case 1:
-                PixelMap pixelMapFromResource1 = getPixelMapFromResource(ResourceTable.Media_daan, context);
-                componentProvider.setImagePixelMap(componentId, pixelMapFromResource1);
-                break;
-            case 2:
-                PixelMap pixelMapFromResource2 = getPixelMapFromResource(ResourceTable.Media_liulian, context);
-                componentProvider.setImagePixelMap(componentId, pixelMapFromResource2);
-                break;
-            case 3:
-                PixelMap pixelMapFromResource3 = getPixelMapFromResource(ResourceTable.Media_suxi, context);
-                componentProvider.setImagePixelMap(componentId, pixelMapFromResource3);
-                break;
-            case 4:
-                PixelMap pixelMapFromResource4 = getPixelMapFromResource(ResourceTable.Media_chikou, context);
-                componentProvider.setImagePixelMap(componentId, pixelMapFromResource4);
-                break;
-            case 5:
-                PixelMap pixelMapFromResource5 = getPixelMapFromResource(ResourceTable.Media_xiaoji, context);
-                componentProvider.setImagePixelMap(componentId, pixelMapFromResource5);
-                break;
+    private static void setImage(ComponentProvider componentProvider, int stepNum, int componentId, Context context, int type) {
+        if (type==1) {
+            switch (stepNum) {
+                case 0:
+                    PixelMap pixelMapFromResource0 = getPixelMapFromResource(ResourceTable.Media_kongwang, context);
+                    componentProvider.setImagePixelMap(componentId, pixelMapFromResource0);
+                    break;
+                case 1:
+                    PixelMap pixelMapFromResource1 = getPixelMapFromResource(ResourceTable.Media_daan, context);
+                    componentProvider.setImagePixelMap(componentId, pixelMapFromResource1);
+                    break;
+                case 2:
+                    PixelMap pixelMapFromResource2 = getPixelMapFromResource(ResourceTable.Media_liulian, context);
+                    componentProvider.setImagePixelMap(componentId, pixelMapFromResource2);
+                    break;
+                case 3:
+                    PixelMap pixelMapFromResource3 = getPixelMapFromResource(ResourceTable.Media_suxi, context);
+                    componentProvider.setImagePixelMap(componentId, pixelMapFromResource3);
+                    break;
+                case 4:
+                    PixelMap pixelMapFromResource4 = getPixelMapFromResource(ResourceTable.Media_chikou, context);
+                    componentProvider.setImagePixelMap(componentId, pixelMapFromResource4);
+                    break;
+                case 5:
+                    PixelMap pixelMapFromResource5 = getPixelMapFromResource(ResourceTable.Media_xiaoji, context);
+                    componentProvider.setImagePixelMap(componentId, pixelMapFromResource5);
+                    break;
+            }
+        } else if (type == 2) {
+            switch (stepNum) {
+                case 0:
+                    PixelMap pixelMapFromResource6 = getPixelMapFromResource(ResourceTable.Media_yang, context);
+                    componentProvider.setImagePixelMap(componentId, pixelMapFromResource6);
+                    break;
+                case 1:
+                    PixelMap pixelMapFromResource7 = getPixelMapFromResource(ResourceTable.Media_yin, context);
+                    componentProvider.setImagePixelMap(componentId, pixelMapFromResource7);
+                    break;
+            }
         }
     }
 
@@ -229,6 +170,21 @@ public class ComponentProviderUtils {
         lunarTime.put("戌", 11);
         lunarTime.put("亥", 12);
         return lunarTime;
+    }
+
+    private static Dictionary<String, Integer> tianganyinyangProperty() {
+        Dictionary<String, Integer> tianganyinyang_property = new Hashtable<>();
+        tianganyinyang_property.put("甲", 0);
+        tianganyinyang_property.put("丙", 0);
+        tianganyinyang_property.put("戊", 0);
+        tianganyinyang_property.put("庚", 0);
+        tianganyinyang_property.put("壬", 0);
+        tianganyinyang_property.put("乙", 1);
+        tianganyinyang_property.put("丁", 1);
+        tianganyinyang_property.put("己", 1);
+        tianganyinyang_property.put("辛", 1);
+        tianganyinyang_property.put("癸", 1);
+        return tianganyinyang_property;
     }
 
     private static PixelMap getPixelMapFromResource(int resourceId, Context context) {
@@ -255,22 +211,5 @@ public class ComponentProviderUtils {
             }
         }
         return null;
-    }
-
-    /**
-     * obtain previous day of the week
-     *
-     * @return previous day of the week
-     */
-    public static int getLastWeekDayId() {
-        Calendar calendar = Calendar.getInstance();
-        int week = calendar.get(Calendar.DAY_OF_WEEK);
-        int lastWeek;
-        if (week == 1) {
-            lastWeek = WEEK_DAYS;
-        } else {
-            lastWeek = week - 1;
-        }
-        return getWeekIdResult(lastWeek);
     }
 }

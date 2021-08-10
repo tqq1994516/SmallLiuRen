@@ -1,28 +1,12 @@
 {
   "string": [
     {
-      "name": "entry_MainAbility",
-      "value": "entry_MainAbility"
+      "name": "project_name",
+      "value": "速断"
     },
     {
-      "name": "mainability_description",
-      "value": "Java_Empty Ability"
-    },
-    {
-      "name": "mainability_HelloWorld",
-      "value": "Hello World"
-    },
-    {
-      "name": "widget_title",
-      "value": "Title"
-    },
-    {
-      "name": "widget_introduction",
-      "value": "Introduction"
-    },
-    {
-      "name": "timerability_description",
-      "value": "hap sample empty service"
+      "name": "project_description",
+      "value": "小六壬速断"
     }
   ]
 }

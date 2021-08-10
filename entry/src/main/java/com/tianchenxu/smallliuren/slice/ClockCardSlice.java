@@ -115,18 +115,6 @@ public class ClockCardSlice extends AbilitySlice {
             int second = now.get(Calendar.SECOND);
             setTextValue(second, secondText);
         }
-        int weekId = ComponentProviderUtils.getWeekDayId();
-        Component weekComponent = slice.findComponentById(weekId);
-        if (weekComponent != null && weekComponent instanceof Text) {
-            Text week = (Text) weekComponent;
-            week.setTextColor(new Color(Color.rgb(0, 0, 0)));
-        }
-        int lastWeekDayId = ComponentProviderUtils.getLastWeekDayId();
-        Component lastWeekComponent = slice.findComponentById(lastWeekDayId);
-        if (weekComponent != null && lastWeekComponent instanceof Text) {
-            Text lastWeek = (Text) lastWeekComponent;
-            lastWeek.setTextColor(new Color(Color.rgb(COLOR_RGB, COLOR_RGB, COLOR_RGB)));
-        }
     }
 
     private void setTextValue(int now, Text text) {

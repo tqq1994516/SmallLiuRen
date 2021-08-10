@@ -65,7 +65,7 @@
         </Text>
 
         <Text
-            ohos:id="$+id:lunar_mouth"
+            ohos:id="$+id:lunar_month"
             ohos:height="match_content"
             ohos:width="match_content"
             ohos:right_of="$id:lunar_year"
@@ -78,7 +78,7 @@
             ohos:id="$+id:lunar_day"
             ohos:height="match_content"
             ohos:width="match_content"
-            ohos:right_of="$id:lunar_mouth"
+            ohos:right_of="$id:lunar_month"
             ohos:text="廿五"
             ohos:text_font="HwChinese-medium"
             ohos:text_size="20fp"
@@ -116,7 +116,7 @@
         </Text>
 
         <Text
-            ohos:id="$+id:ganzhi_mouth"
+            ohos:id="$+id:ganzhi_month"
             ohos:height="match_content"
             ohos:width="match_content"
             ohos:right_of="$id:ganzhi_year"
@@ -130,7 +130,7 @@
             ohos:id="$+id:ganzhi_day"
             ohos:height="match_content"
             ohos:width="match_content"
-            ohos:right_of="$id:ganzhi_mouth"
+            ohos:right_of="$id:ganzhi_month"
             ohos:text="甲子日"
             ohos:text_font="HwChinese-medium"
             ohos:text_size="20fp"
