@@ -38,6 +38,7 @@
         "icon": "$media:icon",
         "description": "$string:project_description",
         "label": "$string:project_name",
+        "visible": true,
         "type": "page",
         "launchType": "standard",
         "formsEnabled": true,
@@ -77,6 +78,17 @@
           "dataTransfer",
           "location"
         ]
+      },
+      {
+        "permissions": [
+          "com.tianchenxu.smallliuren.DataAbilityShellProvider.PROVIDER"
+        ],
+        "name": "com.tianchenxu.smallliuren.DataAbility",
+        "visible": true,
+        "icon": "$media:icon",
+        "description": "$string:dataability_description",
+        "type": "data",
+        "uri": "dataability://com.tianchenxu.smallliuren.DataAbility"
       }
     ]
   }

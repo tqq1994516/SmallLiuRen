@@ -24,7 +24,7 @@ import ohos.data.orm.annotation.PrimaryKey;
  */
 @Entity(tableName = "form")
 public class Form extends OrmObject {
-    @PrimaryKey()
+    @PrimaryKey(autoGenerate = true)
     private Long formId;
     private String formName;
     private Integer dimension;

@@ -18,19 +18,19 @@ package com.tianchenxu.smallliuren;
 import com.tianchenxu.smallliuren.database.Form;
 import com.tianchenxu.smallliuren.database.FormDatabase;
 import com.tianchenxu.smallliuren.slice.ClockCardSlice;
-import ohos.aafwk.ability.Ability;
-import ohos.aafwk.ability.AbilitySlice;
-import ohos.aafwk.ability.FormException;
-import ohos.aafwk.ability.ProviderFormInfo;
+import ohos.aafwk.ability.*;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.Operation;
 import ohos.agp.components.ComponentProvider;
 import ohos.data.DatabaseHelper;
+import ohos.data.dataability.DataAbilityPredicates;
 import ohos.data.orm.OrmContext;
+import ohos.data.rdb.ValuesBucket;
 import ohos.hiviewdfx.HiLog;
 import ohos.hiviewdfx.HiLogLabel;
 import com.tianchenxu.smallliuren.utils.ComponentProviderUtils;
 import com.tianchenxu.smallliuren.utils.DatabaseUtils;
+import ohos.utils.net.Uri;
 
 /**
  * Card Main Ability
@@ -41,16 +41,15 @@ public class MainAbility extends Ability {
     private static final int DEFAULT_DIMENSION_4X4 = 4;
     private static final String EMPTY_STRING = "";
     private static final int INVALID_FORM_ID = -1;
-    private long formId;
-    private ProviderFormInfo formInfo;
-    private DatabaseHelper helper = new DatabaseHelper(this);
-    private OrmContext connect;
+    private static final String BASE_URI = "dataability://com.tianchenxu.smallliuren.DataAbility";
+    private DataAbilityHelper dataAbilityHelper;
 
     @Override
     public void onStart(Intent intent) {
         super.onStart(intent);
-        connect = helper.getOrmContext("FormDatabase", "FormDatabase.db", FormDatabase.class);
-        // 启动TimerAbility
+        // 启动dataAbili
+        dataAbilityHelper = DataAbilityHelper.creator(this);
+        // 启动serviceAbility
         Intent intentService = new Intent();
         Operation operation =
                 new Intent.OperationBuilder()
@@ -69,7 +68,7 @@ public class MainAbility extends Ability {
             return new ProviderFormInfo();
         }
         // 获取卡片id
-        formId = INVALID_FORM_ID;
+        long formId = INVALID_FORM_ID;
         if (intent.hasParameter(AbilitySlice.PARAM_FORM_IDENTITY_KEY)) {
             formId = intent.getLongParam(AbilitySlice.PARAM_FORM_IDENTITY_KEY, INVALID_FORM_ID);
         } else {
@@ -89,21 +88,27 @@ public class MainAbility extends Ability {
         if (dimension == DEFAULT_DIMENSION_2X2) {
             layoutId = ResourceTable.Layout_form_grid_pattern_widget_2_2;
         }
-        formInfo = new ProviderFormInfo(layoutId, this);
+        ProviderFormInfo formInfo = new ProviderFormInfo(layoutId, this);
         // 存储卡片信息
         Form form = new Form(formId, formName, dimension);
         ComponentProvider componentProvider = ComponentProviderUtils.getComponentProvider(form, this, 1);
         try {
             updateForm(formId, componentProvider);
         } catch (FormException e) {
-            DatabaseUtils.deleteFormData(form.getFormId(), connect);
+            DataAbilityPredicates dataAbilityPredicates = new DataAbilityPredicates();
+            dataAbilityPredicates.equalTo("formId", formId);
+            try {
+                dataAbilityHelper.delete(Uri.parse(BASE_URI), dataAbilityPredicates);
+            } catch (DataAbilityRemoteException dataAbilityRemoteException) {
+                HiLog.info(LABEL_LOG, "delete form failed");
+            }
             HiLog.error(LABEL_LOG, "onUpdateForm updateForm error");
         }
-        if (connect == null) {
-            connect =
-                    helper.getOrmContext("FormDatabase", "FormDatabase.db", FormDatabase.class);
-        }
         try {
+            ValuesBucket valuesBucket = new ValuesBucket();
+            valuesBucket.putLong("formId", form.getFormId());
+
+            dataAbilityHelper.insert();
             DatabaseUtils.insertForm(form, connect);
         } catch (Exception e) {
             DatabaseUtils.deleteFormData(form.getFormId(), connect);

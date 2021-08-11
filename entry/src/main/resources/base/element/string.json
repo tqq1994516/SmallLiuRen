@@ -7,6 +7,14 @@
     {
       "name": "project_description",
       "value": "小六壬速断"
+    },
+    {
+      "name": "databaseability_description",
+      "value": "hap sample empty provider"
+    },
+    {
+      "name": "dataability_description",
+      "value": "hap sample empty provider"
     }
   ]
 }

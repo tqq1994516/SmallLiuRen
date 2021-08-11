@@ -119,26 +119,33 @@ public class ComponentProviderUtils {
                 case 0:
                     PixelMap pixelMapFromResource0 = getPixelMapFromResource(ResourceTable.Media_kongwang, context);
                     componentProvider.setImagePixelMap(componentId, pixelMapFromResource0);
+                    // 释放PixelMap对象
+                    pixelMapFromResource0.release();
                     break;
                 case 1:
                     PixelMap pixelMapFromResource1 = getPixelMapFromResource(ResourceTable.Media_daan, context);
                     componentProvider.setImagePixelMap(componentId, pixelMapFromResource1);
+                    pixelMapFromResource1.release();
                     break;
                 case 2:
                     PixelMap pixelMapFromResource2 = getPixelMapFromResource(ResourceTable.Media_liulian, context);
                     componentProvider.setImagePixelMap(componentId, pixelMapFromResource2);
+                    pixelMapFromResource2.release();
                     break;
                 case 3:
                     PixelMap pixelMapFromResource3 = getPixelMapFromResource(ResourceTable.Media_suxi, context);
                     componentProvider.setImagePixelMap(componentId, pixelMapFromResource3);
+                    pixelMapFromResource3.release();
                     break;
                 case 4:
                     PixelMap pixelMapFromResource4 = getPixelMapFromResource(ResourceTable.Media_chikou, context);
                     componentProvider.setImagePixelMap(componentId, pixelMapFromResource4);
+                    pixelMapFromResource4.release();
                     break;
                 case 5:
                     PixelMap pixelMapFromResource5 = getPixelMapFromResource(ResourceTable.Media_xiaoji, context);
                     componentProvider.setImagePixelMap(componentId, pixelMapFromResource5);
+                    pixelMapFromResource5.release();
                     break;
             }
         } else if (type == 2) {
@@ -146,10 +153,12 @@ public class ComponentProviderUtils {
                 case 0:
                     PixelMap pixelMapFromResource6 = getPixelMapFromResource(ResourceTable.Media_yang, context);
                     componentProvider.setImagePixelMap(componentId, pixelMapFromResource6);
+                    pixelMapFromResource6.release();
                     break;
                 case 1:
                     PixelMap pixelMapFromResource7 = getPixelMapFromResource(ResourceTable.Media_yin, context);
                     componentProvider.setImagePixelMap(componentId, pixelMapFromResource7);
+                    pixelMapFromResource7.release();
                     break;
             }
         }
@@ -196,6 +205,8 @@ public class ComponentProviderUtils {
             ImageSource imageSource = ImageSource.create(inputStream, sourceOptions);
             ImageSource.DecodingOptions decodingOptions = new ImageSource.DecodingOptions();
             PixelMap pixelmap = imageSource.createPixelmap(decodingOptions);
+            // 释放ImageSource对象
+            imageSource.release();
             return pixelmap;
         } catch (IOException e) {
             HiLog.info(LABEL_LOG, "IOException");
