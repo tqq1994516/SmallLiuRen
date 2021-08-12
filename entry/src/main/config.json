@@ -78,17 +78,6 @@
           "dataTransfer",
           "location"
         ]
-      },
-      {
-        "permissions": [
-          "com.tianchenxu.smallliuren.DataAbilityShellProvider.PROVIDER"
-        ],
-        "name": "com.tianchenxu.smallliuren.DataAbility",
-        "visible": true,
-        "icon": "$media:icon",
-        "description": "$string:dataability_description",
-        "type": "data",
-        "uri": "dataability://com.tianchenxu.smallliuren.DataAbility"
       }
     ]
   }

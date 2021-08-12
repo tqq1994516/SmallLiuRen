@@ -18,10 +18,11 @@ package com.tianchenxu.smallliuren.utils;
 import com.nlf.calendar.Lunar;
 import com.tianchenxu.smallliuren.ResourceTable;
 import com.tianchenxu.smallliuren.database.Form;
+import com.tianchenxu.smallliuren.database.Tiangan;
 import ohos.agp.components.ComponentProvider;
-import ohos.agp.components.Image;
-import ohos.agp.utils.Color;
 import ohos.app.Context;
+import ohos.data.DatabaseHelper;
+import ohos.data.orm.OrmContext;
 import ohos.global.resource.NotExistException;
 import ohos.hiviewdfx.HiLog;
 import ohos.hiviewdfx.HiLogLabel;
@@ -32,7 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Dictionary;
-import java.util.Hashtable;
+import java.util.Objects;
 
 /**
  * Component ProviderUtils
@@ -48,13 +49,13 @@ public class ComponentProviderUtils {
      * @param context context
      * @return component provider
      */
-    public static ComponentProvider getComponentProvider(Form form, Context context, int flag) {
+    public static ComponentProvider getComponentProvider(Form form, Context context, int flag, OrmContext connect) {
         int layoutId = ResourceTable.Layout_form_grid_pattern_widget_4_4;
         if (form.getDimension() == DIM_VERSION) {
             layoutId = ResourceTable.Layout_form_grid_pattern_widget_2_2;
         }
         ComponentProvider componentProvider = new ComponentProvider(layoutId, context);
-        setComponentProviderValue(componentProvider, flag, context);
+        setComponentProviderValue(componentProvider, flag, context, connect);
         return componentProvider;
     }
 
@@ -63,7 +64,7 @@ public class ComponentProviderUtils {
      *
      * @param componentProvider component provider
      */
-    private static void setComponentProviderValue(ComponentProvider componentProvider, int flag, Context context) {
+    private static void setComponentProviderValue(ComponentProvider componentProvider, int flag, Context context, OrmContext connect) {
         Calendar now = Calendar.getInstance();
         Lunar lunar = DateUtils.getLunar(now);
         String lunarHour = lunar.getTimeInGanZhi();
@@ -79,7 +80,7 @@ public class ComponentProviderUtils {
         componentProvider.setText(ResourceTable.Id_ganzhi_day, lunar.getDayInGanZhiExact() + "日");
         componentProvider.setText(ResourceTable.Id_ganzhi_time, lunarHour + "时");
         if (flag == 1) {
-            setImageComponentProviderValue(componentProvider, context);
+            setImageComponentProviderValue(componentProvider, context, connect, now, lunar);
         }
     }
 
@@ -88,23 +89,16 @@ public class ComponentProviderUtils {
      *
      * @param componentProvider component provider
      */
-    private static void setImageComponentProviderValue(ComponentProvider componentProvider, Context context) {
-        Calendar now = Calendar.getInstance();
-        Lunar lunar = DateUtils.getLunar(now);
-        Dictionary<String, Integer> lunTimeNums = lunarTimeNums();
+    private static void setImageComponentProviderValue(ComponentProvider componentProvider, Context context, OrmContext connect, Calendar now, Lunar lunar) {
         int lunarMonthNum = lunar.getMonth();
         int lunarDayNum = lunar.getDay();
-        int lunarTimeNum = lunTimeNums.get(lunar.getTimeZhi());
+        int lunarTimeNum = Objects.requireNonNull(DatabaseUtils.queryDizhiByName(lunar.getTimeZhi(), connect)).getDizhiNum();
         int monthStepNum = lunarMonthNum % 6;
         int dayStepNum = (lunarDayNum + monthStepNum - 1) % 6;
         int timeStepNum = (lunarTimeNum + dayStepNum - 1) % 6;
-        String monthtiangan = lunar.getMonthGanExact();
-        String daytiangan = lunar.getDayGanExact();
-        String timetiangan = lunar.getTimeGan();
-        Dictionary<String, Integer> tianganyinyang_property = tianganyinyangProperty();
-        int month_yinyang = tianganyinyang_property.get(monthtiangan);
-        int day_yinyang = tianganyinyang_property.get(daytiangan);
-        int time_yinyang = tianganyinyang_property.get(timetiangan);
+        int month_yinyang = Objects.requireNonNull(DatabaseUtils.queryTianganByName(lunar.getMonthGanExact(), connect)).getTianganYinyang();
+        int day_yinyang = Objects.requireNonNull(DatabaseUtils.queryTianganByName(lunar.getDayGanExact(), connect)).getTianganYinyang();
+        int time_yinyang = Objects.requireNonNull(DatabaseUtils.queryTianganByName(lunar.getTimeGan(), connect)).getTianganYinyang();
         setImage(componentProvider, monthStepNum, ResourceTable.Id_aided, context, 1);
         setImage(componentProvider, dayStepNum, ResourceTable.Id_assistant, context, 1);
         setImage(componentProvider, timeStepNum, ResourceTable.Id_main, context, 1);
@@ -114,87 +108,48 @@ public class ComponentProviderUtils {
     }
 
     private static void setImage(ComponentProvider componentProvider, int stepNum, int componentId, Context context, int type) {
+        PixelMap pixelMap = null;
         if (type==1) {
             switch (stepNum) {
                 case 0:
-                    PixelMap pixelMapFromResource0 = getPixelMapFromResource(ResourceTable.Media_kongwang, context);
-                    componentProvider.setImagePixelMap(componentId, pixelMapFromResource0);
-                    // 释放PixelMap对象
-                    pixelMapFromResource0.release();
+                    pixelMap = getPixelMapFromResource(ResourceTable.Media_kongwang, context);
+                    componentProvider.setImagePixelMap(componentId, pixelMap);
                     break;
                 case 1:
-                    PixelMap pixelMapFromResource1 = getPixelMapFromResource(ResourceTable.Media_daan, context);
-                    componentProvider.setImagePixelMap(componentId, pixelMapFromResource1);
-                    pixelMapFromResource1.release();
+                    pixelMap = getPixelMapFromResource(ResourceTable.Media_daan, context);
+                    componentProvider.setImagePixelMap(componentId, pixelMap);
                     break;
                 case 2:
-                    PixelMap pixelMapFromResource2 = getPixelMapFromResource(ResourceTable.Media_liulian, context);
-                    componentProvider.setImagePixelMap(componentId, pixelMapFromResource2);
-                    pixelMapFromResource2.release();
+                    pixelMap = getPixelMapFromResource(ResourceTable.Media_liulian, context);
+                    componentProvider.setImagePixelMap(componentId, pixelMap);
                     break;
                 case 3:
-                    PixelMap pixelMapFromResource3 = getPixelMapFromResource(ResourceTable.Media_suxi, context);
-                    componentProvider.setImagePixelMap(componentId, pixelMapFromResource3);
-                    pixelMapFromResource3.release();
+                    pixelMap = getPixelMapFromResource(ResourceTable.Media_suxi, context);
+                    componentProvider.setImagePixelMap(componentId, pixelMap);
                     break;
                 case 4:
-                    PixelMap pixelMapFromResource4 = getPixelMapFromResource(ResourceTable.Media_chikou, context);
-                    componentProvider.setImagePixelMap(componentId, pixelMapFromResource4);
-                    pixelMapFromResource4.release();
+                    pixelMap = getPixelMapFromResource(ResourceTable.Media_chikou, context);
+                    componentProvider.setImagePixelMap(componentId, pixelMap);
                     break;
                 case 5:
-                    PixelMap pixelMapFromResource5 = getPixelMapFromResource(ResourceTable.Media_xiaoji, context);
-                    componentProvider.setImagePixelMap(componentId, pixelMapFromResource5);
-                    pixelMapFromResource5.release();
+                    pixelMap = getPixelMapFromResource(ResourceTable.Media_xiaoji, context);
+                    componentProvider.setImagePixelMap(componentId, pixelMap);
                     break;
             }
         } else if (type == 2) {
             switch (stepNum) {
-                case 0:
-                    PixelMap pixelMapFromResource6 = getPixelMapFromResource(ResourceTable.Media_yang, context);
-                    componentProvider.setImagePixelMap(componentId, pixelMapFromResource6);
-                    pixelMapFromResource6.release();
-                    break;
                 case 1:
-                    PixelMap pixelMapFromResource7 = getPixelMapFromResource(ResourceTable.Media_yin, context);
-                    componentProvider.setImagePixelMap(componentId, pixelMapFromResource7);
-                    pixelMapFromResource7.release();
+                    pixelMap = getPixelMapFromResource(ResourceTable.Media_yang, context);
+                    componentProvider.setImagePixelMap(componentId, pixelMap);
+                    break;
+                case 2:
+                    pixelMap = getPixelMapFromResource(ResourceTable.Media_yin, context);
+                    componentProvider.setImagePixelMap(componentId, pixelMap);
                     break;
             }
         }
     }
 
-    private static Dictionary<String, Integer> lunarTimeNums() {
-        Dictionary<String, Integer> lunarTime = new Hashtable<>();
-        lunarTime.put("子", 1);
-        lunarTime.put("丑", 2);
-        lunarTime.put("寅", 3);
-        lunarTime.put("卯", 4);
-        lunarTime.put("辰", 5);
-        lunarTime.put("巳", 6);
-        lunarTime.put("午", 7);
-        lunarTime.put("未", 8);
-        lunarTime.put("申", 9);
-        lunarTime.put("酉", 10);
-        lunarTime.put("戌", 11);
-        lunarTime.put("亥", 12);
-        return lunarTime;
-    }
-
-    private static Dictionary<String, Integer> tianganyinyangProperty() {
-        Dictionary<String, Integer> tianganyinyang_property = new Hashtable<>();
-        tianganyinyang_property.put("甲", 0);
-        tianganyinyang_property.put("丙", 0);
-        tianganyinyang_property.put("戊", 0);
-        tianganyinyang_property.put("庚", 0);
-        tianganyinyang_property.put("壬", 0);
-        tianganyinyang_property.put("乙", 1);
-        tianganyinyang_property.put("丁", 1);
-        tianganyinyang_property.put("己", 1);
-        tianganyinyang_property.put("辛", 1);
-        tianganyinyang_property.put("癸", 1);
-        return tianganyinyang_property;
-    }
 
     private static PixelMap getPixelMapFromResource(int resourceId, Context context) {
         InputStream inputStream = null;

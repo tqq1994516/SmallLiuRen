@@ -16,8 +16,10 @@
 package com.tianchenxu.smallliuren;
 
 import com.nlf.calendar.Lunar;
+import com.tianchenxu.smallliuren.database.Dizhi;
 import com.tianchenxu.smallliuren.database.Form;
 import com.tianchenxu.smallliuren.database.FormDatabase;
+import com.tianchenxu.smallliuren.database.Tiangan;
 import ohos.aafwk.ability.Ability;
 import ohos.aafwk.ability.FormException;
 import ohos.aafwk.content.Intent;
@@ -45,6 +47,8 @@ public class TimerAbility extends Ability {
     private static final long SEND_PERIOD = 1000L;
     private static final int NOTICE_ID = 1005;
     private DatabaseHelper helper = new DatabaseHelper(this);
+    private static final String DATABASE_NAME = "FormDatabase.db";
+    private static final String DATABASE_NAME_ALIAS = "FormDatabase";
     private OrmContext connect;
     private Lunar lunar = new Lunar();
     private String oldLunarHour = lunar.getTimeInGanZhi();
@@ -52,11 +56,12 @@ public class TimerAbility extends Ability {
     @Override
     public void onStart(Intent intent) {
         HiLog.info(LABEL_LOG, "TimerAbility::onStart");
-        connect = helper.getOrmContext("FormDatabase", "FormDatabase.db", FormDatabase.class);
+        connect = helper.getOrmContext(DATABASE_NAME_ALIAS, DATABASE_NAME, FormDatabase.class);
         startTimer();
         super.onStart(intent);
-
     }
+
+
     private void notice() {
         // 创建通知
         NotificationRequest request = new NotificationRequest(NOTICE_ID);
@@ -69,6 +74,7 @@ public class TimerAbility extends Ability {
         // 绑定通知
         keepBackgroundRunning(NOTICE_ID, request);
     }
+
     // 卡片更新定时器，每秒更新一次
     private void startTimer() {
         Timer timer = new Timer();
@@ -95,7 +101,7 @@ public class TimerAbility extends Ability {
         }
         for (Form form : formList) {
             // 遍历卡片列表更新卡片
-            ComponentProvider componentProvider = ComponentProviderUtils.getComponentProvider(form, this, flag);
+            ComponentProvider componentProvider = ComponentProviderUtils.getComponentProvider(form, this, flag, connect);
             HiLog.info(LABEL_LOG, flag+"");
             try {
                 Long updateFormId = form.getFormId();

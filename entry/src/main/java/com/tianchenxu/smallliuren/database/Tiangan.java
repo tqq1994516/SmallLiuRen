@@ -8,17 +8,17 @@ import ohos.data.orm.annotation.PrimaryKey;
 
 @Entity(tableName = "tiangan", indices = {@Index(value = {"tianganName"}, name = "tianganName_index", unique = true)})
 public class Tiangan extends OrmObject {
-    @PrimaryKey(autoGenerate = true)
-    private Integer tianganId;
+    @PrimaryKey()
+    private Long tianganId;
     private String tianganName;
-    private Integer tianganNum;
-    private Integer tianganYinyang;
+    private int tianganNum;
+    private int tianganYinyang;
 
-    public Integer getTianganId() {
+    public Long getTianganId() {
         return tianganId;
     }
 
-    public void setTianganId(Integer tianganId) {
+    public void setTianganId(Long tianganId) {
         this.tianganId = tianganId;
     }
 
@@ -38,18 +38,18 @@ public class Tiangan extends OrmObject {
         this.tianganNum = tianganNum;
     }
 
-    public Integer getTianganYinyang() {
+    public int getTianganYinyang() {
         return tianganYinyang;
     }
 
-    public void setTianganYinyang(Integer tianganYinyang) {
+    public void setTianganYinyang(int tianganYinyang) {
         this.tianganYinyang = tianganYinyang;
     }
 
     public Tiangan() {
     }
 
-    public Tiangan(Integer tianganId, String tianganName, Integer tianganNum, Integer tianganYinyang) {
+    public Tiangan(Long tianganId, String tianganName, int tianganNum, int tianganYinyang) {
         this.tianganId = tianganId;
         this.tianganName = tianganName;
         this.tianganNum = tianganNum;
