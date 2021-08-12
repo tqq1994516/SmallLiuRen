@@ -15,10 +15,7 @@
 
 package com.tianchenxu.smallliuren.utils;
 
-import com.tianchenxu.smallliuren.database.Assert;
-import com.tianchenxu.smallliuren.database.Dizhi;
-import com.tianchenxu.smallliuren.database.Form;
-import com.tianchenxu.smallliuren.database.Tiangan;
+import com.tianchenxu.smallliuren.database.*;
 import ohos.data.orm.OrmContext;
 import ohos.data.orm.OrmPredicates;
 
@@ -179,7 +176,7 @@ public class DatabaseUtils {
      * @param anAssert object
      * @param connect data connection
      */
-    public static void updateAssert(Long assertId, Assert anAssert, OrmContext connect) {
+    public static void updateAssert(Integer assertId, Assert anAssert, OrmContext connect) {
         anAssert.setAssertId(assertId);
         connect.update(anAssert);
         connect.flush();
@@ -198,6 +195,251 @@ public class DatabaseUtils {
         where.equalTo("dayNum", dayNum);
         where.equalTo("timeNum", timeNum);
         List<Assert> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * add attibute info
+     *
+     * @param attribute object
+     * @param connect data connection
+     */
+    public static void insertAttribute(Attribute attribute, OrmContext connect) {
+        OrmPredicates where = connect.where(Attribute.class);
+        where.equalTo("attributeName", attribute.getAttributeName());
+        List<Attribute> query = connect.query(where);
+        if (!query.isEmpty()) {
+            Attribute result = query.get(0);
+            updateAttribute(result.getAttributeId(), attribute, connect);
+        } else {
+            connect.insert(attribute);
+            connect.flush();
+        }
+    }
+
+    /**
+     * update assert info
+     *
+     * @param attributeId attribute id
+     * @param attribute object
+     * @param connect data connection
+     */
+    public static void updateAttribute(Integer attributeId, Attribute attribute, OrmContext connect) {
+        attribute.setAttributeId(attributeId);
+        connect.update(attribute);
+        connect.flush();
+    }
+
+    /**
+     * query assert object
+     *
+     * @param attributeId
+     * @param connect
+     * @return
+     */
+    public static Attribute queryAttributeById(Integer attributeId, OrmContext connect) {
+        OrmPredicates where = connect.where(Attribute.class);
+        where.equalTo("attributeId", attributeId);
+        List<Attribute> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * add deity info
+     *
+     * @param deity object
+     * @param connect data connection
+     */
+    public static void insertDeity(Deity deity, OrmContext connect) {
+        OrmPredicates where = connect.where(Deity.class);
+        where.equalTo("deityName", deity.getDeityName());
+        List<Deity> query = connect.query(where);
+        if (!query.isEmpty()) {
+            Deity result = query.get(0);
+            updateDeity(result.getDeityId(), deity, connect);
+        } else {
+            connect.insert(deity);
+            connect.flush();
+        }
+    }
+
+    /**
+     * update deity info
+     *
+     * @param deityId deity id
+     * @param deity object
+     * @param connect data connection
+     */
+    public static void updateDeity(Integer deityId, Deity deity, OrmContext connect) {
+        deity.setDeityId(deityId);
+        connect.update(deity);
+        connect.flush();
+    }
+
+    /**
+     * query deity object
+     *
+     * @param deityName
+     * @param connect
+     * @return
+     */
+    public static Deity queryDeityByName(String deityName, OrmContext connect) {
+        OrmPredicates where = connect.where(Deity.class);
+        where.equalTo("deityName", deityName);
+        List<Deity> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * add fiveElements info
+     *
+     * @param fiveElements object
+     * @param connect data connection
+     */
+    public static void insertFiveElements(FiveElements fiveElements, OrmContext connect) {
+        OrmPredicates where = connect.where(FiveElements.class);
+        where.equalTo("fiveElementsName", fiveElements.getFiveElementsName());
+        List<FiveElements> query = connect.query(where);
+        if (!query.isEmpty()) {
+            FiveElements result = query.get(0);
+            updateFiveElements(result.getFiveElementsId(), fiveElements, connect);
+        } else {
+            connect.insert(fiveElements);
+            connect.flush();
+        }
+    }
+
+    /**
+     * update fiveElements info
+     *
+     * @param fiveElementsId deity id
+     * @param fiveElements object
+     * @param connect data connection
+     */
+    public static void updateFiveElements(Integer fiveElementsId, FiveElements fiveElements, OrmContext connect) {
+        fiveElements.setFiveElementsId(fiveElementsId);
+        connect.update(fiveElements);
+        connect.flush();
+    }
+
+    /**
+     * query fiveElements object
+     *
+     * @param fiveElementsName
+     * @param connect
+     * @return
+     */
+    public static FiveElements queryFiveElementsByName(String fiveElementsName, OrmContext connect) {
+        OrmPredicates where = connect.where(FiveElements.class);
+        where.equalTo("fiveElementsName", fiveElementsName);
+        List<FiveElements> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * add organ info
+     *
+     * @param organ object
+     * @param connect data connection
+     */
+    public static void insertOrgan(Organ organ, OrmContext connect) {
+        OrmPredicates where = connect.where(Organ.class);
+        where.equalTo("organName", organ.getOrganName());
+        List<Organ> query = connect.query(where);
+        if (!query.isEmpty()) {
+            Organ result = query.get(0);
+            updateOrgan(result.getOrganId(), organ, connect);
+        } else {
+            connect.insert(organ);
+            connect.flush();
+        }
+    }
+
+    /**
+     * update organ info
+     *
+     * @param organId organ id
+     * @param organ object
+     * @param connect data connection
+     */
+    public static void updateOrgan(Integer organId, Organ organ, OrmContext connect) {
+        organ.setOrganId(organId);
+        connect.update(organ);
+        connect.flush();
+    }
+
+    /**
+     * query organ object
+     *
+     * @param organName
+     * @param connect
+     * @return
+     */
+    public static Organ queryOrganByName(String organName, OrmContext connect) {
+        OrmPredicates where = connect.where(Organ.class);
+        where.equalTo("organName", organName);
+        List<Organ> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * add orientation info
+     *
+     * @param orientation object
+     * @param connect data connection
+     */
+    public static void insertOrientation(Orientation orientation, OrmContext connect) {
+        OrmPredicates where = connect.where(Orientation.class);
+        where.equalTo("orientationName", orientation.getOrientationName());
+        List<Orientation> query = connect.query(where);
+        if (!query.isEmpty()) {
+            Orientation result = query.get(0);
+            updateOrientation(result.getOrientationId(), orientation, connect);
+        } else {
+            connect.insert(orientation);
+            connect.flush();
+        }
+    }
+
+    /**
+     * update orientation info
+     *
+     * @param orientationId organ id
+     * @param orientation object
+     * @param connect data connection
+     */
+    public static void updateOrientation(Integer orientationId, Orientation orientation, OrmContext connect) {
+        orientation.setOrientationId(orientationId);
+        connect.update(orientation);
+        connect.flush();
+    }
+
+    /**
+     * query organ object
+     *
+     * @param orientationName
+     * @param connect
+     * @return
+     */
+    public static Orientation queryOrientationByName(String orientationName, OrmContext connect) {
+        OrmPredicates where = connect.where(Orientation.class);
+        where.equalTo("orientationName", orientationName);
+        List<Orientation> query = connect.query(where);
         if (!query.isEmpty()) {
             return query.get(0);
         }

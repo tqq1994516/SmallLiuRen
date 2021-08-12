@@ -7,7 +7,7 @@ import ohos.data.orm.annotation.PrimaryKey;
 
 @Entity(tableName = "dizhi", indices = {@Index(value = {"dizhiName"}, name = "dizhiName_index", unique = true)})
 public class Dizhi extends OrmObject {
-    @PrimaryKey()
+    @PrimaryKey(autoGenerate = true)
     private Long dizhiId;
     private String dizhiName;
     private int dizhiNum;

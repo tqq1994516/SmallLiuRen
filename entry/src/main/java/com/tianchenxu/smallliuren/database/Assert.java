@@ -6,8 +6,8 @@ import ohos.data.orm.annotation.PrimaryKey;
 
 @Entity(tableName = "assert")
 public class Assert extends OrmObject {
-    @PrimaryKey()
-    private Long assertId;
+    @PrimaryKey(autoGenerate = true)
+    private Integer assertId;
     private int dayNum;
     private int timeNum;
     private String assertText;
@@ -20,11 +20,11 @@ public class Assert extends OrmObject {
         this.assertText = assertText;
     }
 
-    public Long getAssertId() {
+    public Integer getAssertId() {
         return assertId;
     }
 
-    public void setAssertId(Long assertId) {
+    public void setAssertId(Integer assertId) {
         this.assertId = assertId;
     }
 
@@ -47,7 +47,7 @@ public class Assert extends OrmObject {
     public Assert() {
     }
 
-    public Assert(Long assertId, int dayNum, int timeNum, String assertText) {
+    public Assert(Integer assertId, int dayNum, int timeNum, String assertText) {
         this.assertId = assertId;
         this.dayNum = dayNum;
         this.timeNum = timeNum;

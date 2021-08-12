@@ -1,37 +1,68 @@
 package com.tianchenxu.smallliuren.database;
 
 import ohos.data.orm.OrmObject;
+import ohos.data.orm.annotation.Column;
 import ohos.data.orm.annotation.Entity;
 import ohos.data.orm.annotation.ForeignKey;
 import ohos.data.orm.annotation.PrimaryKey;
 
-@Entity(tableName = "attribute")
+@Entity(tableName = "attribute", foreignKeys = {
+        @ForeignKey(name = "f_deity", parentEntity = Deity.class, parentColumns = {"deityId"}, childColumns = {"deity"}),
+        @ForeignKey(name = "f_organ", parentEntity = Organ.class, parentColumns = {"organId"}, childColumns = {"organ"}),
+        @ForeignKey(name = "f_magnateOrientation", parentEntity = Orientation.class, parentColumns = {"orientationId"}, childColumns = {"magnateOrientation"}),
+        @ForeignKey(name = "f_offendOrientation", parentEntity = Orientation.class, parentColumns = {"orientationId"}, childColumns = {"offendOrientation"}),
+        @ForeignKey(name = "f_fiveElements", parentEntity = FiveElements.class, parentColumns = {"fiveElementsId", "fiveElementsName"}, childColumns = {"fiveElements"})
+})
 public class Attribute extends OrmObject {
-    @PrimaryKey()
-    private Long attributeId;
-    private String deity;
+    @PrimaryKey(autoGenerate = true)
+    private Integer attributeId;
+    private String attributeName;
+
+    public String getAttributeName() {
+        return attributeName;
+    }
+
+    public void setAttributeName(String attributeName) {
+        this.attributeName = attributeName;
+    }
+
+    @Column(name = "deity")
+    private Integer deity;
     private String luckyNum;
+    private String successNum;
+
+    public String getSuccessNum() {
+        return successNum;
+    }
+
+    public void setSuccessNum(String successNum) {
+        this.successNum = successNum;
+    }
+
     private String ominousNum;
-    private String organ;
-    @ForeignKey(name = "f_magnateOrientation", parentEntity = Orientation.class, parentColumns = {}, childColumns = {})
-    private String magnateOrientation;
-    private String offendOrientation;
-    private String fiveElements;
+    @Column(name = "organ")
+    private Integer organ;
+    @Column(name = "magnateOrientation")
+    private Integer magnateOrientation;
+    @Column(name = "offendOrientation")
+    private Integer offendOrientation;
+    @Column(name = "fiveElements")
+    private Integer fiveElements;
     private String ghostsAndGods;
 
-    public Long getAttributeId() {
+    public Integer getAttributeId() {
         return attributeId;
     }
 
-    public void setAttributeId(Long attributeId) {
+    public void setAttributeId(Integer attributeId) {
         this.attributeId = attributeId;
     }
 
-    public String getDeity() {
+    public Integer getDeity() {
         return deity;
     }
 
-    public void setDeity(String deity) {
+    public void setDeity(Integer deity) {
         this.deity = deity;
     }
 
@@ -51,35 +82,35 @@ public class Attribute extends OrmObject {
         this.ominousNum = ominousNum;
     }
 
-    public String getOrgan() {
+    public Integer getOrgan() {
         return organ;
     }
 
-    public void setOrgan(String organ) {
+    public void setOrgan(Integer organ) {
         this.organ = organ;
     }
 
-    public String getMagnateOrientation() {
+    public Integer getMagnateOrientation() {
         return magnateOrientation;
     }
 
-    public void setMagnateOrientation(String magnateOrientation) {
+    public void setMagnateOrientation(Integer magnateOrientation) {
         this.magnateOrientation = magnateOrientation;
     }
 
-    public String getOffendOrientation() {
+    public Integer getOffendOrientation() {
         return offendOrientation;
     }
 
-    public void setOffendOrientation(String offendOrientation) {
+    public void setOffendOrientation(Integer offendOrientation) {
         this.offendOrientation = offendOrientation;
     }
 
-    public String getFiveElements() {
+    public Integer getFiveElements() {
         return fiveElements;
     }
 
-    public void setFiveElements(String fiveElements) {
+    public void setFiveElements(Integer fiveElements) {
         this.fiveElements = fiveElements;
     }
 
@@ -94,10 +125,12 @@ public class Attribute extends OrmObject {
     public Attribute() {
     }
 
-    public Attribute(Long attributeId, String deity, String luckyNum, String ominousNum, String organ, String magnateOrientation, String offendOrientation, String fiveElements, String ghostsAndGods) {
+    public Attribute(Integer attributeId, Integer deity, String luckyNum, String successNum, String ominousNum, Integer organ, Integer magnateOrientation, Integer offendOrientation, Integer fiveElements, String ghostsAndGods, String attributeName) {
         this.attributeId = attributeId;
+        this.attributeName = attributeName;
         this.deity = deity;
         this.luckyNum = luckyNum;
+        this.successNum = successNum;
         this.ominousNum = ominousNum;
         this.organ = organ;
         this.magnateOrientation = magnateOrientation;

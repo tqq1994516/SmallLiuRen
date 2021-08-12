@@ -125,7 +125,41 @@ public class MainAbility extends Ability {
         addAssert(6, 3, "空亡加速喜，事事怨自己，婚姻有一定，失物在家里。", connect);
         addAssert(6, 4, "空亡加赤口，办事官非有，婚姻难定准，失物往远走。", connect);
         addAssert(6, 5, "空亡加小吉，事事有猜疑，婚姻有喜事，失物回家里。", connect);
-        addAssert(6, 6, "空亡事不祥，阴人多乖张，求财无利益，行人有灾秧；失物寻不见，官事有刑伤，病人逢暗鬼，禳解保安康。\n", connect);
+        addAssert(6, 6, "空亡事不祥，阴人多乖张，求财无利益，行人有灾秧；失物寻不见，官事有刑伤，病人逢暗鬼，禳解保安康。", connect);
+        addDeity("青龙", connect);
+        addDeity("玄武", connect);
+        addDeity("朱雀", connect);
+        addDeity("白虎", connect);
+        addDeity("六合", connect);
+        addDeity("勾陈", connect);
+        addFiveElements("金", connect);
+        addFiveElements("木", connect);
+        addFiveElements("水", connect);
+        addFiveElements("火", connect);
+        addFiveElements("土", connect);
+        addOrientation("东", connect);
+        addOrientation("南", connect);
+        addOrientation("西", connect);
+        addOrientation("北", connect);
+        addOrientation("东南", connect);
+        addOrientation("西南", connect);
+        addOrientation("西北", connect);
+        addOrientation("东北", connect);
+        addOrientation("四方", connect);
+        addOrientation("中央", connect);
+        addOrientation("厝地", connect);
+        addOrgan("四肢", connect);
+        addOrgan("肾胃", connect);
+        addOrgan("心脑", connect);
+        addOrgan("肺胃", connect);
+        addOrgan("肝肠", connect);
+        addOrgan("脾脑", connect);
+        addAttribute("大安", "青龙", "1,5,7", "3,5,8", "", "四肢", "西南", "东", "木", "小孩婆姐六畜惊，大人青面阴神。", connect);
+        addAttribute("留连", "玄武", "2,8,10", "", "1,6,7", "肾胃", "南", "北", "水", "小孩游路亡魂，大人乌面夫人。", connect);
+        addAttribute("速喜", "朱雀", "3,6,9", "0,1,3,7", "", "心脑", "西南", "南", "火", "小孩婆姐动勿惊，大人火箭将军。", connect);
+        addAttribute("赤口", "白虎", "4,7,10", "", "3,7,9", "肺胃", "东", "西", "金", "小孩迷魂童子，大人金神七煞。", connect);
+        addAttribute("小吉", "六合", "1,5,7", "2,6,9", "", "肝肠", "西南", "东", "木", "小孩婆姐六畜惊，大人无主家神。", connect);
+        addAttribute("空亡", "勾陈", "3,6,9", "", "4,6,8", "脾脑", "北", "厝地", "土", "小孩土瘟神煞，大人土压夫人。", connect);
     }
 
     private void addTiangan(String tianganName, int tianganNum, int tianganYinyang, OrmContext connect) {
@@ -150,6 +184,50 @@ public class MainAbility extends Ability {
         anAssert.setTimeNum(timeNum);
         anAssert.setAssertText(assertText);
         DatabaseUtils.insertAssert(anAssert, connect);
+    }
+
+    private void addDeity(String deityName, OrmContext connect) {
+        Deity deity = new Deity();
+        deity.setDeityName(deityName);
+        DatabaseUtils.insertDeity(deity, connect);
+    }
+
+    private void addFiveElements(String fiveElementsName, OrmContext connect) {
+        FiveElements fiveElements = new FiveElements();
+        fiveElements.setFiveElementsName(fiveElementsName);
+        DatabaseUtils.insertFiveElements(fiveElements, connect);
+    }
+
+    private void addOrgan(String organName, OrmContext connect) {
+        Organ organ = new Organ();
+        organ.setOrganName(organName);
+        DatabaseUtils.insertOrgan(organ, connect);
+    }
+
+    private void addOrientation(String orientationName, OrmContext connect) {
+        Orientation orientation = new Orientation();
+        orientation.setOrientationName(orientationName);
+        DatabaseUtils.insertOrientation(orientation, connect);
+    }
+
+    private void addAttribute(String attributeName, String deity, String luckyNum, String successNum, String ominousNum, String organ, String magnateOrientation, String offendOrientation, String fiveElements, String ghostsAndGods, OrmContext connect) {
+        Attribute attribute = new Attribute();
+        attribute.setAttributeName(attributeName);
+        Deity deityId = DatabaseUtils.queryDeityByName(deity, connect);
+        attribute.setDeity(deityId.getDeityId());
+        attribute.setLuckyNum(luckyNum);
+        attribute.setSuccessNum(successNum);
+        attribute.setOminousNum(ominousNum);
+        Organ organId = DatabaseUtils.queryOrganByName(organ, connect);
+        attribute.setOrgan(organId.getOrganId());
+        Orientation magnateOrientationId = DatabaseUtils.queryOrientationByName(magnateOrientation, connect);
+        attribute.setMagnateOrientation(magnateOrientationId.getOrientationId());
+        Orientation offendOrientationId = DatabaseUtils.queryOrientationByName(offendOrientation, connect);
+        attribute.setOffendOrientation(offendOrientationId.getOrientationId());
+        FiveElements fiveElementsId = DatabaseUtils.queryFiveElementsByName(fiveElements, connect);
+        attribute.setFiveElements(fiveElementsId.getFiveElementsId());
+        attribute.setGhostsAndGods(ghostsAndGods);
+        DatabaseUtils.insertAttribute(attribute, connect);
     }
 
     @Override

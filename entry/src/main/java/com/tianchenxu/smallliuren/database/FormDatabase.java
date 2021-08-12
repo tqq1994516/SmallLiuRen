@@ -22,6 +22,15 @@ import ohos.data.orm.annotation.Database;
  * Card Database
  */
 @Database(
-        entities = {Form.class, Tiangan.class, Dizhi.class, Assert.class},
+        entities = {
+                Form.class,
+                Tiangan.class,
+                Dizhi.class,
+                Assert.class,
+                Deity.class,
+                Orientation.class,
+                FiveElements.class,
+                Organ.class
+        },
         version = 1)
 public abstract class FormDatabase extends OrmDatabase { }
