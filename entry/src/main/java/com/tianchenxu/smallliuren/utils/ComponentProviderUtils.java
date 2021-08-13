@@ -17,8 +17,7 @@ package com.tianchenxu.smallliuren.utils;
 
 import com.nlf.calendar.Lunar;
 import com.tianchenxu.smallliuren.ResourceTable;
-import com.tianchenxu.smallliuren.database.Form;
-import com.tianchenxu.smallliuren.database.Tiangan;
+import com.tianchenxu.smallliuren.database.*;
 import ohos.agp.components.ComponentProvider;
 import ohos.app.Context;
 import ohos.data.DatabaseHelper;
@@ -105,7 +104,29 @@ public class ComponentProviderUtils {
         setImage(componentProvider, month_yinyang, ResourceTable.Id_aided_flag, context, 2);
         setImage(componentProvider, day_yinyang, ResourceTable.Id_assistant_flag, context, 2);
         setImage(componentProvider, time_yinyang, ResourceTable.Id_main_flag, context, 2);
+        setDetailText(componentProvider, timeStepNum, dayStepNum, connect);
     }
+
+    private static void setDetailText(ComponentProvider componentProvider, int timeNum, int dayNum, OrmContext connect) {
+        Attribute attribute = DatabaseUtils.queryAttributeByInt(timeNum, connect);
+        Deity deity = DatabaseUtils.queryDeityById(attribute.getDeity(), connect);
+        FiveElements fiveElements = DatabaseUtils.queryFiveElementsById(attribute.getFiveElements(), connect);
+        Organ organ = DatabaseUtils.queryOrganById(attribute.getOrgan(), connect);
+        Orientation magnateOrientation = DatabaseUtils.queryOrientationById(attribute.getMagnateOrientation(), connect);
+        Orientation offendOrientation = DatabaseUtils.queryOrientationById(attribute.getOffendOrientation(), connect);
+        Assert anAssert = DatabaseUtils.queryAssertByNums(dayNum, timeNum, connect);
+        componentProvider.setText(ResourceTable.Id_deity, deity.getDeityName());
+        componentProvider.setText(ResourceTable.Id_fiveElements, fiveElements.getFiveElementsName());
+        componentProvider.setText(ResourceTable.Id_organ, organ.getOrganName());
+        componentProvider.setText(ResourceTable.Id_magnateOrientation, magnateOrientation.getOrientationName());
+        componentProvider.setText(ResourceTable.Id_luckyNum, attribute.getLuckyNum());
+        componentProvider.setText(ResourceTable.Id_successNum, attribute.getSuccessNum());
+        componentProvider.setText(ResourceTable.Id_ominousNum, attribute.getOminousNum());
+        componentProvider.setText(ResourceTable.Id_offendOrientation, offendOrientation.getOrientationName());
+        componentProvider.setText(ResourceTable.Id_ghostsAndGods, attribute.getGhostsAndGods());
+        componentProvider.setText(ResourceTable.Id_assertText, anAssert.getAssertText());
+    }
+
 
     private static void setImage(ComponentProvider componentProvider, int stepNum, int componentId, Context context, int type) {
         PixelMap pixelMap = null;

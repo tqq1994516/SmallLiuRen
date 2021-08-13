@@ -202,14 +202,14 @@ public class DatabaseUtils {
     }
 
     /**
-     * add attibute info
+     * add attribute info
      *
      * @param attribute object
      * @param connect data connection
      */
     public static void insertAttribute(Attribute attribute, OrmContext connect) {
         OrmPredicates where = connect.where(Attribute.class);
-        where.equalTo("attributeName", attribute.getAttributeName());
+        where.equalTo("jingu", attribute.getJingu());
         List<Attribute> query = connect.query(where);
         if (!query.isEmpty()) {
             Attribute result = query.get(0);
@@ -221,7 +221,7 @@ public class DatabaseUtils {
     }
 
     /**
-     * update assert info
+     * update attribute info
      *
      * @param attributeId attribute id
      * @param attribute object
@@ -234,7 +234,7 @@ public class DatabaseUtils {
     }
 
     /**
-     * query assert object
+     * query attribute object
      *
      * @param attributeId
      * @param connect
@@ -243,6 +243,23 @@ public class DatabaseUtils {
     public static Attribute queryAttributeById(Integer attributeId, OrmContext connect) {
         OrmPredicates where = connect.where(Attribute.class);
         where.equalTo("attributeId", attributeId);
+        List<Attribute> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * query attribute object
+     *
+     * @param jingu
+     * @param connect
+     * @return
+     */
+    public static Attribute queryAttributeByInt(int jingu, OrmContext connect) {
+        OrmPredicates where = connect.where(Attribute.class);
+        where.equalTo("jingu", jingu);
         List<Attribute> query = connect.query(where);
         if (!query.isEmpty()) {
             return query.get(0);
@@ -300,6 +317,23 @@ public class DatabaseUtils {
     }
 
     /**
+     * query deity object
+     *
+     * @param deityId
+     * @param connect
+     * @return
+     */
+    public static Deity queryDeityById(Integer deityId, OrmContext connect) {
+        OrmPredicates where = connect.where(Deity.class);
+        where.equalTo("deityId", deityId);
+        List<Deity> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
      * add fiveElements info
      *
      * @param fiveElements object
@@ -341,6 +375,23 @@ public class DatabaseUtils {
     public static FiveElements queryFiveElementsByName(String fiveElementsName, OrmContext connect) {
         OrmPredicates where = connect.where(FiveElements.class);
         where.equalTo("fiveElementsName", fiveElementsName);
+        List<FiveElements> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * query fiveElements object
+     *
+     * @param fiveElementsId
+     * @param connect
+     * @return
+     */
+    public static FiveElements queryFiveElementsById(Integer fiveElementsId, OrmContext connect) {
+        OrmPredicates where = connect.where(FiveElements.class);
+        where.equalTo("fiveElementsId", fiveElementsId);
         List<FiveElements> query = connect.query(where);
         if (!query.isEmpty()) {
             return query.get(0);
@@ -398,6 +449,23 @@ public class DatabaseUtils {
     }
 
     /**
+     * query organ object
+     *
+     * @param organId
+     * @param connect
+     * @return
+     */
+    public static Organ queryOrganById(Integer organId, OrmContext connect) {
+        OrmPredicates where = connect.where(Organ.class);
+        where.equalTo("organId", organId);
+        List<Organ> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
      * add orientation info
      *
      * @param orientation object
@@ -440,6 +508,89 @@ public class DatabaseUtils {
         OrmPredicates where = connect.where(Orientation.class);
         where.equalTo("orientationName", orientationName);
         List<Orientation> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * query orientation object
+     *
+     * @param orientationId
+     * @param connect
+     * @return
+     */
+    public static Orientation queryOrientationById(Integer orientationId, OrmContext connect) {
+        OrmPredicates where = connect.where(Orientation.class);
+        where.equalTo("orientationId", orientationId);
+        List<Orientation> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * add jingu info
+     *
+     * @param jingu object
+     * @param connect data connection
+     */
+    public static void insertJingu(Jingu jingu, OrmContext connect) {
+        OrmPredicates where = connect.where(Jingu.class);
+        where.equalTo("jinguName", jingu.getJinguName());
+        List<Jingu> query = connect.query(where);
+        if (!query.isEmpty()) {
+            Jingu result = query.get(0);
+            updateJingu(result.getJinguId(), jingu, connect);
+        } else {
+            connect.insert(jingu);
+            connect.flush();
+        }
+    }
+
+    /**
+     * update jingu info
+     *
+     * @param jinguId jingu id
+     * @param jingu object
+     * @param connect data connection
+     */
+    public static void updateJingu(Integer jinguId, Jingu jingu, OrmContext connect) {
+        jingu.setJinguId(jinguId);
+        connect.update(jingu);
+        connect.flush();
+    }
+
+    /**
+     * query jingu object
+     *
+     * @param jinguName
+     * @param connect
+     * @return
+     */
+    public static Jingu queryJinguByName(String jinguName, OrmContext connect) {
+        OrmPredicates where = connect.where(Jingu.class);
+        where.equalTo("jinguName", jinguName);
+        List<Jingu> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * query jingu object
+     *
+     * @param jinguNum
+     * @param connect
+     * @return
+     */
+    public static Jingu queryJinguByNum(int jinguNum, OrmContext connect) {
+        OrmPredicates where = connect.where(Jingu.class);
+        where.equalTo("jinguNum", jinguNum);
+        List<Jingu> query = connect.query(where);
         if (!query.isEmpty()) {
             return query.get(0);
         }

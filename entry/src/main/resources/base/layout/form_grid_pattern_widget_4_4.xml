@@ -154,8 +154,7 @@
         ohos:width="match_parent"
         ohos:background_element="$media:base"
         ohos:orientation="horizontal"
-        ohos:top_margin="75fp"
-        >
+        ohos:top_margin="75fp">
 
         <DirectionalLayout
             ohos:id="$+id:aided_directionalLayout"
@@ -277,4 +276,243 @@
 
     </DirectionalLayout>
 
+    <DirectionalLayout
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:orientation="horizontal"
+        ohos:top_margin="250fp">
+
+        <Text
+            ohos:id="$+id:deityLabel"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:left_margin="10fp"
+            ohos:text="神兽："
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:deity"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:deityLabel"
+            ohos:text="青龙"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:fiveElementsLabel"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:deity"
+            ohos:text="五行："
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:fiveElements"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:fiveElementsLabel"
+            ohos:text="木"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:organLabel"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:fiveElements"
+            ohos:text="器官："
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:organ"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:organLabel"
+            ohos:text="四肢"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:magnateOrientationLabel"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:organ"
+            ohos:text="贵人："
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:magnateOrientation"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:magnateOrientationLabel"
+            ohos:text="西南"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+    </DirectionalLayout>
+
+    <DirectionalLayout
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:orientation="horizontal"
+        ohos:top_margin="270fp">
+
+        <Text
+            ohos:id="$+id:luckyNumLabel"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:left_margin="10fp"
+            ohos:text="谋事："
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:luckyNum"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:luckyNumLabel"
+            ohos:text="1,5,7"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:successNumLabel"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:luckyNum"
+            ohos:text="成数："
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:successNum"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:successNumLabel"
+            ohos:text="3,5,8"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:ominousNumLabel"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:successNum"
+            ohos:text="忌数："
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:ominousNum"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:ominousNumLabel"
+            ohos:text=""
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:offendOrientationLabel"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:ominousNum"
+            ohos:text="冲犯："
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:offendOrientation"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:offendOrientationLabel"
+            ohos:text="东"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+    </DirectionalLayout>
+
+    <DirectionalLayout
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:orientation="horizontal"
+        ohos:top_margin="290fp">
+
+        <Text
+            ohos:id="$+id:ghostsAndGodsLabel"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:left_margin="10fp"
+            ohos:text="神鬼："
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="14fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:ghostsAndGods"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:ghostsAndGodsLabel"
+            ohos:text="小孩婆姐六畜惊，大人青面阴神。"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="14fp"
+            ohos:weight="1">
+        </Text>
+
+    </DirectionalLayout>
+
+    <DirectionalLayout
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:orientation="horizontal"
+        ohos:top_margin="310fp">
+
+        <Text
+            ohos:id="$+id:assertText"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:left_margin="10fp"
+            ohos:text="大安事事昌，求财在坤方，失物去不远，宅舍保安康；行人身未动，病者主无妨，将军回田野，仔细兴推祥。"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="13fp"
+            ohos:weight="1">
+        </Text>
+
+    </DirectionalLayout>
 </DependentLayout>

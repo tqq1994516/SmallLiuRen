@@ -154,12 +154,18 @@ public class MainAbility extends Ability {
         addOrgan("肺胃", connect);
         addOrgan("肝肠", connect);
         addOrgan("脾脑", connect);
-        addAttribute("大安", "青龙", "1,5,7", "3,5,8", "", "四肢", "西南", "东", "木", "小孩婆姐六畜惊，大人青面阴神。", connect);
-        addAttribute("留连", "玄武", "2,8,10", "", "1,6,7", "肾胃", "南", "北", "水", "小孩游路亡魂，大人乌面夫人。", connect);
-        addAttribute("速喜", "朱雀", "3,6,9", "0,1,3,7", "", "心脑", "西南", "南", "火", "小孩婆姐动勿惊，大人火箭将军。", connect);
-        addAttribute("赤口", "白虎", "4,7,10", "", "3,7,9", "肺胃", "东", "西", "金", "小孩迷魂童子，大人金神七煞。", connect);
-        addAttribute("小吉", "六合", "1,5,7", "2,6,9", "", "肝肠", "西南", "东", "木", "小孩婆姐六畜惊，大人无主家神。", connect);
-        addAttribute("空亡", "勾陈", "3,6,9", "", "4,6,8", "脾脑", "北", "厝地", "土", "小孩土瘟神煞，大人土压夫人。", connect);
+        addJingu("大安", 1, connect);
+        addJingu("留连", 2, connect);
+        addJingu("速喜", 3, connect);
+        addJingu("赤口", 4, connect);
+        addJingu("小吉", 5, connect);
+        addJingu("空亡", 6, connect);
+        addAttribute(1, "青龙", "1,5,7", "3,5,8", "", "四肢", "西南", "东", "木", "小孩婆姐六畜惊，大人青面阴神。", connect);
+        addAttribute(2, "玄武", "2,8,10", "", "1,6,7", "肾胃", "南", "北", "水", "小孩游路亡魂，大人乌面夫人。", connect);
+        addAttribute(3, "朱雀", "3,6,9", "0,1,3,7", "", "心脑", "西南", "南", "火", "小孩婆姐动勿惊，大人火箭将军。", connect);
+        addAttribute(4, "白虎", "4,7,10", "", "3,7,9", "肺胃", "东", "西", "金", "小孩迷魂童子，大人金神七煞。", connect);
+        addAttribute(5, "六合", "1,5,7", "2,6,9", "", "肝肠", "西南", "东", "木", "小孩婆姐六畜惊，大人无主家神。", connect);
+        addAttribute(6, "勾陈", "3,6,9", "", "4,6,8", "脾脑", "北", "厝地", "土", "小孩土瘟神煞，大人土压夫人。", connect);
     }
 
     private void addTiangan(String tianganName, int tianganNum, int tianganYinyang, OrmContext connect) {
@@ -210,9 +216,16 @@ public class MainAbility extends Ability {
         DatabaseUtils.insertOrientation(orientation, connect);
     }
 
-    private void addAttribute(String attributeName, String deity, String luckyNum, String successNum, String ominousNum, String organ, String magnateOrientation, String offendOrientation, String fiveElements, String ghostsAndGods, OrmContext connect) {
+    private void addJingu(String jinguName, int jinguNum, OrmContext connect) {
+        Jingu jingu = new Jingu();
+        jingu.setJinguName(jinguName);
+        jingu.setJinguNum(jinguNum);
+        DatabaseUtils.insertJingu(jingu, connect);
+    }
+
+    private void addAttribute(Integer jingu, String deity, String luckyNum, String successNum, String ominousNum, String organ, String magnateOrientation, String offendOrientation, String fiveElements, String ghostsAndGods, OrmContext connect) {
         Attribute attribute = new Attribute();
-        attribute.setAttributeName(attributeName);
+        attribute.setJingu(jingu);
         Deity deityId = DatabaseUtils.queryDeityByName(deity, connect);
         attribute.setDeity(deityId.getDeityId());
         attribute.setLuckyNum(luckyNum);

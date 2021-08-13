@@ -7,23 +7,26 @@ import ohos.data.orm.annotation.ForeignKey;
 import ohos.data.orm.annotation.PrimaryKey;
 
 @Entity(tableName = "attribute", foreignKeys = {
+        @ForeignKey(name = "f_jingu", parentEntity = Jingu.class, parentColumns = {"jinguNum"}, childColumns = {"jingu"}),
         @ForeignKey(name = "f_deity", parentEntity = Deity.class, parentColumns = {"deityId"}, childColumns = {"deity"}),
         @ForeignKey(name = "f_organ", parentEntity = Organ.class, parentColumns = {"organId"}, childColumns = {"organ"}),
         @ForeignKey(name = "f_magnateOrientation", parentEntity = Orientation.class, parentColumns = {"orientationId"}, childColumns = {"magnateOrientation"}),
         @ForeignKey(name = "f_offendOrientation", parentEntity = Orientation.class, parentColumns = {"orientationId"}, childColumns = {"offendOrientation"}),
-        @ForeignKey(name = "f_fiveElements", parentEntity = FiveElements.class, parentColumns = {"fiveElementsId", "fiveElementsName"}, childColumns = {"fiveElements"})
+        @ForeignKey(name = "f_fiveElements", parentEntity = FiveElements.class, parentColumns = {"fiveElementsId"}, childColumns = {"fiveElements"})
 })
 public class Attribute extends OrmObject {
     @PrimaryKey(autoGenerate = true)
     private Integer attributeId;
-    private String attributeName;
 
-    public String getAttributeName() {
-        return attributeName;
+    @Column(name = "jingu")
+    private int jingu;
+
+    public int getJingu() {
+        return jingu;
     }
 
-    public void setAttributeName(String attributeName) {
-        this.attributeName = attributeName;
+    public void setJingu(int jingu) {
+        this.jingu = jingu;
     }
 
     @Column(name = "deity")
@@ -125,9 +128,9 @@ public class Attribute extends OrmObject {
     public Attribute() {
     }
 
-    public Attribute(Integer attributeId, Integer deity, String luckyNum, String successNum, String ominousNum, Integer organ, Integer magnateOrientation, Integer offendOrientation, Integer fiveElements, String ghostsAndGods, String attributeName) {
+    public Attribute(Integer attributeId, Integer deity, String luckyNum, String successNum, String ominousNum, Integer organ, Integer magnateOrientation, Integer offendOrientation, Integer fiveElements, String ghostsAndGods, int jingu) {
         this.attributeId = attributeId;
-        this.attributeName = attributeName;
+        this.jingu = jingu;
         this.deity = deity;
         this.luckyNum = luckyNum;
         this.successNum = successNum;
