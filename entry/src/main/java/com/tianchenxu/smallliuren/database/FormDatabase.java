@@ -30,7 +30,8 @@ import ohos.data.orm.annotation.Database;
                 Deity.class,
                 Orientation.class,
                 FiveElements.class,
-                Organ.class
+                Organ.class,
+                Attribute.class
         },
         version = 1)
 public abstract class FormDatabase extends OrmDatabase { }

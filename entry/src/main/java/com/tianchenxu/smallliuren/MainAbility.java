@@ -24,8 +24,6 @@ import ohos.aafwk.content.Operation;
 import ohos.agp.components.ComponentProvider;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
-import ohos.data.orm.OrmObject;
-import ohos.data.rdb.ValuesBucket;
 import ohos.hiviewdfx.HiLog;
 import ohos.hiviewdfx.HiLogLabel;
 import com.tianchenxu.smallliuren.utils.ComponentProviderUtils;

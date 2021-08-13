@@ -11,11 +11,12 @@ import ohos.data.orm.annotation.PrimaryKey;
         @ForeignKey(name = "f_organ", parentEntity = Organ.class, parentColumns = {"organId"}, childColumns = {"organ"}),
         @ForeignKey(name = "f_magnateOrientation", parentEntity = Orientation.class, parentColumns = {"orientationId"}, childColumns = {"magnateOrientation"}),
         @ForeignKey(name = "f_offendOrientation", parentEntity = Orientation.class, parentColumns = {"orientationId"}, childColumns = {"offendOrientation"}),
-        @ForeignKey(name = "f_fiveElements", parentEntity = FiveElements.class, parentColumns = {"fiveElementsId", "fiveElementsName"}, childColumns = {"fiveElements"})
+        @ForeignKey(name = "f_fiveElements", parentEntity = FiveElements.class, parentColumns = {"fiveElementsId"}, childColumns = {"fiveElements"})
 })
 public class Attribute extends OrmObject {
     @PrimaryKey(autoGenerate = true)
     private Integer attributeId;
+
     private String attributeName;
 
     public String getAttributeName() {
