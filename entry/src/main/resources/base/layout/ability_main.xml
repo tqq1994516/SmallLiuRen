@@ -1,19 +1,518 @@
 <?xml version="1.0" encoding="utf-8"?>
-<DirectionalLayout
+<DependentLayout
     xmlns:ohos="http://schemas.huawei.com/res/ohos"
     ohos:height="match_parent"
     ohos:width="match_parent"
-    ohos:alignment="center"
-    ohos:orientation="vertical">
+    ohos:background_element="#F4EEE2"
+    ohos:remote="true">
 
-    <Text
-        ohos:id="$+id:text_helloworld"
+    <DirectionalLayout
         ohos:height="match_content"
-        ohos:width="match_content"
-        ohos:background_element="$graphic:background_ability_main"
-        ohos:layout_alignment="horizontal_center"
-        ohos:text="$string:mainability_HelloWorld"
-        ohos:text_size="40vp"
-        />
+        ohos:width="match_parent"
+        ohos:orientation="horizontal"
+        ohos:top_padding="10fp"
+        >
 
-</DirectionalLayout>
+        <Text
+            ohos:id="$+id:date"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:left_margin="20fp"
+            ohos:text="2021-03-24"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:week"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:date"
+            ohos:text="星期"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:time"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:week"
+            ohos:text="00:00:00"
+            ohos:text_font="HwChinese-medium"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+    </DirectionalLayout>
+
+    <DirectionalLayout
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:orientation="horizontal"
+        ohos:top_margin="35fp"
+        >
+
+        <Text
+            ohos:id="$+id:lunar_year"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:left_margin="20fp"
+            ohos:text="二〇二一"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:lunar_month"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:lunar_year"
+            ohos:text="六"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:lunar_day"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:lunar_month"
+            ohos:text="廿五"
+            ohos:text_font="HwChinese-medium"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:solarTerms"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:lunar_day"
+            ohos:text="立春"
+            ohos:text_font="HwChinese-medium"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+
+    </DirectionalLayout>
+
+    <DirectionalLayout
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:orientation="horizontal"
+        ohos:top_margin="60fp">
+
+        <Text
+            ohos:id="$+id:ganzhi_year"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:left_margin="15fp"
+            ohos:text="甲子年"
+            ohos:text_font="HwChinese-medium"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:ganzhi_month"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:ganzhi_year"
+            ohos:text="甲子月"
+            ohos:text_font="HwChinese-medium"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:ganzhi_day"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:ganzhi_month"
+            ohos:text="甲子日"
+            ohos:text_font="HwChinese-medium"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:ganzhi_time"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:ganzhi_day"
+            ohos:text="子时"
+            ohos:text_font="HwChinese-medium"
+            ohos:text_size="20fp"
+            ohos:weight="1">
+        </Text>
+    </DirectionalLayout>
+
+    <DirectionalLayout
+        ohos:height="180fp"
+        ohos:width="match_parent"
+        ohos:background_element="$media:base"
+        ohos:orientation="horizontal"
+        ohos:top_margin="75fp">
+
+        <DirectionalLayout
+            ohos:id="$+id:aided_directionalLayout"
+            ohos:height="180fp"
+            ohos:width="30fp"
+            ohos:orientation="vertical"
+            ohos:left_margin="40fp">
+
+            <Image
+                ohos:id="$+id:aided_label"
+                ohos:height="60fp"
+                ohos:width="30fp"
+                ohos:image_src="$media:aided"
+                ohos:scale_mode="clip_center"
+                ohos:top_margin="25fp">
+            </Image>
+
+            <Image
+                ohos:id="$+id:aided_flag"
+                ohos:height="40fp"
+                ohos:width="30fp"
+                ohos:below="$id:aided_label"
+                ohos:image_src="$media:yang"
+                ohos:scale_mode="clip_center"
+                ohos:top_margin="5fp">
+            </Image>
+
+        </DirectionalLayout>
+
+        <Image
+            ohos:id="$+id:aided"
+            ohos:height="100fp"
+            ohos:width="50fp"
+            ohos:image_src="$media:suxi"
+            ohos:right_of="$id:aided_directionalLayout"
+            ohos:scale_mode="clip_center"
+            ohos:scale_y="1.2"
+            ohos:top_margin="35fp">
+        </Image>
+
+        <DirectionalLayout
+            ohos:id="$+id:assistant_directionalLayout"
+            ohos:height="180fp"
+            ohos:width="30fp"
+            ohos:orientation="vertical">
+
+            <Image
+                ohos:id="$+id:assistant_label"
+                ohos:height="60fp"
+                ohos:width="30fp"
+                ohos:image_src="$media:assistant"
+                ohos:right_of="$id:aided"
+                ohos:scale_mode="clip_center"
+                ohos:top_margin="25fp">
+            </Image>
+
+            <Image
+                ohos:id="$+id:assistant_flag"
+                ohos:height="40fp"
+                ohos:width="30fp"
+                ohos:below="$id:assistant_label"
+                ohos:image_src="$media:yang"
+                ohos:scale_mode="clip_center"
+                ohos:top_margin="5fp">
+            </Image>
+
+        </DirectionalLayout>
+
+
+        <Image
+            ohos:id="$+id:assistant"
+            ohos:height="100fp"
+            ohos:width="50fp"
+            ohos:image_src="$media:daan"
+            ohos:right_of="$id:assistant_directionalLayout"
+            ohos:scale_mode="clip_center"
+            ohos:scale_y="1.2"
+            ohos:top_margin="35fp">
+        </Image>
+
+        <DirectionalLayout
+            ohos:id="$+id:main_directionalLayout"
+            ohos:height="180fp"
+            ohos:width="30fp"
+            ohos:orientation="vertical">
+
+            <Image
+                ohos:id="$+id:main_label"
+                ohos:height="40fp"
+                ohos:width="30fp"
+                ohos:image_src="$media:main"
+                ohos:right_of="$id:assistant"
+                ohos:scale_mode="clip_center"
+                ohos:top_margin="15fp">
+            </Image>
+
+            <Image
+                ohos:id="$+id:main_flag"
+                ohos:height="40fp"
+                ohos:width="30fp"
+                ohos:below="$id:main_label"
+                ohos:image_src="$media:yang"
+                ohos:scale_mode="clip_center"
+                ohos:top_margin="5fp">
+            </Image>
+
+        </DirectionalLayout>
+
+        <Image
+            ohos:id="$+id:main"
+            ohos:height="100fp"
+            ohos:width="50fp"
+            ohos:image_src="$media:daan"
+            ohos:right_of="$id:main_directionalLayout"
+            ohos:scale_mode="clip_center"
+            ohos:scale_y="1.2"
+            ohos:top_margin="25fp">
+        </Image>
+
+    </DirectionalLayout>
+
+    <DirectionalLayout
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:orientation="horizontal"
+        ohos:top_margin="250fp">
+
+        <Text
+            ohos:id="$+id:deityLabel"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:left_margin="10fp"
+            ohos:text="神兽："
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:deity"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:deityLabel"
+            ohos:text="青龙"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:fiveElementsLabel"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:deity"
+            ohos:text="五行："
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:fiveElements"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:fiveElementsLabel"
+            ohos:text="木"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:organLabel"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:fiveElements"
+            ohos:text="器官："
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:organ"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:organLabel"
+            ohos:text="四肢"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:magnateOrientationLabel"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:organ"
+            ohos:text="贵人："
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:magnateOrientation"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:magnateOrientationLabel"
+            ohos:text="西南"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+    </DirectionalLayout>
+
+    <DirectionalLayout
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:orientation="horizontal"
+        ohos:top_margin="270fp">
+
+        <Text
+            ohos:id="$+id:luckyNumLabel"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:left_margin="10fp"
+            ohos:text="谋事："
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:luckyNum"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:luckyNumLabel"
+            ohos:text="1,5,7"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:successNumLabel"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:luckyNum"
+            ohos:text="成数："
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:successNum"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:successNumLabel"
+            ohos:text="3,5,8"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:ominousNumLabel"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:successNum"
+            ohos:text="忌数："
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:ominousNum"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:ominousNumLabel"
+            ohos:text=""
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:offendOrientationLabel"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:ominousNum"
+            ohos:text="冲犯："
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:offendOrientation"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:offendOrientationLabel"
+            ohos:text="东"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="16fp"
+            ohos:weight="1">
+        </Text>
+    </DirectionalLayout>
+
+    <DirectionalLayout
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:orientation="horizontal"
+        ohos:top_margin="290fp">
+
+        <Text
+            ohos:id="$+id:ghostsAndGodsLabel"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:left_margin="10fp"
+            ohos:text="神鬼："
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="14fp"
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:ghostsAndGods"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:ghostsAndGodsLabel"
+            ohos:text="小孩婆姐六畜惊，大人青面阴神。"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="14fp"
+            ohos:weight="1">
+        </Text>
+
+    </DirectionalLayout>
+
+    <DirectionalLayout
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:orientation="horizontal"
+        ohos:top_margin="310fp">
+
+        <Text
+            ohos:id="$+id:assertText"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:left_margin="10fp"
+            ohos:text="大安事事昌，求财在坤方，失物去不远，宅舍保安康；行人身未动，病者主无妨，将军回田野，仔细兴推祥。"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="13fp"
+            ohos:weight="1">
+        </Text>
+
+    </DirectionalLayout>
+</DependentLayout>

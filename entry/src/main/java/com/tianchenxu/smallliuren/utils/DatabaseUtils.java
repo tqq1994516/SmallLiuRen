@@ -19,6 +19,7 @@ import com.tianchenxu.smallliuren.database.*;
 import ohos.data.orm.OrmContext;
 import ohos.data.orm.OrmPredicates;
 
+import java.sql.Time;
 import java.util.List;
 
 /**
@@ -592,6 +593,65 @@ public class DatabaseUtils {
         OrmPredicates where = connect.where(Jingu.class);
         where.equalTo("jinguNum", jinguNum);
         List<Jingu> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * add oldLunarHour info
+     *
+     * @param oldLunarHour object
+     * @param connect data connection
+     */
+    public static void insertOldLunarHour(OldLunarHour oldLunarHour, OrmContext connect) {
+        List<OldLunarHour> oldLunarHours = DatabaseUtils.queryOldLunarHour(connect);
+        if (!oldLunarHours.isEmpty()) {
+            OldLunarHour result = oldLunarHours.get(0);
+            updateOldLunarHour(result.getOldLunarHourId(), oldLunarHour, connect);
+        } else {
+            connect.insert(oldLunarHour);
+            connect.flush();
+        }
+    }
+
+    /**
+     * update oldLunarHour info
+     *
+     * @param OldLunarHourId oldLunarHour id
+     * @param oldLunarHour object
+     * @param connect data connection
+     */
+    public static void updateOldLunarHour(Integer OldLunarHourId, OldLunarHour oldLunarHour, OrmContext connect) {
+        oldLunarHour.setOldLunarHourId(OldLunarHourId);
+        connect.update(oldLunarHour);
+        connect.flush();
+    }
+
+    /**
+     * query oldLunarHour object
+     *
+     * @param connect OrmContext
+     * @return OldLunarHour object
+     */
+    public static List<OldLunarHour> queryOldLunarHour(OrmContext connect) {
+        OrmPredicates where = connect.where(OldLunarHour.class);
+        List<OldLunarHour> query = connect.query(where);
+        return query;
+    }
+
+    /**
+     * query oldLunarHour object
+     *
+     * @param oldLunarHourId oldLunarHour id
+     * @param connect OrmContext
+     * @return OldLunarHour object
+     */
+    public static OldLunarHour queryOldLunarHourById(Integer oldLunarHourId, OrmContext connect) {
+        OrmPredicates where = connect.where(OldLunarHour.class);
+        where.equalTo("oldLunarHourId", oldLunarHourId);
+        List<OldLunarHour> query = connect.query(where);
         if (!query.isEmpty()) {
             return query.get(0);
         }

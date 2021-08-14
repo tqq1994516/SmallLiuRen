@@ -32,7 +32,8 @@ import ohos.data.orm.annotation.Database;
                 FiveElements.class,
                 Organ.class,
                 Attribute.class,
-                Jingu.class
+                Jingu.class,
+                OldLunarHour.class
         },
         version = 1)
 public abstract class FormDatabase extends OrmDatabase { }

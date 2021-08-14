@@ -16,10 +16,7 @@
 package com.tianchenxu.smallliuren;
 
 import com.nlf.calendar.Lunar;
-import com.tianchenxu.smallliuren.database.Dizhi;
-import com.tianchenxu.smallliuren.database.Form;
-import com.tianchenxu.smallliuren.database.FormDatabase;
-import com.tianchenxu.smallliuren.database.Tiangan;
+import com.tianchenxu.smallliuren.database.*;
 import ohos.aafwk.ability.Ability;
 import ohos.aafwk.ability.FormException;
 import ohos.aafwk.content.Intent;
@@ -50,8 +47,6 @@ public class TimerAbility extends Ability {
     private static final String DATABASE_NAME = "FormDatabase.db";
     private static final String DATABASE_NAME_ALIAS = "FormDatabase";
     private OrmContext connect;
-    private Lunar lunar = new Lunar();
-    private String oldLunarHour = lunar.getTimeInGanZhi();
 
     @Override
     public void onStart(Intent intent) {
@@ -78,11 +73,14 @@ public class TimerAbility extends Ability {
     // 卡片更新定时器，每秒更新一次
     private void startTimer() {
         Timer timer = new Timer();
+        if (connect == null) {
+            connect = helper.getOrmContext(DATABASE_NAME_ALIAS, DATABASE_NAME, FormDatabase.class);
+        }
         timer.schedule(
                 new TimerTask() {
                     @Override
                     public void run() {
-                        int flag = setOldLunarHour();
+                        int flag = DateUtils.getFlag(connect);
                         updateForms(flag);
                         notice();
                     }
@@ -102,7 +100,7 @@ public class TimerAbility extends Ability {
         for (Form form : formList) {
             // 遍历卡片列表更新卡片
             ComponentProvider componentProvider = ComponentProviderUtils.getComponentProvider(form, this, flag, connect);
-            HiLog.info(LABEL_LOG, flag+"");
+            HiLog.info(LABEL_LOG, flag + "");
             try {
                 Long updateFormId = form.getFormId();
                 updateForm(updateFormId, componentProvider);
@@ -112,17 +110,6 @@ public class TimerAbility extends Ability {
                 HiLog.error(LABEL_LOG, "onUpdateForm updateForm error");
             }
         }
-    }
-
-    private int setOldLunarHour() {
-        Lunar nowLunar = new Lunar();
-        int flag = 0;
-        String nowLunarHour = nowLunar.getTimeInGanZhi();
-        if (!nowLunarHour.equals(this.oldLunarHour)) {
-            flag = 1;
-            this.oldLunarHour = nowLunarHour;
-        }
-        return flag;
     }
 
     @Override

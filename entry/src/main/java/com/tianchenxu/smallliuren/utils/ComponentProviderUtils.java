@@ -18,9 +18,9 @@ package com.tianchenxu.smallliuren.utils;
 import com.nlf.calendar.Lunar;
 import com.tianchenxu.smallliuren.ResourceTable;
 import com.tianchenxu.smallliuren.database.*;
+
 import ohos.agp.components.ComponentProvider;
 import ohos.app.Context;
-import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
 import ohos.global.resource.NotExistException;
 import ohos.hiviewdfx.HiLog;
@@ -31,7 +31,6 @@ import ohos.media.image.PixelMap;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
-import java.util.Dictionary;
 import java.util.Objects;
 
 /**
@@ -66,7 +65,6 @@ public class ComponentProviderUtils {
     private static void setComponentProviderValue(ComponentProvider componentProvider, int flag, Context context, OrmContext connect) {
         Calendar now = Calendar.getInstance();
         Lunar lunar = DateUtils.getLunar(now);
-        String lunarHour = lunar.getTimeInGanZhi();
         componentProvider.setText(ResourceTable.Id_date, DateUtils.getCurrentDate(now,"yyyy-MM-dd"));
         componentProvider.setText(ResourceTable.Id_time, DateUtils.getCurrentDate(now,"HH:mm:ss"));
         componentProvider.setText(ResourceTable.Id_week, DateUtils.getCurrentDate(now,"EEEE"));
@@ -77,7 +75,7 @@ public class ComponentProviderUtils {
         componentProvider.setText(ResourceTable.Id_ganzhi_year, lunar.getYearInGanZhiByLiChun() + "年");
         componentProvider.setText(ResourceTable.Id_ganzhi_month, lunar.getMonthInGanZhiExact() + "月");
         componentProvider.setText(ResourceTable.Id_ganzhi_day, lunar.getDayInGanZhiExact() + "日");
-        componentProvider.setText(ResourceTable.Id_ganzhi_time, lunarHour + "时");
+        componentProvider.setText(ResourceTable.Id_ganzhi_time, lunar.getTimeInGanZhi() + "时");
         if (flag == 1) {
             setImageComponentProviderValue(componentProvider, context, connect, lunar);
         }
@@ -109,7 +107,6 @@ public class ComponentProviderUtils {
 
     private static void setDetailText(ComponentProvider componentProvider, int timeNum, int dayNum, OrmContext connect) {
         Attribute attribute = DatabaseUtils.queryAttributeByNum(timeNum, connect);
-        HiLog.info(LABEL_LOG, ""+attribute.getDeity());
         Deity deity = DatabaseUtils.queryDeityById(attribute.getDeity(), connect);
         FiveElements fiveElements = DatabaseUtils.queryFiveElementsById(attribute.getFiveElements(), connect);
         Organ organ = DatabaseUtils.queryOrganById(attribute.getOrgan(), connect);

@@ -16,6 +16,8 @@
 package com.tianchenxu.smallliuren.utils;
 
 import com.nlf.calendar.Lunar;
+import com.tianchenxu.smallliuren.database.OldLunarHour;
+import ohos.data.orm.OrmContext;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -38,5 +40,20 @@ public class DateUtils {
 
     public static Lunar getLunar(Calendar calendar) {
         return new Lunar(calendar.getTime());
+    }
+
+    public static int getFlag(OrmContext connect) {
+        Lunar nowLunar = new Lunar();
+        Calendar instance = Calendar.getInstance();
+        int flag = 0;
+        OldLunarHour oldLunarHour = DatabaseUtils.queryOldLunarHour(connect).get(0);
+        String nowLunarHour = nowLunar.getTimeInGanZhi();
+        if (!nowLunarHour.equals(oldLunarHour.getOldLunarHourText())) {
+            flag = 1;
+            oldLunarHour.setOldLunarHourText(nowLunarHour);
+            oldLunarHour.setLastUpdateTime(instance);
+            DatabaseUtils.updateOldLunarHour(oldLunarHour.getOldLunarHourId(), oldLunarHour, connect);
+        }
+        return flag;
     }
 }

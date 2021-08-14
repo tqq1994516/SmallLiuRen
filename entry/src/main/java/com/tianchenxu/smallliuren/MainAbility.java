@@ -15,6 +15,8 @@
 
 package com.tianchenxu.smallliuren;
 
+import com.nlf.calendar.Lunar;
+import com.nlf.calendar.Solar;
 import com.tianchenxu.smallliuren.database.*;
 import com.tianchenxu.smallliuren.database.Form;
 import com.tianchenxu.smallliuren.slice.ClockCardSlice;
@@ -28,6 +30,10 @@ import ohos.hiviewdfx.HiLog;
 import ohos.hiviewdfx.HiLogLabel;
 import com.tianchenxu.smallliuren.utils.ComponentProviderUtils;
 import com.tianchenxu.smallliuren.utils.DatabaseUtils;
+
+import java.sql.Time;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * Card Main Ability
@@ -57,15 +63,16 @@ public class MainAbility extends Ability {
                         .withAbilityName(TimerAbility.class.getName())
                         .build();
         intentService.setOperation(operation);
-        initTianganDizhi();
+        initBaseData();
         startAbility(intentService);
         super.setMainRoute(ClockCardSlice.class.getName());
     }
 
-    private void initTianganDizhi() {
+    private void initBaseData() {
         if (connect == null) {
             connect = databaseHelper.getOrmContext(DATABASE_NAME_ALIAS, DATABASE_NAME, FormDatabase.class);
         }
+        setOldLunarHour(connect);
         addTiangan("甲", 1, 1, connect);
         addTiangan("乙", 2, 2, connect);
         addTiangan("丙", 3, 1, connect);
@@ -164,6 +171,22 @@ public class MainAbility extends Ability {
         addAttribute("赤口", "白虎", "4,7,10", "", "3,7,9", "肺胃", "东", "西", "金", "小孩迷魂童子，大人金神七煞。", connect);
         addAttribute("小吉", "六合", "1,5,7", "2,6,9", "", "肝肠", "西南", "东", "木", "小孩婆姐六畜惊，大人无主家神。", connect);
         addAttribute("空亡", "勾陈", "3,6,9", "", "4,6,8", "脾脑", "北", "厝地", "土", "小孩土瘟神煞，大人土压夫人。", connect);
+    }
+
+    private void setOldLunarHour(OrmContext connect) {
+        Lunar lunar = new Lunar();
+        Calendar calendar = Calendar.getInstance();
+        OldLunarHour oldLunarHour = DatabaseUtils.queryOldLunarHour(connect).get(0);
+        if (oldLunarHour==null) {
+            OldLunarHour newOldLunarHour = new OldLunarHour();
+            newOldLunarHour.setOldLunarHourText(lunar.getTimeInGanZhi());
+            oldLunarHour.setLastUpdateTime(calendar);
+            DatabaseUtils.insertOldLunarHour(oldLunarHour, connect);
+        } else {
+            oldLunarHour.setOldLunarHourText(lunar.getTimeInGanZhi());
+            oldLunarHour.setLastUpdateTime(calendar);
+            DatabaseUtils.updateOldLunarHour(oldLunarHour.getOldLunarHourId(), oldLunarHour, connect);
+        }
     }
 
     private void addTiangan(String tianganName, int tianganNum, int tianganYinyang, OrmContext connect) {

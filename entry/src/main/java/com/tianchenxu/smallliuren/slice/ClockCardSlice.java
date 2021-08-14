@@ -15,6 +15,7 @@
 
 package com.tianchenxu.smallliuren.slice;
 
+import com.tianchenxu.smallliuren.database.FormDatabase;
 import com.tianchenxu.smallliuren.utils.ComponentProviderUtils;
 import com.tianchenxu.smallliuren.utils.DateUtils;
 import com.tianchenxu.smallliuren.utils.LogUtils;
@@ -24,6 +25,8 @@ import ohos.aafwk.content.Intent;
 import ohos.agp.components.Component;
 import ohos.agp.components.Text;
 import ohos.agp.utils.Color;
+import ohos.data.DatabaseHelper;
+import ohos.data.orm.OrmContext;
 import ohos.eventhandler.EventHandler;
 import ohos.eventhandler.EventRunner;
 import ohos.eventhandler.InnerEvent;
@@ -39,8 +42,11 @@ import java.util.TimerTask;
 public class ClockCardSlice extends AbilitySlice {
     private static final HiLogLabel LABEL_LOG = new HiLogLabel(0, 0, ClockCardSlice.class.getName());
     private static final long SEND_PERIOD = 1000L;
-    private static final int COLOR_RGB = 192;
     private static final int TIME_LENGTH = 2;
+    private DatabaseHelper helper = new DatabaseHelper(this);
+    private static final String DATABASE_NAME = "FormDatabase.db";
+    private static final String DATABASE_NAME_ALIAS = "FormDatabase";
+    private OrmContext connect;
     private Text dateText;
     private Text hourText;
     private Text minText;
@@ -68,19 +74,23 @@ public class ClockCardSlice extends AbilitySlice {
     @Override
     public void onStart(Intent intent) {
         super.onStart(intent);
-        super.setUIContent(ResourceTable.Layout_form_grid_pattern_widget_4_4);
+        super.setUIContent(ResourceTable.Layout_ability_main);
         initComponent();
         startTimer();
     }
 
     private void startTimer() {
         timer = new Timer();
+        if (connect == null) {
+            connect = helper.getOrmContext(DATABASE_NAME_ALIAS, DATABASE_NAME, FormDatabase.class);
+        }
         timer.schedule(
                 new TimerTask() {
                     @Override
                     public void run() {
                         runnable.run();
-                        myEventHandle.sendEvent(1);
+                        int flag = DateUtils.getFlag(connect);
+                        myEventHandle.sendEvent(flag);
                     }
                 },
                 0,
@@ -91,7 +101,6 @@ public class ClockCardSlice extends AbilitySlice {
      * Init Component
      */
     private void initComponent() {
-        Calendar now = Calendar.getInstance();
         Component dateComponent = slice.findComponentById(ResourceTable.Id_date);
         if (dateComponent != null && dateComponent instanceof Text) {
             dateText = (Text) dateComponent;
