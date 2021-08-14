@@ -7,25 +7,25 @@ import ohos.data.orm.annotation.ForeignKey;
 import ohos.data.orm.annotation.PrimaryKey;
 
 @Entity(tableName = "attribute", foreignKeys = {
-        @ForeignKey(name = "f_jingu", parentEntity = Jingu.class, parentColumns = {"jinguNum"}, childColumns = {"jingu"}),
+        @ForeignKey(name = "f_jingu", parentEntity = Jingu.class, parentColumns = {"jinguId"}, childColumns = {"jingu"}),
         @ForeignKey(name = "f_deity", parentEntity = Deity.class, parentColumns = {"deityId"}, childColumns = {"deity"}),
         @ForeignKey(name = "f_organ", parentEntity = Organ.class, parentColumns = {"organId"}, childColumns = {"organ"}),
         @ForeignKey(name = "f_magnateOrientation", parentEntity = Orientation.class, parentColumns = {"orientationId"}, childColumns = {"magnateOrientation"}),
         @ForeignKey(name = "f_offendOrientation", parentEntity = Orientation.class, parentColumns = {"orientationId"}, childColumns = {"offendOrientation"}),
-        @ForeignKey(name = "f_fiveElements", parentEntity = FiveElements.class, parentColumns = {"fiveElementsId", "fiveElementsName"}, childColumns = {"fiveElements"})
+        @ForeignKey(name = "f_fiveElements", parentEntity = FiveElements.class, parentColumns = {"fiveElementsId"}, childColumns = {"fiveElements"})
 })
 public class Attribute extends OrmObject {
     @PrimaryKey(autoGenerate = true)
     private Integer attributeId;
 
     @Column(name = "jingu")
-    private int jingu;
+    private Integer jingu;
 
-    public int getJingu() {
+    public Integer getJingu() {
         return jingu;
     }
 
-    public void setJingu(int jingu) {
+    public void setJingu(Integer jingu) {
         this.jingu = jingu;
     }
 
@@ -128,7 +128,7 @@ public class Attribute extends OrmObject {
     public Attribute() {
     }
 
-    public Attribute(Integer attributeId, Integer deity, String luckyNum, String successNum, String ominousNum, Integer organ, Integer magnateOrientation, Integer offendOrientation, Integer fiveElements, String ghostsAndGods, int jingu) {
+    public Attribute(Integer attributeId, Integer deity, String luckyNum, String successNum, String ominousNum, Integer organ, Integer magnateOrientation, Integer offendOrientation, Integer fiveElements, String ghostsAndGods, Integer jingu) {
         this.attributeId = attributeId;
         this.jingu = jingu;
         this.deity = deity;

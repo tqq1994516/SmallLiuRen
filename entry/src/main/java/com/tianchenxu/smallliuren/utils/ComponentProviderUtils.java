@@ -79,7 +79,7 @@ public class ComponentProviderUtils {
         componentProvider.setText(ResourceTable.Id_ganzhi_day, lunar.getDayInGanZhiExact() + "日");
         componentProvider.setText(ResourceTable.Id_ganzhi_time, lunarHour + "时");
         if (flag == 1) {
-            setImageComponentProviderValue(componentProvider, context, connect, now, lunar);
+            setImageComponentProviderValue(componentProvider, context, connect, lunar);
         }
     }
 
@@ -88,7 +88,7 @@ public class ComponentProviderUtils {
      *
      * @param componentProvider component provider
      */
-    private static void setImageComponentProviderValue(ComponentProvider componentProvider, Context context, OrmContext connect, Calendar now, Lunar lunar) {
+    private static void setImageComponentProviderValue(ComponentProvider componentProvider, Context context, OrmContext connect, Lunar lunar) {
         int lunarMonthNum = lunar.getMonth();
         int lunarDayNum = lunar.getDay();
         int lunarTimeNum = Objects.requireNonNull(DatabaseUtils.queryDizhiByName(lunar.getTimeZhi(), connect)).getDizhiNum();
@@ -108,7 +108,8 @@ public class ComponentProviderUtils {
     }
 
     private static void setDetailText(ComponentProvider componentProvider, int timeNum, int dayNum, OrmContext connect) {
-        Attribute attribute = DatabaseUtils.queryAttributeByInt(timeNum, connect);
+        Attribute attribute = DatabaseUtils.queryAttributeByNum(timeNum, connect);
+        HiLog.info(LABEL_LOG, ""+attribute.getDeity());
         Deity deity = DatabaseUtils.queryDeityById(attribute.getDeity(), connect);
         FiveElements fiveElements = DatabaseUtils.queryFiveElementsById(attribute.getFiveElements(), connect);
         Organ organ = DatabaseUtils.queryOrganById(attribute.getOrgan(), connect);
@@ -129,7 +130,7 @@ public class ComponentProviderUtils {
 
 
     private static void setImage(ComponentProvider componentProvider, int stepNum, int componentId, Context context, int type) {
-        PixelMap pixelMap = null;
+        PixelMap pixelMap;
         if (type==1) {
             switch (stepNum) {
                 case 0:

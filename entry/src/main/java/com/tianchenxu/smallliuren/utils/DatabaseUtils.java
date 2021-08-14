@@ -87,9 +87,9 @@ public class DatabaseUtils {
     /**
      * query tiangan object
      *
-     * @param tianganName
-     * @param connect
-     * @return
+     * @param tianganName tiangan name
+     * @param connect OrmContext
+     * @return Tiangan object
      */
     public static Tiangan queryTianganByName(String tianganName, OrmContext connect) {
         OrmPredicates where = connect.where(Tiangan.class);
@@ -135,9 +135,9 @@ public class DatabaseUtils {
     /**
      * query dizhi object
      *
-     * @param dizhiName
-     * @param connect
-     * @return
+     * @param dizhiName dizhi name
+     * @param connect OrmContext
+     * @return Dizhi object
      */
     public static Dizhi queryDizhiByName(String dizhiName, OrmContext connect) {
         OrmPredicates where = connect.where(Dizhi.class);
@@ -185,10 +185,10 @@ public class DatabaseUtils {
     /**
      * query assert object
      *
-     * @param dayNum
-     * @param timeNum
-     * @param connect
-     * @return
+     * @param dayNum day number
+     * @param timeNum time number
+     * @param connect OrmContext
+     * @return Assert object
      */
     public static Assert queryAssertByNums(int dayNum, int timeNum, OrmContext connect) {
         OrmPredicates where = connect.where(Assert.class);
@@ -236,9 +236,9 @@ public class DatabaseUtils {
     /**
      * query attribute object
      *
-     * @param attributeId
-     * @param connect
-     * @return
+     * @param attributeId attribute id
+     * @param connect OrmContext
+     * @return Attribute object
      */
     public static Attribute queryAttributeById(Integer attributeId, OrmContext connect) {
         OrmPredicates where = connect.where(Attribute.class);
@@ -253,13 +253,14 @@ public class DatabaseUtils {
     /**
      * query attribute object
      *
-     * @param jingu
-     * @param connect
-     * @return
+     * @param jinguNum jingu number
+     * @param connect OrmContext
+     * @return Attribute object
      */
-    public static Attribute queryAttributeByInt(int jingu, OrmContext connect) {
+    public static Attribute queryAttributeByNum(int jinguNum, OrmContext connect) {
+        Jingu jingu = DatabaseUtils.queryJinguByNum(jinguNum, connect);
         OrmPredicates where = connect.where(Attribute.class);
-        where.equalTo("jingu", jingu);
+        where.equalTo("jingu", jingu.getJinguId());
         List<Attribute> query = connect.query(where);
         if (!query.isEmpty()) {
             return query.get(0);
@@ -302,9 +303,9 @@ public class DatabaseUtils {
     /**
      * query deity object
      *
-     * @param deityName
-     * @param connect
-     * @return
+     * @param deityName deity name
+     * @param connect OrmContext
+     * @return Deity object
      */
     public static Deity queryDeityByName(String deityName, OrmContext connect) {
         OrmPredicates where = connect.where(Deity.class);
@@ -319,9 +320,9 @@ public class DatabaseUtils {
     /**
      * query deity object
      *
-     * @param deityId
-     * @param connect
-     * @return
+     * @param deityId deity id
+     * @param connect OrmContext
+     * @return Deity object
      */
     public static Deity queryDeityById(Integer deityId, OrmContext connect) {
         OrmPredicates where = connect.where(Deity.class);
@@ -368,9 +369,9 @@ public class DatabaseUtils {
     /**
      * query fiveElements object
      *
-     * @param fiveElementsName
-     * @param connect
-     * @return
+     * @param fiveElementsName fiveElements name
+     * @param connect OrmContext
+     * @return FiveElements object
      */
     public static FiveElements queryFiveElementsByName(String fiveElementsName, OrmContext connect) {
         OrmPredicates where = connect.where(FiveElements.class);
@@ -385,9 +386,9 @@ public class DatabaseUtils {
     /**
      * query fiveElements object
      *
-     * @param fiveElementsId
-     * @param connect
-     * @return
+     * @param fiveElementsId fiveElements id
+     * @param connect OrmContext
+     * @return FiveElements object
      */
     public static FiveElements queryFiveElementsById(Integer fiveElementsId, OrmContext connect) {
         OrmPredicates where = connect.where(FiveElements.class);
@@ -434,9 +435,9 @@ public class DatabaseUtils {
     /**
      * query organ object
      *
-     * @param organName
-     * @param connect
-     * @return
+     * @param organName organ name
+     * @param connect OrmContext
+     * @return Organ object
      */
     public static Organ queryOrganByName(String organName, OrmContext connect) {
         OrmPredicates where = connect.where(Organ.class);
@@ -451,9 +452,9 @@ public class DatabaseUtils {
     /**
      * query organ object
      *
-     * @param organId
-     * @param connect
-     * @return
+     * @param organId organ id
+     * @param connect OrmContext
+     * @return Organ object
      */
     public static Organ queryOrganById(Integer organId, OrmContext connect) {
         OrmPredicates where = connect.where(Organ.class);
@@ -498,11 +499,11 @@ public class DatabaseUtils {
     }
 
     /**
-     * query organ object
+     * query orientation object
      *
-     * @param orientationName
-     * @param connect
-     * @return
+     * @param orientationName orientation name
+     * @param connect OrmContext
+     * @return Orientation object
      */
     public static Orientation queryOrientationByName(String orientationName, OrmContext connect) {
         OrmPredicates where = connect.where(Orientation.class);
@@ -517,9 +518,9 @@ public class DatabaseUtils {
     /**
      * query orientation object
      *
-     * @param orientationId
-     * @param connect
-     * @return
+     * @param orientationId orientation id
+     * @param connect OrmContext
+     * @return Orientation object
      */
     public static Orientation queryOrientationById(Integer orientationId, OrmContext connect) {
         OrmPredicates where = connect.where(Orientation.class);
@@ -566,9 +567,9 @@ public class DatabaseUtils {
     /**
      * query jingu object
      *
-     * @param jinguName
-     * @param connect
-     * @return
+     * @param jinguName jingu name
+     * @param connect OrmContext
+     * @return Jingu object
      */
     public static Jingu queryJinguByName(String jinguName, OrmContext connect) {
         OrmPredicates where = connect.where(Jingu.class);
@@ -583,9 +584,9 @@ public class DatabaseUtils {
     /**
      * query jingu object
      *
-     * @param jinguNum
-     * @param connect
-     * @return
+     * @param jinguNum jingu number
+     * @param connect OrmContext
+     * @return Jingu object
      */
     public static Jingu queryJinguByNum(int jinguNum, OrmContext connect) {
         OrmPredicates where = connect.where(Jingu.class);

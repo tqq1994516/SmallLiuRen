@@ -2,6 +2,7 @@ package com.tianchenxu.smallliuren.database;
 
 import ohos.data.orm.OrmObject;
 import ohos.data.orm.annotation.Entity;
+import ohos.data.orm.annotation.Index;
 import ohos.data.orm.annotation.PrimaryKey;
 
 @Entity(tableName = "jingu")

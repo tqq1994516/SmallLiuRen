@@ -71,7 +71,7 @@ public class MainAbility extends Ability {
         addTiangan("丙", 3, 1, connect);
         addTiangan("丁", 4, 2, connect);
         addTiangan("戊", 5, 1, connect);
-        addTiangan("己", 6, 2, connect);
+        addTiangan("己", 0, 2, connect);
         addTiangan("庚", 7, 1, connect);
         addTiangan("辛", 8, 2, connect);
         addTiangan("壬", 9, 1, connect);
@@ -81,7 +81,7 @@ public class MainAbility extends Ability {
         addDizhi("寅", 3, 1, connect);
         addDizhi("卯", 4, 2, connect);
         addDizhi("辰", 5, 1, connect);
-        addDizhi("巳", 6, 2, connect);
+        addDizhi("巳", 0, 2, connect);
         addDizhi("午", 7, 1, connect);
         addDizhi("未", 8, 2, connect);
         addDizhi("申", 9, 1, connect);
@@ -93,37 +93,37 @@ public class MainAbility extends Ability {
         addAssert(1, 3, "大安加速喜，事事自己起，失物当日见，婚姻自己提。", connect);
         addAssert(1, 4, "大安加赤口，办事不顺手，失物不用找，婚姻两分手。", connect);
         addAssert(1, 5, "大安加小吉，事事从己及，失物不出门，婚姻成就地。", connect);
-        addAssert(1, 6, "大安加空亡，病人要上床，失物无踪影，事事不顺情。", connect);
+        addAssert(1, 0, "大安加空亡，病人要上床，失物无踪影，事事不顺情。", connect);
         addAssert(2, 1, "留连加大安，办事两分张，婚姻有喜事，先苦后来甜。", connect);
         addAssert(2, 2, "留连事难成，求谋月未明，凡事只宜缓，去者未回程；失物南方见，急讨方称心，更须防口舌，人口且太平。", connect);
         addAssert(2, 3, "留连加速喜，事事由自己，婚姻有成意，失物三天里。", connect);
         addAssert(2, 4, "留连加赤口，病者死人口，失物准丢失，婚姻两分手。", connect);
         addAssert(2, 5, "留连加小吉，事事不用提，失物东南去，病者出人齐。", connect);
-        addAssert(2, 6, "留连加空亡，病人准死亡，失物不见面，婚姻两分张。", connect);
+        addAssert(2, 0, "留连加空亡，病人准死亡，失物不见面，婚姻两分张。", connect);
         addAssert(3, 1, "速喜加大安，事事都平安，姻姻成全了，占病都相安。", connect);
         addAssert(3, 2, "速喜加留连，婚姻不可言，失物无信息，病人有仙缘。", connect);
         addAssert(3, 3, "速喜喜来临，求财向南行，失物申未午，逢人路上寻；官事有福德，病者无祸侵，田宅六畜吉，行人有喜音。", connect);
         addAssert(3, 4, "速喜加赤口，自己往外走，失物往正北，婚姻得勤走。", connect);
         addAssert(3, 5, "速喜加小吉，婚姻有人提，病人当天好，时物在家里。", connect);
-        addAssert(3, 6, "速喜加空亡，婚姻有分张，病者积极治，失物不久见。", connect);
+        addAssert(3, 0, "速喜加空亡，婚姻有分张，病者积极治，失物不久见。", connect);
         addAssert(4, 1, "赤口加大安，办事险和难，失物东北找，婚姻指定难。", connect);
         addAssert(4, 2, "赤口加留连，办事有困难，行人在外走，失物不回还。", connect);
         addAssert(4, 3, "赤口加速喜，婚姻在自己，失物有着落，办事官事起。", connect);
         addAssert(4, 4, "赤口主口舌，官非切要防，失物急去寻，行人有惊慌；六畜多惊怪，病者出西方，更须防诅咒，恐怕染瘟疫。", connect);
         addAssert(4, 5, "赤口加小吉，办事自己提，婚姻不能成，失物无信息。", connect);
-        addAssert(4, 6, "赤口加空亡，无病也上床，失物不用找，婚姻不能成。", connect);
+        addAssert(4, 0, "赤口加空亡，无病也上床，失物不用找，婚姻不能成。", connect);
         addAssert(5, 1, "小吉加大安，事事两周全，婚姻当日定，失物自己损。", connect);
         addAssert(5, 2, "小吉加留连，事事有反还，婚姻有人破，失物上西南。", connect);
         addAssert(5, 3, "小吉加速喜，事事从头起，婚姻能成就，失物在院里。", connect);
         addAssert(5, 4, "小吉加赤口，办事往外走，婚姻有难处，失物丢了手。", connect);
         addAssert(5, 5, "小吉最吉昌，路上好商量，阴人来报喜，失物在坤方；人立便至，交易甚是强，凡是皆和合，病者辱上苍。", connect);
-        addAssert(5, 6, "小吉加空亡，病人不妥当，失物正东找，婚姻再想想。", connect);
-        addAssert(6, 1, "空亡加大安，事事不周全，婚姻从和好，失物反复间。", connect);
-        addAssert(6, 2, "空亡加留连，办事处处难，婚姻重新定，失物永不还。", connect);
-        addAssert(6, 3, "空亡加速喜，事事怨自己，婚姻有一定，失物在家里。", connect);
-        addAssert(6, 4, "空亡加赤口，办事官非有，婚姻难定准，失物往远走。", connect);
-        addAssert(6, 5, "空亡加小吉，事事有猜疑，婚姻有喜事，失物回家里。", connect);
-        addAssert(6, 6, "空亡事不祥，阴人多乖张，求财无利益，行人有灾秧；失物寻不见，官事有刑伤，病人逢暗鬼，禳解保安康。", connect);
+        addAssert(5, 0, "小吉加空亡，病人不妥当，失物正东找，婚姻再想想。", connect);
+        addAssert(0, 1, "空亡加大安，事事不周全，婚姻从和好，失物反复间。", connect);
+        addAssert(0, 2, "空亡加留连，办事处处难，婚姻重新定，失物永不还。", connect);
+        addAssert(0, 3, "空亡加速喜，事事怨自己，婚姻有一定，失物在家里。", connect);
+        addAssert(0, 4, "空亡加赤口，办事官非有，婚姻难定准，失物往远走。", connect);
+        addAssert(0, 5, "空亡加小吉，事事有猜疑，婚姻有喜事，失物回家里。", connect);
+        addAssert(0, 0, "空亡事不祥，阴人多乖张，求财无利益，行人有灾秧；失物寻不见，官事有刑伤，病人逢暗鬼，禳解保安康。", connect);
         addDeity("青龙", connect);
         addDeity("玄武", connect);
         addDeity("朱雀", connect);
@@ -157,13 +157,13 @@ public class MainAbility extends Ability {
         addJingu("速喜", 3, connect);
         addJingu("赤口", 4, connect);
         addJingu("小吉", 5, connect);
-        addJingu("空亡", 6, connect);
-        addAttribute(1, "青龙", "1,5,7", "3,5,8", "", "四肢", "西南", "东", "木", "小孩婆姐六畜惊，大人青面阴神。", connect);
-        addAttribute(2, "玄武", "2,8,10", "", "1,6,7", "肾胃", "南", "北", "水", "小孩游路亡魂，大人乌面夫人。", connect);
-        addAttribute(3, "朱雀", "3,6,9", "0,1,3,7", "", "心脑", "西南", "南", "火", "小孩婆姐动勿惊，大人火箭将军。", connect);
-        addAttribute(4, "白虎", "4,7,10", "", "3,7,9", "肺胃", "东", "西", "金", "小孩迷魂童子，大人金神七煞。", connect);
-        addAttribute(5, "六合", "1,5,7", "2,6,9", "", "肝肠", "西南", "东", "木", "小孩婆姐六畜惊，大人无主家神。", connect);
-        addAttribute(6, "勾陈", "3,6,9", "", "4,6,8", "脾脑", "北", "厝地", "土", "小孩土瘟神煞，大人土压夫人。", connect);
+        addJingu("空亡", 0, connect);
+        addAttribute("大安", "青龙", "1,5,7", "3,5,8", "", "四肢", "西南", "东", "木", "小孩婆姐六畜惊，大人青面阴神。", connect);
+        addAttribute("留连", "玄武", "2,8,10", "", "1,6,7", "肾胃", "南", "北", "水", "小孩游路亡魂，大人乌面夫人。", connect);
+        addAttribute("速喜", "朱雀", "3,6,9", "0,1,3,7", "", "心脑", "西南", "南", "火", "小孩婆姐动勿惊，大人火箭将军。", connect);
+        addAttribute("赤口", "白虎", "4,7,10", "", "3,7,9", "肺胃", "东", "西", "金", "小孩迷魂童子，大人金神七煞。", connect);
+        addAttribute("小吉", "六合", "1,5,7", "2,6,9", "", "肝肠", "西南", "东", "木", "小孩婆姐六畜惊，大人无主家神。", connect);
+        addAttribute("空亡", "勾陈", "3,6,9", "", "4,6,8", "脾脑", "北", "厝地", "土", "小孩土瘟神煞，大人土压夫人。", connect);
     }
 
     private void addTiangan(String tianganName, int tianganNum, int tianganYinyang, OrmContext connect) {
@@ -221,9 +221,10 @@ public class MainAbility extends Ability {
         DatabaseUtils.insertJingu(jingu, connect);
     }
 
-    private void addAttribute(Integer jingu, String deity, String luckyNum, String successNum, String ominousNum, String organ, String magnateOrientation, String offendOrientation, String fiveElements, String ghostsAndGods, OrmContext connect) {
+    private void addAttribute(String jinguName, String deity, String luckyNum, String successNum, String ominousNum, String organ, String magnateOrientation, String offendOrientation, String fiveElements, String ghostsAndGods, OrmContext connect) {
         Attribute attribute = new Attribute();
-        attribute.setJingu(jingu);
+        Jingu jingu = DatabaseUtils.queryJinguByName(jinguName, connect);
+        attribute.setJingu(jingu.getJinguId());
         Deity deityId = DatabaseUtils.queryDeityByName(deity, connect);
         attribute.setDeity(deityId.getDeityId());
         attribute.setLuckyNum(luckyNum);
@@ -247,7 +248,7 @@ public class MainAbility extends Ability {
             return new ProviderFormInfo();
         }
         // 获取卡片id
-        long formId = INVALID_FORM_ID;
+        long formId;
         if (intent.hasParameter(AbilitySlice.PARAM_FORM_IDENTITY_KEY)) {
             formId = intent.getLongParam(AbilitySlice.PARAM_FORM_IDENTITY_KEY, INVALID_FORM_ID);
         } else {
