@@ -16,7 +16,6 @@
 package com.tianchenxu.smallliuren.slice;
 
 import com.tianchenxu.smallliuren.database.FormDatabase;
-import com.tianchenxu.smallliuren.utils.ComponentProviderUtils;
 import com.tianchenxu.smallliuren.utils.DateUtils;
 import com.tianchenxu.smallliuren.utils.LogUtils;
 import com.tianchenxu.smallliuren.ResourceTable;
@@ -24,7 +23,6 @@ import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.agp.components.Component;
 import ohos.agp.components.Text;
-import ohos.agp.utils.Color;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
 import ohos.eventhandler.EventHandler;
@@ -79,6 +77,7 @@ public class ClockCardSlice extends AbilitySlice {
         startTimer();
     }
 
+
     private void startTimer() {
         timer = new Timer();
         if (connect == null) {
@@ -101,7 +100,6 @@ public class ClockCardSlice extends AbilitySlice {
      * Init Component
      */
     private void initComponent() {
-        Component dateComponent = slice.findComponentById(ResourceTable.Id_date);
         if (dateComponent != null && dateComponent instanceof Text) {
             dateText = (Text) dateComponent;
             dateText.setText(DateUtils.getCurrentDate(now,"yyyy-MM-dd"));
@@ -126,13 +124,7 @@ public class ClockCardSlice extends AbilitySlice {
         }
     }
 
-    private void setTextValue(int now, Text text) {
-        if (String.valueOf(now).length() < TIME_LENGTH) {
-            text.setText("0" + now);
-        } else {
-            text.setText(now + "");
-        }
-    }
+
 
     @Override
     public void onActive() {

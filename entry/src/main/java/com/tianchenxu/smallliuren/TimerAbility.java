@@ -100,7 +100,6 @@ public class TimerAbility extends Ability {
         for (Form form : formList) {
             // 遍历卡片列表更新卡片
             ComponentProvider componentProvider = ComponentProviderUtils.getComponentProvider(form, this, flag, connect);
-            HiLog.info(LABEL_LOG, flag + "");
             try {
                 Long updateFormId = form.getFormId();
                 updateForm(updateFormId, componentProvider);

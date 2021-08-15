@@ -19,6 +19,7 @@ import com.nlf.calendar.Lunar;
 import com.tianchenxu.smallliuren.ResourceTable;
 import com.tianchenxu.smallliuren.database.*;
 
+import ohos.aafwk.ability.AbilitySlice;
 import ohos.agp.components.ComponentProvider;
 import ohos.app.Context;
 import ohos.data.orm.OrmContext;
@@ -39,6 +40,7 @@ import java.util.Objects;
 public class ComponentProviderUtils {
     private static final HiLogLabel LABEL_LOG = new HiLogLabel(3, 0xD001100, "Demo");
     private static final int DIM_VERSION = 2;
+    private static int layoutId;
 
     /**
      * Obtains the ComponentProvider object
@@ -48,12 +50,19 @@ public class ComponentProviderUtils {
      * @return component provider
      */
     public static ComponentProvider getComponentProvider(Form form, Context context, int flag, OrmContext connect) {
-        int layoutId = ResourceTable.Layout_form_grid_pattern_widget_4_4;
+        layoutId = ResourceTable.Layout_form_grid_pattern_widget_4_4;
         if (form.getDimension() == DIM_VERSION) {
             layoutId = ResourceTable.Layout_form_grid_pattern_widget_2_2;
         }
         ComponentProvider componentProvider = new ComponentProvider(layoutId, context);
         setComponentProviderValue(componentProvider, flag, context, connect);
+        return componentProvider;
+    }
+
+    public static ComponentProvider getComponentProvider(AbilitySlice slice, int flag, OrmContext connect) {
+        layoutId = ResourceTable.Layout_ability_main;
+        ComponentProvider componentProvider = new ComponentProvider(layoutId, slice);
+        setComponentProviderValue(componentProvider, flag, slice, connect);
         return componentProvider;
     }
 
@@ -127,7 +136,7 @@ public class ComponentProviderUtils {
 
 
     private static void setImage(ComponentProvider componentProvider, int stepNum, int componentId, Context context, int type) {
-        PixelMap pixelMap;
+        PixelMap pixelMap = null;
         if (type==1) {
             switch (stepNum) {
                 case 0:
@@ -167,6 +176,7 @@ public class ComponentProviderUtils {
                     break;
             }
         }
+        pixelMap.release();
     }
 
 
