@@ -16,6 +16,8 @@
 package com.tianchenxu.smallliuren.slice;
 
 import com.tianchenxu.smallliuren.database.FormDatabase;
+import com.tianchenxu.smallliuren.utils.BaseData;
+import com.tianchenxu.smallliuren.utils.ComponentUtils;
 import com.tianchenxu.smallliuren.utils.DateUtils;
 import com.tianchenxu.smallliuren.utils.LogUtils;
 import com.tianchenxu.smallliuren.ResourceTable;
@@ -40,15 +42,10 @@ import java.util.TimerTask;
 public class ClockCardSlice extends AbilitySlice {
     private static final HiLogLabel LABEL_LOG = new HiLogLabel(0, 0, ClockCardSlice.class.getName());
     private static final long SEND_PERIOD = 1000L;
-    private static final int TIME_LENGTH = 2;
     private DatabaseHelper helper = new DatabaseHelper(this);
     private static final String DATABASE_NAME = "FormDatabase.db";
     private static final String DATABASE_NAME_ALIAS = "FormDatabase";
     private OrmContext connect;
-    private Text dateText;
-    private Text hourText;
-    private Text minText;
-    private Text secondText;
     private EventRunner runner;
     private MyEventHandle myEventHandle;
     private AbilitySlice slice = this;
@@ -73,7 +70,11 @@ public class ClockCardSlice extends AbilitySlice {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setUIContent(ResourceTable.Layout_ability_main);
-        initComponent();
+        if (connect == null) {
+            connect = helper.getOrmContext(DATABASE_NAME_ALIAS, DATABASE_NAME, FormDatabase.class);
+        }
+        BaseData.initBaseData(connect, helper);
+        initComponent(1);
         startTimer();
     }
 
@@ -99,29 +100,8 @@ public class ClockCardSlice extends AbilitySlice {
     /**
      * Init Component
      */
-    private void initComponent() {
-        if (dateComponent != null && dateComponent instanceof Text) {
-            dateText = (Text) dateComponent;
-            dateText.setText(DateUtils.getCurrentDate(now,"yyyy-MM-dd"));
-        }
-        Component hourComponent = slice.findComponentById(ResourceTable.Id_hour);
-        if (hourComponent != null && hourComponent instanceof Text) {
-            hourText = (Text) hourComponent;
-            int hour = now.get(Calendar.HOUR_OF_DAY);
-            setTextValue(hour, hourText);
-        }
-        Component minComponent = findComponentById(ResourceTable.Id_min);
-        if (minComponent != null && minComponent instanceof Text) {
-            minText = (Text) minComponent;
-            int min = now.get(Calendar.MINUTE);
-            setTextValue(min, minText);
-        }
-        Component secComponent = findComponentById(ResourceTable.Id_sec);
-        if (secComponent != null && secComponent instanceof Text) {
-            secondText = (Text) secComponent;
-            int second = now.get(Calendar.SECOND);
-            setTextValue(second, secondText);
-        }
+    private void initComponent(int flag) {
+        ComponentUtils.setComponentValue(slice, flag, connect);
     }
 
 
@@ -145,10 +125,7 @@ public class ClockCardSlice extends AbilitySlice {
         protected void processEvent(InnerEvent event) {
             super.processEvent(event);
             int eventId = event.eventId;
-            if (eventId == 1) {
-                // 更新页面
-                initComponent();
-            }
+            initComponent(eventId);
         }
     }
 

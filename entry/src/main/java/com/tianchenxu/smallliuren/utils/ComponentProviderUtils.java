@@ -40,7 +40,6 @@ import java.util.Objects;
 public class ComponentProviderUtils {
     private static final HiLogLabel LABEL_LOG = new HiLogLabel(3, 0xD001100, "Demo");
     private static final int DIM_VERSION = 2;
-    private static int layoutId;
 
     /**
      * Obtains the ComponentProvider object
@@ -50,19 +49,12 @@ public class ComponentProviderUtils {
      * @return component provider
      */
     public static ComponentProvider getComponentProvider(Form form, Context context, int flag, OrmContext connect) {
-        layoutId = ResourceTable.Layout_form_grid_pattern_widget_4_4;
+        int layoutId = ResourceTable.Layout_form_grid_pattern_widget_4_4;
         if (form.getDimension() == DIM_VERSION) {
             layoutId = ResourceTable.Layout_form_grid_pattern_widget_2_2;
         }
         ComponentProvider componentProvider = new ComponentProvider(layoutId, context);
         setComponentProviderValue(componentProvider, flag, context, connect);
-        return componentProvider;
-    }
-
-    public static ComponentProvider getComponentProvider(AbilitySlice slice, int flag, OrmContext connect) {
-        layoutId = ResourceTable.Layout_ability_main;
-        ComponentProvider componentProvider = new ComponentProvider(layoutId, slice);
-        setComponentProviderValue(componentProvider, flag, slice, connect);
         return componentProvider;
     }
 
@@ -105,12 +97,12 @@ public class ComponentProviderUtils {
         int month_yinyang = Objects.requireNonNull(DatabaseUtils.queryTianganByName(lunar.getMonthGanExact(), connect)).getTianganYinyang();
         int day_yinyang = Objects.requireNonNull(DatabaseUtils.queryTianganByName(lunar.getDayGanExact(), connect)).getTianganYinyang();
         int time_yinyang = Objects.requireNonNull(DatabaseUtils.queryTianganByName(lunar.getTimeGan(), connect)).getTianganYinyang();
-        setImage(componentProvider, monthStepNum, ResourceTable.Id_aided, context, 1);
-        setImage(componentProvider, dayStepNum, ResourceTable.Id_assistant, context, 1);
-        setImage(componentProvider, timeStepNum, ResourceTable.Id_main, context, 1);
-        setImage(componentProvider, month_yinyang, ResourceTable.Id_aided_flag, context, 2);
-        setImage(componentProvider, day_yinyang, ResourceTable.Id_assistant_flag, context, 2);
-        setImage(componentProvider, time_yinyang, ResourceTable.Id_main_flag, context, 2);
+        ImageUtils.setImage(componentProvider, monthStepNum, ResourceTable.Id_aided, context, 1);
+        ImageUtils.setImage(componentProvider, dayStepNum, ResourceTable.Id_assistant, context, 1);
+        ImageUtils.setImage(componentProvider, timeStepNum, ResourceTable.Id_main, context, 1);
+        ImageUtils.setImage(componentProvider, month_yinyang, ResourceTable.Id_aided_flag, context, 2);
+        ImageUtils.setImage(componentProvider, day_yinyang, ResourceTable.Id_assistant_flag, context, 2);
+        ImageUtils.setImage(componentProvider, time_yinyang, ResourceTable.Id_main_flag, context, 2);
         setDetailText(componentProvider, timeStepNum, dayStepNum, connect);
     }
 
@@ -132,79 +124,5 @@ public class ComponentProviderUtils {
         componentProvider.setText(ResourceTable.Id_offendOrientation, offendOrientation.getOrientationName());
         componentProvider.setText(ResourceTable.Id_ghostsAndGods, attribute.getGhostsAndGods());
         componentProvider.setText(ResourceTable.Id_assertText, anAssert.getAssertText());
-    }
-
-
-    private static void setImage(ComponentProvider componentProvider, int stepNum, int componentId, Context context, int type) {
-        PixelMap pixelMap = null;
-        if (type==1) {
-            switch (stepNum) {
-                case 0:
-                    pixelMap = getPixelMapFromResource(ResourceTable.Media_kongwang, context);
-                    componentProvider.setImagePixelMap(componentId, pixelMap);
-                    break;
-                case 1:
-                    pixelMap = getPixelMapFromResource(ResourceTable.Media_daan, context);
-                    componentProvider.setImagePixelMap(componentId, pixelMap);
-                    break;
-                case 2:
-                    pixelMap = getPixelMapFromResource(ResourceTable.Media_liulian, context);
-                    componentProvider.setImagePixelMap(componentId, pixelMap);
-                    break;
-                case 3:
-                    pixelMap = getPixelMapFromResource(ResourceTable.Media_suxi, context);
-                    componentProvider.setImagePixelMap(componentId, pixelMap);
-                    break;
-                case 4:
-                    pixelMap = getPixelMapFromResource(ResourceTable.Media_chikou, context);
-                    componentProvider.setImagePixelMap(componentId, pixelMap);
-                    break;
-                case 5:
-                    pixelMap = getPixelMapFromResource(ResourceTable.Media_xiaoji, context);
-                    componentProvider.setImagePixelMap(componentId, pixelMap);
-                    break;
-            }
-        } else if (type == 2) {
-            switch (stepNum) {
-                case 1:
-                    pixelMap = getPixelMapFromResource(ResourceTable.Media_yang, context);
-                    componentProvider.setImagePixelMap(componentId, pixelMap);
-                    break;
-                case 2:
-                    pixelMap = getPixelMapFromResource(ResourceTable.Media_yin, context);
-                    componentProvider.setImagePixelMap(componentId, pixelMap);
-                    break;
-            }
-        }
-        pixelMap.release();
-    }
-
-
-    private static PixelMap getPixelMapFromResource(int resourceId, Context context) {
-        InputStream inputStream = null;
-        try {
-            inputStream = context.getResourceManager().getResource(resourceId);
-            ImageSource.SourceOptions sourceOptions = new ImageSource.SourceOptions();
-            sourceOptions.formatHint = "image/png";
-            ImageSource imageSource = ImageSource.create(inputStream, sourceOptions);
-            ImageSource.DecodingOptions decodingOptions = new ImageSource.DecodingOptions();
-            PixelMap pixelmap = imageSource.createPixelmap(decodingOptions);
-            // 释放ImageSource对象
-            imageSource.release();
-            return pixelmap;
-        } catch (IOException e) {
-            HiLog.info(LABEL_LOG, "IOException");
-        } catch (NotExistException e) {
-            HiLog.info(LABEL_LOG, "NotExistException");
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    HiLog.info(LABEL_LOG, "inputStream IOException");
-                }
-            }
-        }
-        return null;
     }
 }

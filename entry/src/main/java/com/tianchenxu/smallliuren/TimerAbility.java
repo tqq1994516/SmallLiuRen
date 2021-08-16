@@ -51,9 +51,9 @@ public class TimerAbility extends Ability {
     @Override
     public void onStart(Intent intent) {
         HiLog.info(LABEL_LOG, "TimerAbility::onStart");
+        super.onStart(intent);
         connect = helper.getOrmContext(DATABASE_NAME_ALIAS, DATABASE_NAME, FormDatabase.class);
         startTimer();
-        super.onStart(intent);
     }
 
 
