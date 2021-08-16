@@ -21,7 +21,10 @@ import com.tianchenxu.smallliuren.slice.ClockCardSlice;
 import com.tianchenxu.smallliuren.utils.ComponentProviderUtils;
 import com.tianchenxu.smallliuren.utils.DatabaseUtils;
 
-import ohos.aafwk.ability.*;
+import ohos.aafwk.ability.Ability;
+import ohos.aafwk.ability.AbilitySlice;
+import ohos.aafwk.ability.FormException;
+import ohos.aafwk.ability.ProviderFormInfo;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.Operation;
 import ohos.agp.components.ComponentProvider;
@@ -67,7 +70,7 @@ public class MainAbility extends Ability {
             return new ProviderFormInfo();
         }
         // 获取卡片id
-        long formId;
+        long formId = INVALID_FORM_ID;
         if (intent.hasParameter(AbilitySlice.PARAM_FORM_IDENTITY_KEY)) {
             formId = intent.getLongParam(AbilitySlice.PARAM_FORM_IDENTITY_KEY, INVALID_FORM_ID);
         } else {
