@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DirectionalLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="match_parent"
+    ohos:width="match_parent"
+    ohos:orientation="vertical">
+
+    <DatePicker
+        ohos:id="$+id:date_pick"
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:top_margin="380fp"
+        ohos:background_element="#C89FDEFF"
+        ohos:selected_text_size="20fp"
+        ohos:normal_text_size="15fp"
+        ohos:selected_normal_text_margin_ratio="3">
+    </DatePicker>
+</DirectionalLayout>

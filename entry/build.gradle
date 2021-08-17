@@ -33,6 +33,7 @@ dependencies {
     testImplementation 'junit:junit:4.13'
     ohosTestImplementation 'com.huawei.ohos.testkit:runner:1.0.0.100'
     compile 'cn.6tail:lunar:1.2.3'
+    implementation 'io.openharmony.tpc.thirdlib:XPopup:1.1.1'
 }
 decc {
     supportType = ['html', 'xml']

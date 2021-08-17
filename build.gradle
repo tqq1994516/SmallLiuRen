@@ -45,5 +45,6 @@ allprojects {
             url 'https://developer.huawei.com/repo/'
         }
         jcenter()
+//        mavenCentral()
     }
 }

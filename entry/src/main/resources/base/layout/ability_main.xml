@@ -31,7 +31,8 @@
             ohos:right_of="$id:date"
             ohos:text="星期"
             ohos:text_size="20fp"
-            ohos:weight="1">
+            ohos:weight="1"
+            ohos:text_alignment="horizontal_center">
         </Text>
 
         <Text
@@ -480,19 +481,17 @@
             ohos:left_margin="10fp"
             ohos:text="神鬼："
             ohos:text_font="sans-serif-medium"
-            ohos:text_size="14fp"
-            ohos:weight="1">
+            ohos:text_size="14fp">
         </Text>
 
         <Text
             ohos:id="$+id:ghostsAndGods"
             ohos:height="match_content"
-            ohos:width="match_content"
+            ohos:width="match_parent"
             ohos:right_of="$id:ghostsAndGodsLabel"
             ohos:text="小孩婆姐六畜惊，大人青面阴神。"
             ohos:text_font="sans-serif-medium"
-            ohos:text_size="14fp"
-            ohos:weight="1">
+            ohos:text_size="14fp">
         </Text>
 
     </DirectionalLayout>
@@ -510,9 +509,95 @@
             ohos:left_margin="10fp"
             ohos:text="大安事事昌，求财在坤方，失物去不远，宅舍保安康；行人身未动，病者主无妨，将军回田野，仔细兴推祥。"
             ohos:text_font="sans-serif-medium"
+            ohos:multiple_lines="true"
+            ohos:max_text_lines="2"
             ohos:text_size="13fp"
             ohos:weight="1">
         </Text>
 
+    </DirectionalLayout>
+
+    <DirectionalLayout
+        ohos:id="$+id:calendarType"
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:orientation="horizontal"
+        ohos:top_margin="350fp">
+
+        <RadioContainer
+            ohos:height="match_content"
+            ohos:width="match_parent"
+            ohos:orientation="horizontal"
+            ohos:left_margin="20fp"
+            ohos:layout_alignment="vertical_center">
+
+            <RadioButton
+                ohos:id="$+id:solarRadio"
+                ohos:height="match_content"
+                ohos:width="match_content"
+                ohos:text_size="20fp"
+                ohos:text="$string:solarRadioString"
+                ohos:weight="1"
+                ohos:marked="true">
+            </RadioButton>
+
+            <RadioButton
+                ohos:id="$+id:lunarRadio"
+                ohos:height="match_content"
+                ohos:width="match_content"
+                ohos:text_size="20fp"
+                ohos:right_of="$id:solarRadio"
+                ohos:text="$string:lunarRadioString"
+                ohos:weight="1">
+            </RadioButton>
+        </RadioContainer>
+    </DirectionalLayout>
+
+    <DirectionalLayout
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:below="$id:calendarType"
+        ohos:orientation="horizontal">
+
+        <Text
+            ohos:id="$+id:selectDateTabel"
+            ohos:left_margin="20fp"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:hint="$string:selectDateTabel"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="20fp"
+            ohos:layout_alignment="center">
+        </Text>
+
+        <StackLayout
+            ohos:id="$+id:dateSelector"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:selectDateTabel">
+
+            <TextField
+                ohos:id="$+id:selectDate"
+                ohos:height="match_parent"
+                ohos:width="match_parent"
+                ohos:hint="$string:selectDateHint"
+                ohos:left_padding="20vp"
+                ohos:right_padding="40vp"
+                ohos:top_padding="8vp"
+                ohos:bottom_padding="8vp"
+                ohos:background_element="$graphic:data_select_background"
+                ohos:text_size="20fp">
+            </TextField>
+
+            <Image
+                ohos:layout_alignment="vertical_center|right"
+                ohos:id="$+id:calendarIcon"
+                ohos:height="30fp"
+                ohos:width="30fp"
+                ohos:image_src="$media:calendarIcon"
+                ohos:scale_mode="clip_center"
+                ohos:right_margin="5vp">
+            </Image>
+        </StackLayout>
     </DirectionalLayout>
 </DependentLayout>

@@ -17,7 +17,7 @@ package com.tianchenxu.smallliuren;
 
 import com.tianchenxu.smallliuren.database.*;
 import com.tianchenxu.smallliuren.database.Form;
-import com.tianchenxu.smallliuren.slice.ClockCardSlice;
+import com.tianchenxu.smallliuren.slice.HostSlice;
 import com.tianchenxu.smallliuren.utils.ComponentProviderUtils;
 import com.tianchenxu.smallliuren.utils.DatabaseUtils;
 
@@ -58,7 +58,7 @@ public class MainAbility extends Ability {
                         .build();
         intentService.setOperation(operation);
         startAbility(intentService);
-        super.setMainRoute(ClockCardSlice.class.getName());
+        super.setMainRoute(HostSlice.class.getName());
     }
 
     @Override

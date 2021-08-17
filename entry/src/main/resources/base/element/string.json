@@ -15,6 +15,22 @@
     {
       "name": "dataability_description",
       "value": "hap sample empty provider"
+    },
+    {
+      "name": "solarRadioString",
+      "value": "阳历"
+    },
+    {
+      "name": "lunarRadioString",
+      "value": "阴历"
+    },
+    {
+      "name": "selectDateTabel",
+      "value": "日期："
+    },
+    {
+      "name": "selectDateHint",
+      "value": "请选择日期"
     }
   ]
 }
