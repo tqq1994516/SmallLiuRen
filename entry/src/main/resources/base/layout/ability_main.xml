@@ -586,6 +586,7 @@
                 ohos:top_padding="8vp"
                 ohos:bottom_padding="8vp"
                 ohos:background_element="$graphic:data_select_background"
+                ohos:enabled="false"
                 ohos:text_size="20fp">
             </TextField>
 

@@ -18,8 +18,11 @@ package com.tianchenxu.smallliuren.slice;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.XPopup.Builder;
 import com.lxj.xpopup.core.BasePopupView;
+import com.lxj.xpopup.core.PopupInfo;
+import com.lxj.xpopup.impl.InputConfirmPopupView;
 import com.lxj.xpopup.interfaces.OnCancelListener;
 import com.lxj.xpopup.util.ToastUtil;
+import com.tianchenxu.smallliuren.CustomPopup.DateSelector;
 import com.tianchenxu.smallliuren.database.FormDatabase;
 import com.tianchenxu.smallliuren.utils.BaseData;
 import com.tianchenxu.smallliuren.utils.ComponentUtils;
@@ -130,19 +133,12 @@ public class HostSlice extends AbilitySlice implements Component.ClickedListener
                 break;
             case ResourceTable.Id_calendarIcon:
                 if (popupView == null) {
-                    popupView = new XPopup.Builder(slice)
-                            .moveUpToKeyboard(false)
-                            .enableDrag(true)
-                            .dismissOnBackPressed(true)
-                            .dismissOnTouchOutside(true)
-                            .as( () -> {
-                                DatePicker datePicker = (DatePicker) slice.findComponentById(ResourceTable.Id_date_pick);
-                                int day = datePicker.getDayOfMonth();
-                                int month = datePicker.getMonth();
-                                int year = datePicker.getYear();
-                                TextField selectDate = (TextField) slice.findComponentById(ResourceTable.Id_selectDate);
-                                selectDate.setText(String.format("%4d-%02d-%02d", year, month, day));
-                            }, null, false, ResourceTable.Layout_date_selector_attach);
+                    popupView = new Builder(slice)
+                            .hasStatusBarShadow(true) // 启用状态栏阴影
+                            .dismissOnBackPressed(true) // 点击返回键是否消失
+                            .dismissOnTouchOutside(true) // 点击外部是否消失
+                            .asCustom(new DateSelector(slice))
+                            .show();
                 }
         }
     }

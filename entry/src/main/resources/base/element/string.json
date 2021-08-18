@@ -31,6 +31,14 @@
     {
       "name": "selectDateHint",
       "value": "请选择日期"
+    },
+    {
+      "name": "confirm",
+      "value": "确认"
+    },
+    {
+      "name": "cancel",
+      "value": "取消"
     }
   ]
 }
