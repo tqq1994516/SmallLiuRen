@@ -143,6 +143,8 @@ public class HostSlice extends AbilitySlice implements Component.ClickedListener
                         calendarIcon.setHeight(0);
                         calendarIcon.setWidth(0);
                     } else if (i == 1 && !selectDate.getText().equals("")) {
+                        calendarIcon.setHeight(0);
+                        calendarIcon.setWidth(0);
                         String solar = selectDate.getText();
                         Lunar lunar = DateUtils.getLunar(solar);
                         selectDate.setText(String.format("%4d-%02d-%02d", lunar.getYear(), lunar.getMonth(), lunar.getDay()));
@@ -151,6 +153,8 @@ public class HostSlice extends AbilitySlice implements Component.ClickedListener
                         calendarIcon.setHeight(90);
                         calendarIcon.setWidth(90);
                     } else if (i == 0 && !selectDate.getText().equals("阴历无法选择日期") && !selectDate.getText().equals("")) {
+                        calendarIcon.setHeight(90);
+                        calendarIcon.setWidth(90);
                         String lunar = selectDate.getText();
                         Lunar lunarObj = DateUtils.getLunar(lunar);
                         Solar solar = lunarObj.getSolar();
@@ -174,6 +178,8 @@ public class HostSlice extends AbilitySlice implements Component.ClickedListener
                             public void onDismiss(BasePopupView basePopupView) {
                                 super.onDismiss(basePopupView);
                                 if (oldDate.equals("")) {
+                                    selectDate.setText(dateSelector.getDate());
+                                } else if (oldDate!=dateSelector.getDate()) {
                                     selectDate.setText(dateSelector.getDate());
                                 } else {
                                     selectDate.setText(oldDate);
