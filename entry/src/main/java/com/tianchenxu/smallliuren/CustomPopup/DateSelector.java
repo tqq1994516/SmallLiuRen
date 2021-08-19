@@ -6,10 +6,21 @@ import com.tianchenxu.smallliuren.ResourceTable;
 
 import ohos.agp.components.*;
 import ohos.app.Context;
-import ohos.hiviewdfx.HiLog;
-import ohos.hiviewdfx.HiLogLabel;
 
-public class DateSelector extends BottomPopupView {
+public class DateSelector extends BottomPopupView implements Component.ClickedListener {
+    private static int year;
+    private static int month;
+    private static int day;
+    private String date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public DateSelector(Context context) {
         super(context, null);
     }
@@ -19,26 +30,11 @@ public class DateSelector extends BottomPopupView {
         return ResourceTable.Layout_date_selector;
     }
 
-
     @Override
     protected void onCreate() {
         super.onCreate();
-        Button confirm = (Button) findComponentById(ResourceTable.Id_confirm);
-        Button cancel = (Button) findComponentById(ResourceTable.Id_cancel);
-        DatePicker datePicker = (DatePicker) findComponentById(ResourceTable.Id_date_pick);
-        int year= datePicker.getYear();
-        int month = datePicker.getMonth();
-        int day = datePicker.getDayOfMonth();
-        cancel.setClickedListener(component -> {
-            HiLogLabel hiLogLabel = new HiLogLabel(0, 0, "DateSelector");
-            HiLog.info(hiLogLabel, "取消被点击");
-            toggle();
-        });
-//        confirm.setClickedListener(component -> {
-//            TextField selectedData = (TextField) findComponentById(ResourceTable.Id_selectDate);
-//            selectedData.setText(String.format("%4d-%02d-%02d", year, month, day));
-//            onDismiss();
-//        });
+        findComponentById(ResourceTable.Id_tv_confirm).setClickedListener(this);
+        findComponentById(ResourceTable.Id_tv_cancel).setClickedListener(this);
     }
 
     @Override
@@ -56,4 +52,20 @@ public class DateSelector extends BottomPopupView {
         return (int) (XPopupUtils.getAppHeight(getContext()) * .85f);
     }
 
+    @Override
+    public void onClick(Component component) {
+        switch (component.getId()) {
+            case ResourceTable.Id_tv_confirm:
+                DatePicker datePicker = (DatePicker) findComponentById(ResourceTable.Id_date_pick);
+                year= datePicker.getYear();
+                month = datePicker.getMonth();
+                day = datePicker.getDayOfMonth();
+                setDate(String.format("%4d-%02d-%02d", year, month, day));
+                smartDismiss();
+                break;
+            case ResourceTable.Id_tv_cancel:
+                smartDismiss();
+                break;
+        }
+    }
 }

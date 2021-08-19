@@ -16,10 +16,12 @@
 package com.tianchenxu.smallliuren.utils;
 
 import com.nlf.calendar.Lunar;
+import com.nlf.calendar.Solar;
 import com.tianchenxu.smallliuren.database.OldLunarHour;
 import ohos.data.orm.OrmContext;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -42,6 +44,16 @@ public class DateUtils {
         return new Lunar(calendar.getTime());
     }
 
+
+    public static Lunar getLunar(String dateString) {
+        try {
+            return new Lunar(new SimpleDateFormat("yyyy-MM-dd").parse(dateString));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static int getFlag(OrmContext connect) {
         Lunar nowLunar = new Lunar();
         Calendar instance = Calendar.getInstance();
@@ -56,4 +68,5 @@ public class DateUtils {
         }
         return flag;
     }
+
 }

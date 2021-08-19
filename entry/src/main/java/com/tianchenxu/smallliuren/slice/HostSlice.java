@@ -21,7 +21,11 @@ import com.lxj.xpopup.core.BasePopupView;
 import com.lxj.xpopup.core.PopupInfo;
 import com.lxj.xpopup.impl.InputConfirmPopupView;
 import com.lxj.xpopup.interfaces.OnCancelListener;
+import com.lxj.xpopup.interfaces.OnConfirmListener;
+import com.lxj.xpopup.interfaces.SimpleCallback;
 import com.lxj.xpopup.util.ToastUtil;
+import com.nlf.calendar.Lunar;
+import com.nlf.calendar.Solar;
 import com.tianchenxu.smallliuren.CustomPopup.DateSelector;
 import com.tianchenxu.smallliuren.database.FormDatabase;
 import com.tianchenxu.smallliuren.utils.BaseData;
@@ -37,15 +41,17 @@ import ohos.data.orm.OrmContext;
 import ohos.eventhandler.EventHandler;
 import ohos.eventhandler.EventRunner;
 import ohos.eventhandler.InnerEvent;
+import ohos.hiviewdfx.HiLog;
 import ohos.hiviewdfx.HiLogLabel;
 
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
  * Clock Card Slice
  */
-public class HostSlice extends AbilitySlice implements Component.ClickedListener{
+public class HostSlice extends AbilitySlice implements Component.ClickedListener {
     private static final HiLogLabel LABEL_LOG = new HiLogLabel(0, 0, HostSlice.class.getName());
     private static final long SEND_PERIOD = 1000L;
     private DatabaseHelper helper = new DatabaseHelper(this);
@@ -56,23 +62,21 @@ public class HostSlice extends AbilitySlice implements Component.ClickedListener
     private MyEventHandle myEventHandle;
     private AbilitySlice slice = this;
     private Timer timer;
-    BasePopupView popupView;
-    private int calendarRadioIndex = 0;
     private Runnable runnable = new Runnable() {
         private void initHandler() {
-                runner = EventRunner.getMainEventRunner();
-                if (runner == null) {
-                    return;
-                }
-                myEventHandle = new MyEventHandle(runner);
+            runner = EventRunner.getMainEventRunner();
+            if (runner == null) {
+                return;
             }
+            myEventHandle = new MyEventHandle(runner);
+        }
 
-            @Override
-            public void run() {
-                // 初始化认证对象
-                initHandler();
-            }
-        };
+        @Override
+        public void run() {
+            // 初始化认证对象
+            initHandler();
+        }
+    };
 
     @Override
     public void onStart(Intent intent) {
@@ -109,10 +113,10 @@ public class HostSlice extends AbilitySlice implements Component.ClickedListener
      */
     private void initComponent(int flag) {
         ComponentUtils.setComponentValue(slice, flag, connect);
-        slice.findComponentById(ResourceTable.Id_calendarType).setClickedListener(this);
-        slice.findComponentById(ResourceTable.Id_calendarIcon).setClickedListener(this);
+        findComponentById(ResourceTable.Id_calendarIcon).setClickedListener(this);
+        findComponentById(ResourceTable.Id_solarRadio).setClickedListener(this);
+        findComponentById(ResourceTable.Id_lunarRadio).setClickedListener(this);
     }
-
 
 
     @Override
@@ -128,18 +132,58 @@ public class HostSlice extends AbilitySlice implements Component.ClickedListener
     @Override
     public void onClick(Component component) {
         switch (component.getId()) {
-            case ResourceTable.Id_calendarType:
-                component.setComponentStateChangedListener((radioContainer1, i) -> calendarRadioIndex = i);
+            case ResourceTable.Id_solarRadio:
+            case ResourceTable.Id_lunarRadio:
+                RadioContainer container = (RadioContainer) findComponentById(ResourceTable.Id_calendarRadio);
+                container.setMarkChangedListener((radioContainer, i) -> {
+                    TextField selectDate = (TextField) findComponentById(ResourceTable.Id_selectDate);
+                    Image calendarIcon = (Image) findComponentById(ResourceTable.Id_calendarIcon);
+                    if (i == 1 && selectDate.getText().equals("")) {
+                        selectDate.setText("阴历无法选择日期");
+                        calendarIcon.setHeight(0);
+                        calendarIcon.setWidth(0);
+                    } else if (i == 1 && !selectDate.getText().equals("")) {
+                        String solar = selectDate.getText();
+                        Lunar lunar = DateUtils.getLunar(solar);
+                        selectDate.setText(String.format("%4d-%02d-%02d", lunar.getYear(), lunar.getMonth(), lunar.getDay()));
+                    } else if (i == 0 && selectDate.getText().equals("阴历无法选择日期")) {
+                        selectDate.setText("");
+                        calendarIcon.setHeight(90);
+                        calendarIcon.setWidth(90);
+                    } else if (i == 0 && !selectDate.getText().equals("阴历无法选择日期") && !selectDate.getText().equals("")) {
+                        String lunar = selectDate.getText();
+                        Lunar lunarObj = DateUtils.getLunar(lunar);
+                        Solar solar = lunarObj.getSolar();
+                        selectDate.setText(String.format("%4d-%02d-%02d", solar.getYear(), solar.getMonth(), solar.getDay()));
+                    }
+                });
                 break;
             case ResourceTable.Id_calendarIcon:
-                if (popupView == null) {
-                    popupView = new Builder(slice)
-                            .hasStatusBarShadow(true) // 启用状态栏阴影
-                            .dismissOnBackPressed(true) // 点击返回键是否消失
-                            .dismissOnTouchOutside(true) // 点击外部是否消失
-                            .asCustom(new DateSelector(slice))
-                            .show();
-                }
+                DateSelector dateSelector = new DateSelector(slice);
+                new Builder(slice)
+                        .setPopupCallback(new SimpleCallback() {
+                            final TextField selectDate = (TextField) findComponentById(ResourceTable.Id_selectDate);
+                            final String oldDate = selectDate.getText();
+
+                            @Override
+                            public void onShow(BasePopupView basePopupView) {
+                                super.onShow(basePopupView);
+                            }
+
+                            @Override
+                            public void onDismiss(BasePopupView basePopupView) {
+                                super.onDismiss(basePopupView);
+                                if (oldDate.equals("")) {
+                                    selectDate.setText(dateSelector.getDate());
+                                } else {
+                                    selectDate.setText(oldDate);
+                                }
+                            }
+                        })
+                        .isComponentMode(true, component)
+                        .asCustom(dateSelector)
+                        .show();
+                break;
         }
     }
 

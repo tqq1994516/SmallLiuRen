@@ -15,7 +15,7 @@
         ohos:bottom_margin="5fp">
 
         <Button
-            ohos:id="$+id:cancel"
+            ohos:id="$+id:tv_cancel"
             ohos:height="match_content"
             ohos:width="match_content"
             ohos:text="$string:cancel"
@@ -27,7 +27,7 @@
         </Button>
 
         <Text
-            ohos:id="$+id:modal_title"
+            ohos:id="$+id:tv_title"
             ohos:height="match_content"
             ohos:width="match_parent"
             ohos:text="$string:selectDateHint"
@@ -39,7 +39,7 @@
         </Text>
 
         <Button
-            ohos:id="$+id:confirm"
+            ohos:id="$+id:tv_confirm"
             ohos:height="match_content"
             ohos:width="match_content"
             ohos:text="$string:confirm"

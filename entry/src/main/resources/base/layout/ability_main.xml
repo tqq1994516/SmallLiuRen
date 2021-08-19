@@ -525,6 +525,7 @@
         ohos:top_margin="350fp">
 
         <RadioContainer
+            ohos:id="$+id:calendarRadio"
             ohos:height="match_content"
             ohos:width="match_parent"
             ohos:orientation="horizontal"
@@ -573,16 +574,17 @@
         <StackLayout
             ohos:id="$+id:dateSelector"
             ohos:height="match_content"
-            ohos:width="match_content"
-            ohos:right_of="$id:selectDateTabel">
+            ohos:width="match_parent"
+            ohos:right_of="$id:selectDateTabel"
+            ohos:top_margin="5fp"
+            ohos:right_margin="20fp">
 
             <TextField
                 ohos:id="$+id:selectDate"
                 ohos:height="match_parent"
                 ohos:width="match_parent"
                 ohos:hint="$string:selectDateHint"
-                ohos:left_padding="20vp"
-                ohos:right_padding="40vp"
+                ohos:left_padding="60vp"
                 ohos:top_padding="8vp"
                 ohos:bottom_padding="8vp"
                 ohos:background_element="$graphic:data_select_background"
@@ -591,13 +593,13 @@
             </TextField>
 
             <Image
-                ohos:layout_alignment="vertical_center|right"
+                ohos:layout_alignment="vertical_center|left"
                 ohos:id="$+id:calendarIcon"
                 ohos:height="30fp"
                 ohos:width="30fp"
                 ohos:image_src="$media:calendarIcon"
                 ohos:scale_mode="clip_center"
-                ohos:right_margin="5vp">
+                ohos:left_margin="20vp">
             </Image>
         </StackLayout>
     </DirectionalLayout>
