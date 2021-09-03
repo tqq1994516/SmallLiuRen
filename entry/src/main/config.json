@@ -44,24 +44,16 @@
         "formsEnabled": true,
         "forms": [
           {
-            "landscapeLayouts": [
-              "$layout:form_grid_pattern_widget_2_2",
-              "$layout:form_grid_pattern_widget_4_4"
-            ],
+            "jsComponentName": "fastAssertFa",
             "isDefault": true,
             "scheduledUpdateTime": "10:30",
             "defaultDimension": "4*4",
-            "name": "widget",
+            "name": "fastAssertFa",
             "description": "This is a service widget",
             "colorMode": "auto",
-            "type": "Java",
+            "type": "JS",
             "supportDimensions": [
-              "2*2",
               "4*4"
-            ],
-            "portraitLayouts": [
-              "$layout:form_grid_pattern_widget_2_2",
-              "$layout:form_grid_pattern_widget_4_4"
             ],
             "updateEnabled": true,
             "updateDuration": 1
@@ -78,6 +70,19 @@
           "dataTransfer",
           "location"
         ]
+      }
+    ],
+    "js": [
+      {
+        "pages": [
+          "pages/index/index"
+        ],
+        "name": "fastAssertFa",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": true
+        },
+        "type": "form"
       }
     ]
   }

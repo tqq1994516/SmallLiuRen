@@ -4,8 +4,10 @@ import com.nlf.calendar.Lunar;
 import com.tianchenxu.smallliuren.ResourceTable;
 import com.tianchenxu.smallliuren.database.*;
 import ohos.aafwk.ability.AbilitySlice;
+import ohos.agp.components.Component;
 import ohos.agp.components.Image;
 import ohos.agp.components.Text;
+import ohos.agp.components.TextField;
 import ohos.app.Context;
 import ohos.data.orm.OrmContext;
 
@@ -40,6 +42,7 @@ public class ComponentUtils {
     private static Text offendOrientationText;
     private static Text ghostsAndGodsText;
     private static Text assertText;
+    private static TextField selectDate;
 
     /**
      * Set the value of component
@@ -84,7 +87,54 @@ public class ComponentUtils {
         setTextValue(ganzhiDay, ganzhiDayText);
         setTextValue(ganzhiTime, ganzhiTimeText);
         if (flag == 1) {
-            setImageComponentValue(slice, connect, lunar);
+            setImageComponentValue(slice, connect, lunar, date);
+        }
+    }
+
+    /**
+     * Set the value of component
+     *
+     * @param flag
+     * @param connect
+     */
+    public static void setComponentValue(AbilitySlice slice, int flag, OrmContext connect, String dateString) {
+        dateText = (Text) slice.findComponentById(ResourceTable.Id_date);
+        timeText = (Text) slice.findComponentById(ResourceTable.Id_time);
+        weekText = (Text) slice.findComponentById(ResourceTable.Id_week);
+        lunarYearText = (Text) slice.findComponentById(ResourceTable.Id_lunar_year);
+        lunarMonthText = (Text) slice.findComponentById(ResourceTable.Id_lunar_month);
+        lunarDayText = (Text) slice.findComponentById(ResourceTable.Id_lunar_day);
+        solarTermsText = (Text) slice.findComponentById(ResourceTable.Id_solarTerms);
+        ganzhiYearText = (Text) slice.findComponentById(ResourceTable.Id_ganzhi_year);
+        ganzhiMonthText = (Text) slice.findComponentById(ResourceTable.Id_ganzhi_month);
+        ganzhiDayText = (Text) slice.findComponentById(ResourceTable.Id_ganzhi_day);
+        ganzhiTimeText = (Text) slice.findComponentById(ResourceTable.Id_ganzhi_time);
+        Calendar now = Calendar.getInstance();
+        Lunar lunar = DateUtils.getLunar(now);
+        String date = DateUtils.getCurrentDate(now, "yyyy-MM-dd");
+        String time = DateUtils.getCurrentDate(now, "HH:mm:ss");
+        String week = DateUtils.getCurrentDate(now, "EEEE");
+        String lunarYear = lunar.getYearInChinese();
+        String lunarMonth = lunar.getMonthInChinese() + "月";
+        String lunarDay = lunar.getDayInChinese();
+        String solarTerms = lunar.getJieQi();
+        String ganzhiYear = lunar.getYearInGanZhiByLiChun() + "年";
+        String ganzhiMonth = lunar.getMonthInGanZhiExact() + "月";
+        String ganzhiDay = lunar.getDayInGanZhiExact() + "日";
+        String ganzhiTime = lunar.getTimeInGanZhi() + "时";
+        setTextValue(date, dateText);
+        setTextValue(time, timeText);
+        setTextValue(week, weekText);
+        setTextValue(lunarYear, lunarYearText);
+        setTextValue(lunarMonth, lunarMonthText);
+        setTextValue(lunarDay, lunarDayText);
+        setTextValue(solarTerms, solarTermsText);
+        setTextValue(ganzhiYear, ganzhiYearText);
+        setTextValue(ganzhiMonth, ganzhiMonthText);
+        setTextValue(ganzhiDay, ganzhiDayText);
+        setTextValue(ganzhiTime, ganzhiTimeText);
+        if (flag == 1) {
+            setImageComponentValue(slice, connect, lunar, date);
         }
     }
 
@@ -99,7 +149,8 @@ public class ComponentUtils {
      * @param connect
      * @param lunar
      */
-    private static void setImageComponentValue(AbilitySlice slice, OrmContext connect, Lunar lunar) {
+    private static void setImageComponentValue(AbilitySlice slice, OrmContext connect, Lunar lunar, String date) {
+        selectDate = (TextField) slice.findComponentById(ResourceTable.Id_selectDate);
         aidedImage = (Image) slice.findComponentById(ResourceTable.Id_aided);
         assistantImage = (Image) slice.findComponentById(ResourceTable.Id_assistant);
         mainImage = (Image) slice.findComponentById(ResourceTable.Id_main);
@@ -115,6 +166,7 @@ public class ComponentUtils {
         int month_yinyang = Objects.requireNonNull(DatabaseUtils.queryTianganByName(lunar.getMonthGanExact(), connect)).getTianganYinyang();
         int day_yinyang = Objects.requireNonNull(DatabaseUtils.queryTianganByName(lunar.getDayGanExact(), connect)).getTianganYinyang();
         int time_yinyang = Objects.requireNonNull(DatabaseUtils.queryTianganByName(lunar.getTimeGan(), connect)).getTianganYinyang();
+        setTextValue(date, selectDate);
         ImageUtils.setImage(aidedImage, monthStepNum, slice, 1);
         ImageUtils.setImage(assistantImage, dayStepNum, slice, 1);
         ImageUtils.setImage(mainImage, timeStepNum, slice, 1);

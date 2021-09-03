@@ -24,6 +24,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Date time util
@@ -41,17 +42,31 @@ public class DateUtils {
     }
 
     public static Lunar getLunar(Calendar calendar) {
-        return new Lunar(calendar.getTime());
+        Solar solar = Solar.fromDate(calendar.getTime());
+        return solar.getLunar();
     }
 
 
     public static Lunar getLunar(String dateString) {
-        try {
-            return new Lunar(new SimpleDateFormat("yyyy-MM-dd").parse(dateString));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
+        int year = Integer.parseInt(dateString.split("-")[0]);
+        int month = Integer.parseInt(dateString.split("-")[1]);
+        int day = Integer.parseInt(dateString.split("-")[2]);
+        Solar solar = Solar.fromYmd(year, month, day);
+        return solar.getLunar();
+    }
+
+    public static Solar getSolar(Calendar calendar) {
+        Lunar lunar = Lunar.fromDate(calendar.getTime());
+        return lunar.getSolar();
+    }
+
+
+    public static Solar getSolar(String dateString) {
+        int year = Integer.parseInt(dateString.split("-")[0]);
+        int month = Integer.parseInt(dateString.split("-")[1]);
+        int day = Integer.parseInt(dateString.split("-")[2]);
+        Lunar lunar = Lunar.fromYmd(year, month, day);
+        return lunar.getSolar();
     }
 
     public static int getFlag(OrmContext connect) {

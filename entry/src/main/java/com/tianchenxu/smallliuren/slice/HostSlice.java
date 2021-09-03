@@ -15,17 +15,11 @@
 
 package com.tianchenxu.smallliuren.slice;
 
-import com.lxj.xpopup.XPopup;
+import com.nlf.calendar.Solar;
 import com.lxj.xpopup.XPopup.Builder;
 import com.lxj.xpopup.core.BasePopupView;
-import com.lxj.xpopup.core.PopupInfo;
-import com.lxj.xpopup.impl.InputConfirmPopupView;
-import com.lxj.xpopup.interfaces.OnCancelListener;
-import com.lxj.xpopup.interfaces.OnConfirmListener;
 import com.lxj.xpopup.interfaces.SimpleCallback;
-import com.lxj.xpopup.util.ToastUtil;
 import com.nlf.calendar.Lunar;
-import com.nlf.calendar.Solar;
 import com.tianchenxu.smallliuren.CustomPopup.DateSelector;
 import com.tianchenxu.smallliuren.database.FormDatabase;
 import com.tianchenxu.smallliuren.utils.BaseData;
@@ -41,10 +35,8 @@ import ohos.data.orm.OrmContext;
 import ohos.eventhandler.EventHandler;
 import ohos.eventhandler.EventRunner;
 import ohos.eventhandler.InnerEvent;
-import ohos.hiviewdfx.HiLog;
 import ohos.hiviewdfx.HiLogLabel;
 
-import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -135,29 +127,20 @@ public class HostSlice extends AbilitySlice implements Component.ClickedListener
             case ResourceTable.Id_solarRadio:
             case ResourceTable.Id_lunarRadio:
                 RadioContainer container = (RadioContainer) findComponentById(ResourceTable.Id_calendarRadio);
+                TextField selectDate = (TextField) findComponentById(ResourceTable.Id_selectDate);
                 container.setMarkChangedListener((radioContainer, i) -> {
-                    TextField selectDate = (TextField) findComponentById(ResourceTable.Id_selectDate);
                     Image calendarIcon = (Image) findComponentById(ResourceTable.Id_calendarIcon);
-                    if (i == 1 && selectDate.getText().equals("")) {
-                        selectDate.setText("阴历无法选择日期");
-                        calendarIcon.setHeight(0);
-                        calendarIcon.setWidth(0);
-                    } else if (i == 1 && !selectDate.getText().equals("")) {
+                    if (i == 1) {
                         calendarIcon.setHeight(0);
                         calendarIcon.setWidth(0);
                         String solar = selectDate.getText();
                         Lunar lunar = DateUtils.getLunar(solar);
                         selectDate.setText(String.format("%4d-%02d-%02d", lunar.getYear(), lunar.getMonth(), lunar.getDay()));
-                    } else if (i == 0 && selectDate.getText().equals("阴历无法选择日期")) {
-                        selectDate.setText("");
-                        calendarIcon.setHeight(90);
-                        calendarIcon.setWidth(90);
-                    } else if (i == 0 && !selectDate.getText().equals("阴历无法选择日期") && !selectDate.getText().equals("")) {
+                    } else if (i == 0) {
                         calendarIcon.setHeight(90);
                         calendarIcon.setWidth(90);
                         String lunar = selectDate.getText();
-                        Lunar lunarObj = DateUtils.getLunar(lunar);
-                        Solar solar = lunarObj.getSolar();
+                        Solar solar = DateUtils.getSolar(lunar);
                         selectDate.setText(String.format("%4d-%02d-%02d", solar.getYear(), solar.getMonth(), solar.getDay()));
                     }
                 });
@@ -177,13 +160,15 @@ public class HostSlice extends AbilitySlice implements Component.ClickedListener
                             @Override
                             public void onDismiss(BasePopupView basePopupView) {
                                 super.onDismiss(basePopupView);
-                                if (oldDate.equals("")) {
-                                    selectDate.setText(dateSelector.getDate());
-                                } else if (oldDate!=dateSelector.getDate()) {
-                                    selectDate.setText(dateSelector.getDate());
+                                String dateString;
+                                if (oldDate != dateSelector.getDate()) {
+                                    dateString = dateSelector.getDate();
+                                    selectDate.setText(dateString);
                                 } else {
-                                    selectDate.setText(oldDate);
+                                    dateString = oldDate;
+                                    selectDate.setText(dateString);
                                 }
+                                ComponentUtils.setComponentValue(slice, 1, connect, dateString);
                             }
                         })
                         .isComponentMode(true, component)

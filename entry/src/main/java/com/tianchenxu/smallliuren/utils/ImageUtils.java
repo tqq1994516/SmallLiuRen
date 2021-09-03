@@ -15,7 +15,7 @@ import java.io.InputStream;
 
 public class ImageUtils {
     private static final HiLogLabel LABEL_LOG = new HiLogLabel(3, 0xD001100, "Demo");
-    public static void setImage(ComponentProvider componentProvider, int stepNum, int componentId, Context context, int type) {
+    public static void setImage(ComponentProvider componentProvider, int stepNum, int componentId, int type, Context context) {
         PixelMap pixelMap = null;
         try {
             if (type==1) {
@@ -103,21 +103,21 @@ public class ImageUtils {
     public static PixelMap getPixelMapFromResource(int resourceId, Context context) {
         InputStream inputStream = null;
         ImageSource imageSource = null;
+        PixelMap pixelmap = null;
         try {
             inputStream = context.getResourceManager().getResource(resourceId);
             ImageSource.SourceOptions sourceOptions = new ImageSource.SourceOptions();
             sourceOptions.formatHint = "image/png";
             imageSource = ImageSource.create(inputStream, sourceOptions);
             ImageSource.DecodingOptions decodingOptions = new ImageSource.DecodingOptions();
-            PixelMap pixelmap = imageSource.createPixelmap(decodingOptions);
-            // 释放ImageSource对象
-            imageSource.release();
-            return pixelmap;
+            pixelmap = imageSource.createPixelmap(decodingOptions);
         } catch (IOException e) {
             HiLog.info(LABEL_LOG, "IOException");
         } catch (NotExistException e) {
             HiLog.info(LABEL_LOG, "NotExistException");
         } finally {
+            // 释放ImageSource对象
+            imageSource.release();
             if (inputStream != null) {
                 try {
                     inputStream.close();
@@ -126,6 +126,6 @@ public class ImageUtils {
                 }
             }
         }
-        return null;
+        return pixelmap;
     }
 }

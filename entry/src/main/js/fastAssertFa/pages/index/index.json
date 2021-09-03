@@ -1,0 +1,57 @@
+{
+  "data": {
+    "date": "2021-09-01",
+    "week": "星期三",
+    "time": "18:00:00",
+    "lunar_year": "二〇二一",
+    "lunar_month": "七月",
+    "lunar_day": "廿五",
+    "solarTerms": "",
+    "ganzhi_year": "辛丑年",
+    "ganzhi_month": "丙申月",
+    "ganzhi_day": "壬子日",
+    "ganzhi_time": "己酉时",
+    "deity_label": "神兽：",
+    "deity": "白虎",
+    "fiveElements_label": "五行：",
+    "fiveElements": "金",
+    "organ_label": "器官：",
+    "organ": "肺胃",
+    "magnateOrientation_label": "贵人：",
+    "magnateOrientation": "东",
+    "luckyNum_label": "谋事：",
+    "luckyNum": "4,7,10",
+    "successNum_label": "成数：",
+    "successNum": "",
+    "ominousNum_label": "忌数：",
+    "ominousNum": "3,7,9",
+    "offendOrientation_label": "冲犯：",
+    "offendOrientation": "西",
+    "ghostsAndGods_label": "神鬼：",
+    "ghostsAndGods": "小孩迷魂童子，大人金神七煞",
+    "assert_label": "断言：",
+    "assert_text": "大安加赤口，办事不顺手，失物不用找，婚姻两分手。"
+  },
+  "actions": {
+    "updateTime": {
+      "action": "updateTime",
+      "abilityName": "com.tianchenxu.smallliuren.MainAbility",
+      "params": {
+        "date": "{{date}}",
+        "week": "{{week}}",
+        "time": "{{time}}"
+      }
+    },
+    "updateLunar": {
+      "action": "updateLunar",
+      "abilityName": "com.tianchenxu.smallliuren.MainAbility",
+      "params": {
+        "lunar_year": "{{lunar_year}}",
+        "lunar_month": "{{lunar_month}}",
+        "lunar_day": "{{lunar_day}}",
+        "solarTerms": "{{solarTerms}}"
+      }
+    }
+  }
+}
+

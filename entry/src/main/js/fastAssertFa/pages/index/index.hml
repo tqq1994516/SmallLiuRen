@@ -1,0 +1,77 @@
+<div class="grid_pattern_layout">
+    <div class="normal_container">
+        <div class="time_container">
+            <div class="solar_container">
+                <div>
+                    <text class="content single_line_content"> {{ date }} </text>
+                    <text class="content single_line_content"> {{ week }} </text>
+                    <text class="content single_line_content"> {{ time }} </text>
+                </div>
+            </div>
+            <div class="lunar_container">
+                <div>
+                    <text class="content single_line_content"> {{ lunar_year }} </text>
+                    <text class="content single_line_content"> {{ lunar_month }} </text>
+                    <text class="content single_line_content"> {{ lunar_day }} </text>
+                    <text class="content single_line_content"> {{ solarTerms }} </text>
+                </div>
+            </div>
+            <div class="ganzhi_container">
+                <div>
+                    <text class="content single_line_content"> {{ ganzhi_year }} </text>
+                    <text class="content single_line_content"> {{ ganzhi_month }} </text>
+                    <text class="content single_line_content"> {{ ganzhi_day }} </text>
+                    <text class="content single_line_content"> {{ ganzhi_time }} </text>
+                </div>
+            </div>
+        </div>
+        <stack class="assert_container">
+            <image src="/common/base.png" class="base_image"></image>
+            <image src="/common/aided.png" class="aided_label"></image>
+            <image src="/common/yin.png" class="aided_flag"></image>
+            <image src="/common/daan.png" class="aided"></image>
+            <image src="/common/assistant.png" class="assistant_label"></image>
+            <image src="/common/yin.png" class="assistant_flag"></image>
+            <image src="/common/daan.png" class="assistant"></image>
+            <image src="/common/main.png" class="main_label"></image>
+            <image src="/common/yin.png" class="main_flag"></image>
+            <image src="/common/daan.png" class="main"></image>
+        </stack>
+        <div class="detail_container">
+            <div class="line_container">
+                <div>
+                    <text class="content single_line_content"> {{ deity_label }} </text>
+                    <text class="content single_line_content"> {{ deity }} </text>
+                    <text class="content single_line_content"> {{ fiveElements_label }} </text>
+                    <text class="content single_line_content"> {{ fiveElements }} </text>
+                    <text class="content single_line_content"> {{ organ_label }} </text>
+                    <text class="content single_line_content"> {{ organ }} </text>
+                    <text class="content single_line_content"> {{ magnateOrientation_label }} </text>
+                    <text class="content single_line_content"> {{ magnateOrientation }} </text>
+                </div>
+            </div>
+            <div class="line_container">
+                <div>
+                    <text class="content single_line_content"> {{ luckyNum_label }} </text>
+                    <text class="content single_line_content"> {{ luckyNum }} </text>
+                    <text class="content single_line_content"> {{ successNum_label }} </text>
+                    <text class="content single_line_content"> {{ successNum }} </text>
+                    <text class="content single_line_content"> {{ ominousNum_label }} </text>
+                    <text class="content single_line_content"> {{ ominousNum }} </text>
+                    <text class="content single_line_content"> {{ offendOrientation_label }} </text>
+                    <text class="content single_line_content"> {{ offendOrientation }} </text>
+                </div>
+            </div>
+            <div class="long_line_container">
+                <div>
+                    <text class="content single_line_content w1"> {{ ghostsAndGods_label }} </text>
+                    <text class="content single_line_content w7"> {{ ghostsAndGods }} </text>
+                </div>
+            </div>
+            <div class="multi_line_container">
+                    <text class="content w1 multi_line_content"> {{ assert_label }} </text>
+                    <text class="content w7 multi_line_content"> {{ assert_text }} </text>
+            </div>
+        </div>
+    </div>
+</div>

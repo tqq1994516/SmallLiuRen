@@ -21,6 +21,7 @@ import com.tianchenxu.smallliuren.slice.HostSlice;
 import com.tianchenxu.smallliuren.utils.ComponentProviderUtils;
 import com.tianchenxu.smallliuren.utils.DatabaseUtils;
 
+import com.tianchenxu.smallliuren.utils.DateUtils;
 import ohos.aafwk.ability.Ability;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.ability.FormException;
@@ -30,21 +31,24 @@ import ohos.aafwk.content.Operation;
 import ohos.agp.components.ComponentProvider;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
+import ohos.data.orm.OrmPredicates;
 import ohos.hiviewdfx.HiLog;
 import ohos.hiviewdfx.HiLogLabel;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Card Main Ability
  */
 public class MainAbility extends Ability {
     private static final HiLogLabel LABEL_LOG = new HiLogLabel(0, 0, "com.huawei.cookbooks.MainAbility");
-    private static final int DEFAULT_DIMENSION_2X2 = 2;
     private static final int DEFAULT_DIMENSION_4X4 = 4;
     private static final String EMPTY_STRING = "";
-    private static final int INVALID_FORM_ID = -1;
+    private static final int INVALID_FORM_ID = 0;
     private static final String DATABASE_NAME = "FormDatabase.db";
     private static final String DATABASE_NAME_ALIAS = "FormDatabase";
-    private DatabaseHelper databaseHelper = new DatabaseHelper(this);
+    private final DatabaseHelper databaseHelper = new DatabaseHelper(this);
     private OrmContext connect;
 
     @Override
@@ -70,7 +74,7 @@ public class MainAbility extends Ability {
             return new ProviderFormInfo();
         }
         // 获取卡片id
-        long formId = INVALID_FORM_ID;
+        long formId;
         if (intent.hasParameter(AbilitySlice.PARAM_FORM_IDENTITY_KEY)) {
             formId = intent.getLongParam(AbilitySlice.PARAM_FORM_IDENTITY_KEY, INVALID_FORM_ID);
         } else {
@@ -84,25 +88,22 @@ public class MainAbility extends Ability {
         // 获取卡片规格
         int dimension = DEFAULT_DIMENSION_4X4;
         if (intent.hasParameter(AbilitySlice.PARAM_FORM_DIMENSION_KEY)) {
-            dimension = intent.getIntParam(AbilitySlice.PARAM_FORM_DIMENSION_KEY, DEFAULT_DIMENSION_2X2);
+            dimension = intent.getIntParam(AbilitySlice.PARAM_FORM_DIMENSION_KEY, DEFAULT_DIMENSION_4X4);
         }
         int layoutId = ResourceTable.Layout_form_grid_pattern_widget_4_4;
-        if (dimension == DEFAULT_DIMENSION_2X2) {
-            layoutId = ResourceTable.Layout_form_grid_pattern_widget_2_2;
-        }
         ProviderFormInfo formInfo = new ProviderFormInfo(layoutId, this);
         // 存储卡片信息
         Form form = new Form(formId, formName, dimension);
         if (connect == null) {
             connect = databaseHelper.getOrmContext(DATABASE_NAME_ALIAS, DATABASE_NAME, FormDatabase.class);
         }
-        DatabaseUtils.insertForm(form, connect);
-        ComponentProvider componentProvider = ComponentProviderUtils.getComponentProvider(form, this, 1, connect);
+        ComponentProvider componentProvider = ComponentProviderUtils.getComponentProvider(connect, layoutId, this);
+        componentProvider.applyAction(componentProvider.getAllComponents());
+        formInfo.mergeActions(componentProvider);
         try {
-            updateForm(formId, componentProvider);
-        } catch (FormException e) {
-            DatabaseUtils.deleteFormData(formId, connect);
-            HiLog.error(LABEL_LOG, "onUpdateForm updateForm error");
+            DatabaseUtils.insertForm(form, connect);
+        } catch (Exception e) {
+            DatabaseUtils.deleteFormData(form.getFormId(), connect);
         }
         return formInfo;
     }

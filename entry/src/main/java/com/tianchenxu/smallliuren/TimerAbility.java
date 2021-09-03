@@ -21,6 +21,7 @@ import ohos.aafwk.ability.Ability;
 import ohos.aafwk.ability.FormException;
 import ohos.aafwk.content.Intent;
 import ohos.agp.components.ComponentProvider;
+import ohos.app.Context;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
 import ohos.data.orm.OrmPredicates;
@@ -43,10 +44,11 @@ public class TimerAbility extends Ability {
     private static final HiLogLabel LABEL_LOG = new HiLogLabel(3, 0xD001100, "Demo");
     private static final long SEND_PERIOD = 1000L;
     private static final int NOTICE_ID = 1005;
-    private DatabaseHelper helper = new DatabaseHelper(this);
+    private final DatabaseHelper helper = new DatabaseHelper(this);
     private static final String DATABASE_NAME = "FormDatabase.db";
     private static final String DATABASE_NAME_ALIAS = "FormDatabase";
     private OrmContext connect;
+
 
     @Override
     public void onStart(Intent intent) {
@@ -99,7 +101,8 @@ public class TimerAbility extends Ability {
         }
         for (Form form : formList) {
             // 遍历卡片列表更新卡片
-            ComponentProvider componentProvider = ComponentProviderUtils.getComponentProvider(form, this, flag, connect);
+            ComponentProvider componentProvider = ComponentProviderUtils.getComponentProvider(flag, connect, this);
+            componentProvider.applyAction(componentProvider.getAllComponents());
             try {
                 Long updateFormId = form.getFormId();
                 updateForm(updateFormId, componentProvider);
