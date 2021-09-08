@@ -19,18 +19,13 @@ import com.nlf.calendar.Lunar;
 import com.tianchenxu.smallliuren.ResourceTable;
 import com.tianchenxu.smallliuren.database.*;
 
-import ohos.aafwk.ability.AbilitySlice;
 import ohos.agp.components.ComponentProvider;
 import ohos.app.Context;
 import ohos.data.orm.OrmContext;
-import ohos.global.resource.NotExistException;
-import ohos.hiviewdfx.HiLog;
+import ohos.data.orm.OrmObject;
 import ohos.hiviewdfx.HiLogLabel;
-import ohos.media.image.ImageSource;
-import ohos.media.image.PixelMap;
+import ohos.utils.zson.ZSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -39,6 +34,12 @@ import java.util.Objects;
  */
 public class ComponentProviderUtils {
     private static final HiLogLabel LABEL_LOG = new HiLogLabel(3, 0xD001100, "Demo");
+
+    public static ZSONObject getZSONObject(OrmObject connect, int layoutId, Context context) {
+        ZSONObject result = new ZSONObject();
+        setZSONObject(result);
+    }
+
 
     /**
      * Obtains the ComponentProvider object
@@ -67,6 +68,45 @@ public class ComponentProviderUtils {
         return componentProvider;
     }
 
+    public static void setZSONObject(ZSONObject zsonObject, int flag) {
+        Calendar now = Calendar.getInstance();
+        Lunar lunar = DateUtils.getLunar(now);
+        zsonObject.put("date", DateUtils.getCurrentDate(now, "yyyy-MM-dd"));
+        zsonObject.put("time", DateUtils.getCurrentDate(now, "HH:mm:ss"));
+        zsonObject.put("week", DateUtils.getCurrentDate(now, "EEEE"));
+        zsonObject.put("lunar_year", lunar.getYearInChinese());
+        zsonObject.put("lunar_month", lunar.getMonthInChinese() + "月");
+        zsonObject.put("lunar_day", lunar.getDayInChinese());
+        zsonObject.put("solarTerms", lunar.getJieQi());
+        zsonObject.put("ganzhi_year", lunar.getYearInGanZhiByLiChun() + "年");
+        zsonObject.put("ganzhi_month", lunar.getMonthInGanZhiExact() + "月");
+        zsonObject.put("ganzhi_day", lunar.getDayInGanZhiExact() + "日");
+        zsonObject.put("ganzhi_time", lunar.getTimeInGanZhi() + "时");
+        if (flag == 1) {
+            setImageValue(zsonObject, connect, lunar, context);
+        }
+    }
+
+    private static void setImageValue(ZSONObject zsonObject, OrmContext connect, Lunar lunar, Context context) {
+        int lunarMonthNum = lunar.getMonth();
+        int lunarDayNum = lunar.getDay();
+        int lunarTimeNum = Objects.requireNonNull(DatabaseUtils.queryDizhiByName(lunar.getTimeZhi(), connect)).getDizhiNum();
+        int monthStepNum = lunarMonthNum % 6;
+        int dayStepNum = (lunarDayNum + monthStepNum - 1) % 6;
+        int timeStepNum = (lunarTimeNum + dayStepNum - 1) % 6;
+        int month_yinyang = Objects.requireNonNull(DatabaseUtils.queryTianganByName(lunar.getMonthGanExact(), connect)).getTianganYinyang();
+        int day_yinyang = Objects.requireNonNull(DatabaseUtils.queryTianganByName(lunar.getDayGanExact(), connect)).getTianganYinyang();
+        int time_yinyang = Objects.requireNonNull(DatabaseUtils.queryTianganByName(lunar.getTimeGan(), connect)).getTianganYinyang();
+
+        setDetailText(componentProvider, timeStepNum, dayStepNum, connect);
+        ImageUtils.setImage(componentProvider, monthStepNum, ResourceTable.Id_aided, 1, context);
+        ImageUtils.setImage(componentProvider, dayStepNum, ResourceTable.Id_assistant, 1, context);
+        ImageUtils.setImage(componentProvider, timeStepNum, ResourceTable.Id_main, 1, context);
+        ImageUtils.setImage(componentProvider, month_yinyang, ResourceTable.Id_aided_flag, 2, context);
+        ImageUtils.setImage(componentProvider, day_yinyang, ResourceTable.Id_assistant_flag, 2, context);
+        ImageUtils.setImage(componentProvider, time_yinyang, ResourceTable.Id_main_flag, 2, context);
+    }
+
     /**
      * Set the value of componentProvider
      *
@@ -92,6 +132,7 @@ public class ComponentProviderUtils {
             setImageComponentProviderValue(componentProvider, connect, lunar, context);
         }
     }
+
 
     /**
      * Set the value of componentProvider
@@ -136,4 +177,6 @@ public class ComponentProviderUtils {
         componentProvider.setText(ResourceTable.Id_ghostsAndGods, attribute.getGhostsAndGods());
         componentProvider.setText(ResourceTable.Id_assertText, anAssert.getAssertText());
     }
+
+
 }

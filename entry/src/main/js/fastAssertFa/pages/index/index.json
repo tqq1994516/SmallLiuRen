@@ -30,28 +30,17 @@
     "ghostsAndGods_label": "神鬼：",
     "ghostsAndGods": "小孩迷魂童子，大人金神七煞",
     "assert_label": "断言：",
-    "assert_text": "大安加赤口，办事不顺手，失物不用找，婚姻两分手。"
-  },
-  "actions": {
-    "updateTime": {
-      "action": "updateTime",
-      "abilityName": "com.tianchenxu.smallliuren.MainAbility",
-      "params": {
-        "date": "{{date}}",
-        "week": "{{week}}",
-        "time": "{{time}}"
-      }
-    },
-    "updateLunar": {
-      "action": "updateLunar",
-      "abilityName": "com.tianchenxu.smallliuren.MainAbility",
-      "params": {
-        "lunar_year": "{{lunar_year}}",
-        "lunar_month": "{{lunar_month}}",
-        "lunar_day": "{{lunar_day}}",
-        "solarTerms": "{{solarTerms}}"
-      }
-    }
+    "assert_text": "大安加赤口，办事不顺手，失物不用找，婚姻两分手。",
+    "base": "this.$r('app.media.base')",
+    "aided_label": "this.$r('app.media.aided')",
+    "aided_flag": "this.$r('app.media.yin')",
+    "aided": "this.$r('app.media.daan')",
+    "assistant_label": "this.$r('app.media.assistant')",
+    "assistant_flag": "this.$r('app.media.yin')",
+    "assistant": "this.$r('app.media.daan')",
+    "main_label": "this.$r('app.media.main')",
+    "main_flag": "this.$r('app.media.yin')",
+    "main": "this.$r('app.media.daan')"
   }
 }
 

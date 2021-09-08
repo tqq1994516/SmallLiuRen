@@ -27,6 +27,7 @@ import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.ability.FormException;
 import ohos.aafwk.ability.ProviderFormInfo;
 import ohos.aafwk.content.Intent;
+import ohos.aafwk.content.IntentParams;
 import ohos.aafwk.content.Operation;
 import ohos.agp.components.ComponentProvider;
 import ohos.data.DatabaseHelper;
@@ -45,7 +46,7 @@ public class MainAbility extends Ability {
     private static final HiLogLabel LABEL_LOG = new HiLogLabel(0, 0, "com.huawei.cookbooks.MainAbility");
     private static final int DEFAULT_DIMENSION_4X4 = 4;
     private static final String EMPTY_STRING = "";
-    private static final int INVALID_FORM_ID = 0;
+    private static final int INVALID_FORM_ID = -1;
     private static final String DATABASE_NAME = "FormDatabase.db";
     private static final String DATABASE_NAME_ALIAS = "FormDatabase";
     private final DatabaseHelper databaseHelper = new DatabaseHelper(this);
@@ -70,11 +71,12 @@ public class MainAbility extends Ability {
 
     @Override
     protected ProviderFormInfo onCreateForm(Intent intent) {
+        ProviderFormInfo providerFormInfo = new ProviderFormInfo();
         if (intent == null) {
-            return new ProviderFormInfo();
+            return providerFormInfo;
         }
         // 获取卡片id
-        long formId;
+        long formId = INVALID_FORM_ID;
         if (intent.hasParameter(AbilitySlice.PARAM_FORM_IDENTITY_KEY)) {
             formId = intent.getLongParam(AbilitySlice.PARAM_FORM_IDENTITY_KEY, INVALID_FORM_ID);
         } else {
@@ -90,22 +92,18 @@ public class MainAbility extends Ability {
         if (intent.hasParameter(AbilitySlice.PARAM_FORM_DIMENSION_KEY)) {
             dimension = intent.getIntParam(AbilitySlice.PARAM_FORM_DIMENSION_KEY, DEFAULT_DIMENSION_4X4);
         }
-        int layoutId = ResourceTable.Layout_form_grid_pattern_widget_4_4;
-        ProviderFormInfo formInfo = new ProviderFormInfo(layoutId, this);
         // 存储卡片信息
         Form form = new Form(formId, formName, dimension);
         if (connect == null) {
             connect = databaseHelper.getOrmContext(DATABASE_NAME_ALIAS, DATABASE_NAME, FormDatabase.class);
         }
-        ComponentProvider componentProvider = ComponentProviderUtils.getComponentProvider(connect, layoutId, this);
-        componentProvider.applyAction(componentProvider.getAllComponents());
-        formInfo.mergeActions(componentProvider);
+
         try {
             DatabaseUtils.insertForm(form, connect);
         } catch (Exception e) {
             DatabaseUtils.deleteFormData(form.getFormId(), connect);
         }
-        return formInfo;
+        return providerFormInfo;
     }
 
     @Override

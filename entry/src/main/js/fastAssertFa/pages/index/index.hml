@@ -26,16 +26,16 @@
             </div>
         </div>
         <stack class="assert_container">
-            <image src="/common/base.png" class="base_image"></image>
-            <image src="/common/aided.png" class="aided_label"></image>
-            <image src="/common/yin.png" class="aided_flag"></image>
-            <image src="/common/daan.png" class="aided"></image>
-            <image src="/common/assistant.png" class="assistant_label"></image>
-            <image src="/common/yin.png" class="assistant_flag"></image>
-            <image src="/common/daan.png" class="assistant"></image>
-            <image src="/common/main.png" class="main_label"></image>
-            <image src="/common/yin.png" class="main_flag"></image>
-            <image src="/common/daan.png" class="main"></image>
+            <image src="{{ base }}" class="base_image"></image>
+            <image src="{{ aided_label }}" class="aided_label"></image>
+            <image src="{{ aided_flag }}" class="aided_flag"></image>
+            <image src="{{ aided }}" class="aided"></image>
+            <image src="{{ assistant_label }}" class="assistant_label"></image>
+            <image src="{{ assistant_flag }}" class="assistant_flag"></image>
+            <image src="{{ assistant }}" class="assistant"></image>
+            <image src="{{ main_label }}" class="main_label"></image>
+            <image src="{{ main_flag }}" class="main_flag"></image>
+            <image src="{{ main }}" class="main"></image>
         </stack>
         <div class="detail_container">
             <div class="line_container">
@@ -69,8 +69,8 @@
                 </div>
             </div>
             <div class="multi_line_container">
-                    <text class="content w1 multi_line_content"> {{ assert_label }} </text>
-                    <text class="content w7 multi_line_content"> {{ assert_text }} </text>
+                <text class="content w1 multi_line_content"> {{ assert_label }} </text>
+                <text class="content w7 multi_line_content"> {{ assert_text }} </text>
             </div>
         </div>
     </div>
