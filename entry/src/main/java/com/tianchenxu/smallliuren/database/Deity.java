@@ -9,6 +9,7 @@ public class Deity extends OrmObject {
     @PrimaryKey(autoGenerate = true)
     private Integer deityId;
     private String deityName;
+    private String presentation;
 
     public Integer getDeityId() {
         return deityId;
@@ -22,6 +23,14 @@ public class Deity extends OrmObject {
         return deityName;
     }
 
+    public String getPresentation() {
+        return presentation;
+    }
+
+    public void setPresentation(String presentation) {
+        this.presentation = presentation;
+    }
+
     public void setDeityName(String deityName) {
         this.deityName = deityName;
     }
@@ -29,8 +38,9 @@ public class Deity extends OrmObject {
     public Deity() {
     }
 
-    public Deity(Integer deityId, String deityName) {
+    public Deity(Integer deityId, String deityName, String presentation) {
         this.deityId = deityId;
         this.deityName = deityName;
+        this.presentation = presentation;
     }
 }

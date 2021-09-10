@@ -8,9 +8,6 @@ import ohos.agp.components.*;
 import ohos.app.Context;
 
 public class DateSelector extends BottomPopupView implements Component.ClickedListener {
-    private static int year;
-    private static int month;
-    private static int day;
     private String date;
 
     public String getDate() {
@@ -57,9 +54,9 @@ public class DateSelector extends BottomPopupView implements Component.ClickedLi
         switch (component.getId()) {
             case ResourceTable.Id_tv_confirm:
                 DatePicker datePicker = (DatePicker) findComponentById(ResourceTable.Id_date_pick);
-                year= datePicker.getYear();
-                month = datePicker.getMonth();
-                day = datePicker.getDayOfMonth();
+                int year = datePicker.getYear();
+                int month = datePicker.getMonth();
+                int day = datePicker.getDayOfMonth();
                 setDate(String.format("%4d-%02d-%02d", year, month, day));
                 smartDismiss();
                 break;

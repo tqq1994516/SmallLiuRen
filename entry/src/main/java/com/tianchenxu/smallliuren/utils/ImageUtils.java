@@ -9,51 +9,46 @@ import ohos.hiviewdfx.HiLog;
 import ohos.hiviewdfx.HiLogLabel;
 import ohos.media.image.ImageSource;
 import ohos.media.image.PixelMap;
+import ohos.utils.zson.ZSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 public class ImageUtils {
     private static final HiLogLabel LABEL_LOG = new HiLogLabel(3, 0xD001100, "Demo");
-    public static void setImage(ComponentProvider componentProvider, int stepNum, int componentId, int type, Context context) {
-        PixelMap pixelMap = null;
-        try {
-            if (type==1) {
-                switch (stepNum) {
-                    case 0:
-                        pixelMap = getPixelMapFromResource(ResourceTable.Media_kongwang, context);
-                        break;
-                    case 1:
-                        pixelMap = getPixelMapFromResource(ResourceTable.Media_daan, context);
-                        break;
-                    case 2:
-                        pixelMap = getPixelMapFromResource(ResourceTable.Media_liulian, context);
-                        break;
-                    case 3:
-                        pixelMap = getPixelMapFromResource(ResourceTable.Media_suxi, context);
-                        break;
-                    case 4:
-                        pixelMap = getPixelMapFromResource(ResourceTable.Media_chikou, context);
-                        break;
-                    case 5:
-                        pixelMap = getPixelMapFromResource(ResourceTable.Media_xiaoji, context);
-                        break;
-                }
-            } else if (type == 2) {
-                switch (stepNum) {
-                    case 1:
-                        pixelMap = getPixelMapFromResource(ResourceTable.Media_yang, context);
-                        break;
-                    case 2:
-                        pixelMap = getPixelMapFromResource(ResourceTable.Media_yin, context);
-                        break;
-                }
+
+
+    public static void setImage(ZSONObject zsonObject, int stepNum, String componentId, int type) {
+        if (type==1) {
+            switch (stepNum) {
+                case 0:
+                    zsonObject.put(componentId, "/common/kongwang.png");
+                    break;
+                case 1:
+                    zsonObject.put(componentId, "/common/daan.png");
+                    break;
+                case 2:
+                    zsonObject.put(componentId, "/common/liulian.png");
+                    break;
+                case 3:
+                    zsonObject.put(componentId, "/common/suxi.png");
+                    break;
+                case 4:
+                    zsonObject.put(componentId, "/common/chikou.png");
+                    break;
+                case 5:
+                    zsonObject.put(componentId, "/common/xiaoji.png");
+                    break;
             }
-            componentProvider.setImagePixelMap(componentId, pixelMap);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            pixelMap.release();
+        } else if (type == 2) {
+            switch (stepNum) {
+                case 1:
+                    zsonObject.put(componentId, "/common/yang.png");
+                    break;
+                case 2:
+                    zsonObject.put(componentId, "/common/yin.png");
+                    break;
+            }
         }
     }
 

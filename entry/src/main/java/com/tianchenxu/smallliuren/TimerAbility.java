@@ -15,22 +15,22 @@
 
 package com.tianchenxu.smallliuren;
 
-import com.nlf.calendar.Lunar;
 import com.tianchenxu.smallliuren.database.*;
 import ohos.aafwk.ability.Ability;
+import ohos.aafwk.ability.FormBindingData;
 import ohos.aafwk.ability.FormException;
 import ohos.aafwk.content.Intent;
 import ohos.agp.components.ComponentProvider;
-import ohos.app.Context;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
 import ohos.data.orm.OrmPredicates;
 import ohos.event.notification.NotificationRequest;
 import ohos.hiviewdfx.HiLog;
 import ohos.hiviewdfx.HiLogLabel;
-import com.tianchenxu.smallliuren.utils.ComponentProviderUtils;
+import com.tianchenxu.smallliuren.utils.ZSONObjectUtils;
 import com.tianchenxu.smallliuren.utils.DatabaseUtils;
 import com.tianchenxu.smallliuren.utils.DateUtils;
+import ohos.utils.zson.ZSONObject;
 
 import java.util.Calendar;
 import java.util.List;
@@ -101,11 +101,11 @@ public class TimerAbility extends Ability {
         }
         for (Form form : formList) {
             // 遍历卡片列表更新卡片
-            ComponentProvider componentProvider = ComponentProviderUtils.getComponentProvider(flag, connect, this);
-            componentProvider.applyAction(componentProvider.getAllComponents());
+            ZSONObject zsonObject = ZSONObjectUtils.getZSONObject(connect, flag);
+            FormBindingData formBindingData = new FormBindingData(zsonObject);
             try {
                 Long updateFormId = form.getFormId();
-                updateForm(updateFormId, componentProvider);
+                updateForm(updateFormId, formBindingData);
             } catch (FormException e) {
                 // 删除不存在的卡片
                 DatabaseUtils.deleteFormData(form.getFormId(), connect);

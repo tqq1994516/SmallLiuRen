@@ -1,4 +1,4 @@
-<div class="grid_pattern_layout">
+<div class="grid_pattern_layout" on:click="routerEventName" >
     <div class="normal_container">
         <div class="time_container">
             <div class="solar_container">
@@ -44,8 +44,8 @@
                     <text class="content single_line_content"> {{ deity }} </text>
                     <text class="content single_line_content"> {{ fiveElements_label }} </text>
                     <text class="content single_line_content"> {{ fiveElements }} </text>
-                    <text class="content single_line_content"> {{ organ_label }} </text>
-                    <text class="content single_line_content"> {{ organ }} </text>
+                    <text class="content single_line_content"> {{ dominantAffair_label }} </text>
+                    <text class="content single_line_content"> {{ dominantAffair }} </text>
                     <text class="content single_line_content"> {{ magnateOrientation_label }} </text>
                     <text class="content single_line_content"> {{ magnateOrientation }} </text>
                 </div>
@@ -54,18 +54,20 @@
                 <div>
                     <text class="content single_line_content"> {{ luckyNum_label }} </text>
                     <text class="content single_line_content"> {{ luckyNum }} </text>
-                    <text class="content single_line_content"> {{ successNum_label }} </text>
-                    <text class="content single_line_content"> {{ successNum }} </text>
-                    <text class="content single_line_content"> {{ ominousNum_label }} </text>
-                    <text class="content single_line_content"> {{ ominousNum }} </text>
+                    <text class="content single_line_content"> {{ dominantAffair_label }} </text>
+                    <text class="content single_line_content"> {{ dominantAffair }} </text>
+                    <text class="content single_line_content"> {{ recessiveAffair_label }} </text>
+                    <text class="content single_line_content"> {{ recessiveAffair }} </text>
                     <text class="content single_line_content"> {{ offendOrientation_label }} </text>
                     <text class="content single_line_content"> {{ offendOrientation }} </text>
                 </div>
             </div>
             <div class="long_line_container">
                 <div>
+                    <text class="content single_line_content w1"> {{ organ_label }} </text>
+                    <text class="content single_line_content w1"> {{ organ }} </text>
                     <text class="content single_line_content w1"> {{ ghostsAndGods_label }} </text>
-                    <text class="content single_line_content w7"> {{ ghostsAndGods }} </text>
+                    <text class="content single_line_content w5"> {{ ghostsAndGods }} </text>
                 </div>
             </div>
             <div class="multi_line_container">

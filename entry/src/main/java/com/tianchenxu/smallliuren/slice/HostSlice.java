@@ -108,6 +108,7 @@ public class HostSlice extends AbilitySlice implements Component.ClickedListener
         findComponentById(ResourceTable.Id_calendarIcon).setClickedListener(this);
         findComponentById(ResourceTable.Id_solarRadio).setClickedListener(this);
         findComponentById(ResourceTable.Id_lunarRadio).setClickedListener(this);
+        findComponentById(ResourceTable.Id_refresh).setClickedListener(this);
     }
 
 
@@ -168,12 +169,18 @@ public class HostSlice extends AbilitySlice implements Component.ClickedListener
                                     dateString = oldDate;
                                     selectDate.setText(dateString);
                                 }
+                                timer.cancel();
                                 ComponentUtils.setComponentValue(slice, 1, connect, dateString);
                             }
                         })
                         .isComponentMode(true, component)
                         .asCustom(dateSelector)
                         .show();
+                break;
+            case ResourceTable.Id_refresh:
+                timer.cancel();
+                initComponent(1);
+                startTimer();
                 break;
         }
     }

@@ -9,7 +9,7 @@
 .normal_container {
     display: flex;
     flex-direction: column;
-    padding: 5%;
+    padding: 1%;
 }
 
 .time_container {
@@ -32,7 +32,8 @@
 }
 
 .content {
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: bold;
     font-family: sans-serif-medium;
     text-overflow: ellipsis;
     flex-weight: 1;

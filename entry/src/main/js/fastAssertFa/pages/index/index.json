@@ -19,12 +19,12 @@
     "organ": "肺胃",
     "magnateOrientation_label": "贵人：",
     "magnateOrientation": "东",
-    "luckyNum_label": "谋事：",
-    "luckyNum": "4,7,10",
-    "successNum_label": "成数：",
-    "successNum": "",
-    "ominousNum_label": "忌数：",
-    "ominousNum": "3,7,9",
+    "luckyNum_label": "排数：",
+    "luckyNum": "1,2,4",
+    "dominantAffair_label": "显宫：",
+    "dominantAffair": "疾厄宫",
+    "recessiveAffair_label": "藏宫：",
+    "recessiveAffair": "兄弟宫",
     "offendOrientation_label": "冲犯：",
     "offendOrientation": "西",
     "ghostsAndGods_label": "神鬼：",
@@ -41,6 +41,12 @@
     "main_label": "this.$r('app.media.main')",
     "main_flag": "this.$r('app.media.yin')",
     "main": "this.$r('app.media.daan')"
+  },
+  "actions": {
+    "routerEventName": {
+      "action": "router",
+      "abilityName": "com.tianchenxu.smallliuren.MainAbility"
+    }
   }
 }
 

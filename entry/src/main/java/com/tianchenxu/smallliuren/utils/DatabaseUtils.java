@@ -79,7 +79,7 @@ public class DatabaseUtils {
      * @param tiangan object
      * @param connect data connection
      */
-    public static void updateTiangan(Long tianganId, Tiangan tiangan, OrmContext connect) {
+    public static void updateTiangan(Integer tianganId, Tiangan tiangan, OrmContext connect) {
         tiangan.setTianganId(tianganId);
         connect.update(tiangan);
         connect.flush();
@@ -652,6 +652,104 @@ public class DatabaseUtils {
         OrmPredicates where = connect.where(OldLunarHour.class);
         where.equalTo("oldLunarHourId", oldLunarHourId);
         List<OldLunarHour> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * add relation info
+     *
+     * @param relation object
+     * @param connect data connection
+     */
+    public static void insertRelation(Relation relation, OrmContext connect) {
+        OrmPredicates where = connect.where(Relation.class);
+        where.equalTo("relationName", relation.getRelationName());
+        List<Relation> query = connect.query(where);
+        if (!query.isEmpty()) {
+            Relation result = query.get(0);
+            updateRelation(result.getRelationId(), relation, connect);
+        } else {
+            connect.insert(relation);
+            connect.flush();
+        }
+    }
+
+    /**
+     * update relation info
+     *
+     * @param relationId relation id
+     * @param relation object
+     * @param connect data connection
+     */
+    public static void updateRelation(Integer relationId, Relation relation, OrmContext connect) {
+        relation.setRelationId(relationId);
+        connect.update(relation);
+        connect.flush();
+    }
+
+    /**
+     * query relation object
+     *
+     * @param relationName relation name
+     * @param connect OrmContext
+     * @return Relation object
+     */
+    public static Relation queryRelationByName(String relationName, OrmContext connect) {
+        OrmPredicates where = connect.where(Relation.class);
+        where.equalTo("relationName", relationName);
+        List<Relation> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * add affair info
+     *
+     * @param affair object
+     * @param connect data connection
+     */
+    public static void insertAffair(Affair affair, OrmContext connect) {
+        OrmPredicates where = connect.where(Affair.class);
+        where.equalTo("affairName", affair.getAffairName());
+        List<Affair> query = connect.query(where);
+        if (!query.isEmpty()) {
+            Affair result = query.get(0);
+            updateAffair(result.getAffairId(), affair, connect);
+        } else {
+            connect.insert(affair);
+            connect.flush();
+        }
+    }
+
+    /**
+     * update affair info
+     *
+     * @param affairId affair id
+     * @param affair object
+     * @param connect data connection
+     */
+    public static void updateAffair(Integer affairId, Affair affair, OrmContext connect) {
+        affair.setAffairId(affairId);
+        connect.update(affair);
+        connect.flush();
+    }
+
+    /**
+     * query affair object
+     *
+     * @param affairName affair name
+     * @param connect OrmContext
+     * @return Affair object
+     */
+    public static Affair queryAffairByName(String affairName, OrmContext connect) {
+        OrmPredicates where = connect.where(Affair.class);
+        where.equalTo("affairName", affairName);
+        List<Affair> query = connect.query(where);
         if (!query.isEmpty()) {
             return query.get(0);
         }

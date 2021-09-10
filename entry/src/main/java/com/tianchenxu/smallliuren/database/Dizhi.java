@@ -1,11 +1,11 @@
 package com.tianchenxu.smallliuren.database;
 
 import ohos.data.orm.OrmObject;
-import ohos.data.orm.annotation.Entity;
-import ohos.data.orm.annotation.Index;
-import ohos.data.orm.annotation.PrimaryKey;
+import ohos.data.orm.annotation.*;
 
-@Entity(tableName = "dizhi", indices = {@Index(value = {"dizhiName"}, name = "dizhiName_index", unique = true)})
+@Entity(tableName = "dizhi", indices = {@Index(value = {"dizhiName"}, name = "dizhiName_index", unique = true)},
+        foreignKeys = { @ForeignKey(name = "f_fiveElements", parentEntity = FiveElements.class, parentColumns = {"fiveElementsId"}, childColumns = {"fiveElements"})
+})
 public class Dizhi extends OrmObject {
     @PrimaryKey(autoGenerate = true)
     private Long dizhiId;
@@ -15,6 +15,17 @@ public class Dizhi extends OrmObject {
 
     public Long getDizhiId() {
         return dizhiId;
+    }
+
+    @Column(name = "fiveElements")
+    private Integer fiveElements;
+
+    public Integer getFiveElements() {
+        return fiveElements;
+    }
+
+    public void setFiveElements(Integer fiveElements) {
+        this.fiveElements = fiveElements;
     }
 
     public void setDizhiId(Long dizhiId) {
@@ -48,10 +59,11 @@ public class Dizhi extends OrmObject {
     public Dizhi() {
     }
 
-    public Dizhi(Long dizhiId, String dizhiName, Integer dizhiNum, Integer dizhiYinyang) {
+    public Dizhi(Long dizhiId, String dizhiName, Integer dizhiNum, Integer dizhiYinyang, Integer fiveElements) {
         this.dizhiId = dizhiId;
         this.dizhiName = dizhiName;
         this.dizhiNum = dizhiNum;
         this.dizhiYinyang = dizhiYinyang;
+        this.fiveElements = fiveElements;
     }
 }

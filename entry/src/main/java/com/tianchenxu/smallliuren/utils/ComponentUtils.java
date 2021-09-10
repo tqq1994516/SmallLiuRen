@@ -11,7 +11,11 @@ import ohos.agp.components.TextField;
 import ohos.app.Context;
 import ohos.data.orm.OrmContext;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 public class ComponentUtils {
@@ -37,8 +41,9 @@ public class ComponentUtils {
     private static Text organText;
     private static Text magnateOrientationText;
     private static Text luckyNumText;
-    private static Text successNumText;
-    private static Text ominousNumText;
+    private static Text dominantAffairText;
+    private static Text recessiveAffairText;
+    private static Text representativeText;
     private static Text offendOrientationText;
     private static Text ghostsAndGodsText;
     private static Text assertText;
@@ -109,11 +114,9 @@ public class ComponentUtils {
         ganzhiMonthText = (Text) slice.findComponentById(ResourceTable.Id_ganzhi_month);
         ganzhiDayText = (Text) slice.findComponentById(ResourceTable.Id_ganzhi_day);
         ganzhiTimeText = (Text) slice.findComponentById(ResourceTable.Id_ganzhi_time);
-        Calendar now = Calendar.getInstance();
-        Lunar lunar = DateUtils.getLunar(now);
-        String date = DateUtils.getCurrentDate(now, "yyyy-MM-dd");
-        String time = DateUtils.getCurrentDate(now, "HH:mm:ss");
-        String week = DateUtils.getCurrentDate(now, "EEEE");
+
+        Lunar lunar = DateUtils.getLunar(dateString);
+        String time = "";
         String lunarYear = lunar.getYearInChinese();
         String lunarMonth = lunar.getMonthInChinese() + "月";
         String lunarDay = lunar.getDayInChinese();
@@ -122,9 +125,18 @@ public class ComponentUtils {
         String ganzhiMonth = lunar.getMonthInGanZhiExact() + "月";
         String ganzhiDay = lunar.getDayInGanZhiExact() + "日";
         String ganzhiTime = lunar.getTimeInGanZhi() + "时";
-        setTextValue(date, dateText);
+        setTextValue(dateString, dateText);
         setTextValue(time, timeText);
-        setTextValue(week, weekText);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date parse = simpleDateFormat.parse(dateString);
+            Calendar instance = Calendar.getInstance();
+            instance.setTime(parse);
+            String week = DateUtils.getCurrentDate(instance, "EEEE");
+            setTextValue(week, weekText);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         setTextValue(lunarYear, lunarYearText);
         setTextValue(lunarMonth, lunarMonthText);
         setTextValue(lunarDay, lunarDayText);
@@ -133,9 +145,7 @@ public class ComponentUtils {
         setTextValue(ganzhiMonth, ganzhiMonthText);
         setTextValue(ganzhiDay, ganzhiDayText);
         setTextValue(ganzhiTime, ganzhiTimeText);
-        if (flag == 1) {
-            setImageComponentValue(slice, connect, lunar, date);
-        }
+        setImageComponentValue(slice, connect, lunar, dateString);
     }
 
     private static void setTextValue(String str, Text text) {
@@ -189,8 +199,9 @@ public class ComponentUtils {
         organText = (Text) slice.findComponentById(ResourceTable.Id_organ);
         magnateOrientationText = (Text) slice.findComponentById(ResourceTable.Id_magnateOrientation);
         luckyNumText = (Text) slice.findComponentById(ResourceTable.Id_luckyNum);
-        successNumText = (Text) slice.findComponentById(ResourceTable.Id_successNum);
-        ominousNumText = (Text) slice.findComponentById(ResourceTable.Id_ominousNum);
+        dominantAffairText = (Text) slice.findComponentById(ResourceTable.Id_dominantAffair);
+        recessiveAffairText = (Text) slice.findComponentById(ResourceTable.Id_recessiveAffair);
+        representativeText = (Text) slice.findComponentById(ResourceTable.Id_representative);
         offendOrientationText = (Text) slice.findComponentById(ResourceTable.Id_offendOrientation);
         ghostsAndGodsText = (Text) slice.findComponentById(ResourceTable.Id_ghostsAndGods);
         assertText = (Text) slice.findComponentById(ResourceTable.Id_assertText);
@@ -199,8 +210,6 @@ public class ComponentUtils {
         setTextValue(organ.getOrganName(), organText);
         setTextValue(magnateOrientation.getOrientationName(), magnateOrientationText);
         setTextValue(attribute.getLuckyNum(), luckyNumText);
-        setTextValue(attribute.getSuccessNum(), successNumText);
-        setTextValue(attribute.getOminousNum(), ominousNumText);
         setTextValue(offendOrientation.getOrientationName(), offendOrientationText);
         setTextValue(attribute.getGhostsAndGods(), ghostsAndGodsText);
         setTextValue(anAssert.getAssertText(), assertText);

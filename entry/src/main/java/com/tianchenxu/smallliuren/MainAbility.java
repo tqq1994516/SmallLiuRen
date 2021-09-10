@@ -18,26 +18,19 @@ package com.tianchenxu.smallliuren;
 import com.tianchenxu.smallliuren.database.*;
 import com.tianchenxu.smallliuren.database.Form;
 import com.tianchenxu.smallliuren.slice.HostSlice;
-import com.tianchenxu.smallliuren.utils.ComponentProviderUtils;
 import com.tianchenxu.smallliuren.utils.DatabaseUtils;
 
-import com.tianchenxu.smallliuren.utils.DateUtils;
+import com.tianchenxu.smallliuren.utils.ZSONObjectUtils;
 import ohos.aafwk.ability.Ability;
 import ohos.aafwk.ability.AbilitySlice;
-import ohos.aafwk.ability.FormException;
+import ohos.aafwk.ability.FormBindingData;
 import ohos.aafwk.ability.ProviderFormInfo;
 import ohos.aafwk.content.Intent;
-import ohos.aafwk.content.IntentParams;
 import ohos.aafwk.content.Operation;
-import ohos.agp.components.ComponentProvider;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
-import ohos.data.orm.OrmPredicates;
-import ohos.hiviewdfx.HiLog;
 import ohos.hiviewdfx.HiLogLabel;
-
-import java.util.Collection;
-import java.util.List;
+import ohos.utils.zson.ZSONObject;
 
 /**
  * Card Main Ability
@@ -97,9 +90,12 @@ public class MainAbility extends Ability {
         if (connect == null) {
             connect = databaseHelper.getOrmContext(DATABASE_NAME_ALIAS, DATABASE_NAME, FormDatabase.class);
         }
-
+        ZSONObject zsonObject = ZSONObjectUtils.getZSONObject(connect, 1);
+        FormBindingData formBindingData = new FormBindingData(zsonObject);
+        providerFormInfo.setJsBindingData(formBindingData);
         try {
             DatabaseUtils.insertForm(form, connect);
+            updateForm(formId, formBindingData);
         } catch (Exception e) {
             DatabaseUtils.deleteFormData(form.getFormId(), connect);
         }

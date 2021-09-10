@@ -32,17 +32,6 @@ public class Attribute extends OrmObject {
     @Column(name = "deity")
     private Integer deity;
     private String luckyNum;
-    private String successNum;
-
-    public String getSuccessNum() {
-        return successNum;
-    }
-
-    public void setSuccessNum(String successNum) {
-        this.successNum = successNum;
-    }
-
-    private String ominousNum;
     @Column(name = "organ")
     private Integer organ;
     @Column(name = "magnateOrientation")
@@ -75,14 +64,6 @@ public class Attribute extends OrmObject {
 
     public void setLuckyNum(String luckyNum) {
         this.luckyNum = luckyNum;
-    }
-
-    public String getOminousNum() {
-        return ominousNum;
-    }
-
-    public void setOminousNum(String ominousNum) {
-        this.ominousNum = ominousNum;
     }
 
     public Integer getOrgan() {
@@ -128,13 +109,11 @@ public class Attribute extends OrmObject {
     public Attribute() {
     }
 
-    public Attribute(Integer attributeId, Integer deity, String luckyNum, String successNum, String ominousNum, Integer organ, Integer magnateOrientation, Integer offendOrientation, Integer fiveElements, String ghostsAndGods, Integer jingu) {
+    public Attribute(Integer attributeId, Integer deity, String luckyNum, Integer organ, Integer magnateOrientation, Integer offendOrientation, Integer fiveElements, String ghostsAndGods, Integer jingu) {
         this.attributeId = attributeId;
         this.jingu = jingu;
         this.deity = deity;
         this.luckyNum = luckyNum;
-        this.successNum = successNum;
-        this.ominousNum = ominousNum;
         this.organ = organ;
         this.magnateOrientation = magnateOrientation;
         this.offendOrientation = offendOrientation;

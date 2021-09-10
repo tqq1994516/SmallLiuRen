@@ -7,10 +7,109 @@
     ohos:remote="true">
 
     <DirectionalLayout
+        ohos:id="$+id:calendarType"
         ohos:height="match_content"
         ohos:width="match_parent"
         ohos:orientation="horizontal"
-        ohos:top_padding="10fp"
+        ohos:top_margin="5fp">
+
+        <RadioContainer
+            ohos:id="$+id:calendarRadio"
+            ohos:height="match_content"
+            ohos:width="match_parent"
+            ohos:orientation="horizontal"
+            ohos:left_margin="20fp"
+            ohos:layout_alignment="vertical_center">
+
+            <RadioButton
+                ohos:id="$+id:solarRadio"
+                ohos:height="match_content"
+                ohos:width="match_content"
+                ohos:text_size="20fp"
+                ohos:text="$string:solarRadioString"
+                ohos:weight="1"
+                ohos:marked="true">
+            </RadioButton>
+
+            <RadioButton
+                ohos:id="$+id:lunarRadio"
+                ohos:height="match_content"
+                ohos:width="match_content"
+                ohos:text_size="20fp"
+                ohos:right_of="$id:solarRadio"
+                ohos:text="$string:lunarRadioString"
+                ohos:weight="1">
+            </RadioButton>
+        </RadioContainer>
+    </DirectionalLayout>
+
+    <DirectionalLayout
+        ohos:id="$+id:dateSelectorLine"
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:below="$id:calendarType"
+        ohos:orientation="horizontal">
+
+        <Text
+            ohos:id="$+id:selectDateTabel"
+            ohos:left_margin="20fp"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:hint="$string:selectDateTabel"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="20fp"
+            ohos:layout_alignment="center">
+        </Text>
+
+        <StackLayout
+            ohos:id="$+id:dateSelector"
+            ohos:height="match_content"
+            ohos:width="match_parent"
+            ohos:right_of="$id:selectDateTabel"
+            ohos:top_margin="5fp"
+            ohos:right_margin="20fp">
+
+            <TextField
+                ohos:id="$+id:selectDate"
+                ohos:height="match_parent"
+                ohos:width="match_parent"
+                ohos:hint="$string:selectDateHint"
+                ohos:left_padding="60vp"
+                ohos:top_padding="8vp"
+                ohos:bottom_padding="8vp"
+                ohos:background_element="$graphic:data_select_background"
+                ohos:enabled="false"
+                ohos:text_size="20fp">
+            </TextField>
+
+            <Image
+                ohos:layout_alignment="vertical_center|left"
+                ohos:id="$+id:calendarIcon"
+                ohos:height="30fp"
+                ohos:width="30fp"
+                ohos:image_src="$media:calendarIcon"
+                ohos:scale_mode="clip_center"
+                ohos:left_margin="20vp">
+            </Image>
+            <Image
+                ohos:layout_alignment="vertical_center|right"
+                ohos:id="$+id:refresh"
+                ohos:height="30fp"
+                ohos:width="30fp"
+                ohos:image_src="$media:refresh"
+                ohos:scale_mode="clip_center"
+                ohos:right_margin="20vp">
+            </Image>
+        </StackLayout>
+    </DirectionalLayout>
+
+    <DirectionalLayout
+        ohos:id="$+id:timeLine"
+        ohos:height="match_content"
+        ohos:width="match_parent"
+        ohos:orientation="horizontal"
+        ohos:below="$id:dateSelectorLine"
+        ohos:top_margin="5fp"
         >
 
         <Text
@@ -48,10 +147,11 @@
     </DirectionalLayout>
 
     <DirectionalLayout
+        ohos:id="$+id:lunarTimeLine"
         ohos:height="match_content"
         ohos:width="match_parent"
         ohos:orientation="horizontal"
-        ohos:top_margin="35fp"
+        ohos:below="$id:timeLine"
         >
 
         <Text
@@ -100,10 +200,12 @@
     </DirectionalLayout>
 
     <DirectionalLayout
+        ohos:id="$+id:ganzhiTimeLine"
         ohos:height="match_content"
         ohos:width="match_parent"
         ohos:orientation="horizontal"
-        ohos:top_margin="60fp">
+        ohos:below="$id:lunarTimeLine"
+        >
 
         <Text
             ohos:id="$+id:ganzhi_year"
@@ -151,11 +253,13 @@
     </DirectionalLayout>
 
     <DirectionalLayout
+        ohos:id="$+id:assertLine"
         ohos:height="180fp"
         ohos:width="match_parent"
         ohos:background_element="$media:base"
         ohos:orientation="horizontal"
-        ohos:top_margin="75fp">
+        ohos:below="$id:ganzhiTimeLine"
+        >
 
         <DirectionalLayout
             ohos:id="$+id:aided_directionalLayout"
@@ -278,10 +382,12 @@
     </DirectionalLayout>
 
     <DirectionalLayout
+        ohos:id="$+id:detailLine1"
         ohos:height="match_content"
         ohos:width="match_parent"
         ohos:orientation="horizontal"
-        ohos:top_margin="250fp">
+        ohos:below="$id:assertLine"
+        >
 
         <Text
             ohos:id="$+id:deityLabel"
@@ -290,7 +396,7 @@
             ohos:left_margin="10fp"
             ohos:text="神兽："
             ohos:text_font="sans-serif-medium"
-            ohos:text_size="16fp"
+            ohos:text_size="14fp"
             ohos:weight="1">
         </Text>
 
@@ -301,7 +407,7 @@
             ohos:right_of="$id:deityLabel"
             ohos:text="青龙"
             ohos:text_font="sans-serif-medium"
-            ohos:text_size="16fp"
+            ohos:text_size="14fp"
             ohos:weight="1">
         </Text>
 
@@ -312,7 +418,7 @@
             ohos:right_of="$id:deity"
             ohos:text="五行："
             ohos:text_font="sans-serif-medium"
-            ohos:text_size="16fp"
+            ohos:text_size="14fp"
             ohos:weight="1">
         </Text>
 
@@ -323,29 +429,29 @@
             ohos:right_of="$id:fiveElementsLabel"
             ohos:text="木"
             ohos:text_font="sans-serif-medium"
-            ohos:text_size="16fp"
+            ohos:text_size="14fp"
             ohos:weight="1">
         </Text>
 
         <Text
-            ohos:id="$+id:organLabel"
+            ohos:id="$+id:dominantAffairLabel"
             ohos:height="match_content"
             ohos:width="match_content"
             ohos:right_of="$id:fiveElements"
-            ohos:text="器官："
+            ohos:text="显宫："
             ohos:text_font="sans-serif-medium"
-            ohos:text_size="16fp"
+            ohos:text_size="14fp"
             ohos:weight="1">
         </Text>
 
         <Text
-            ohos:id="$+id:organ"
+            ohos:id="$+id:dominantAffair"
             ohos:height="match_content"
             ohos:width="match_content"
-            ohos:right_of="$id:organLabel"
-            ohos:text="四肢"
+            ohos:right_of="$id:dominantAffairLabel"
+            ohos:text="事业宫"
             ohos:text_font="sans-serif-medium"
-            ohos:text_size="16fp"
+            ohos:text_size="14fp"
             ohos:weight="1">
         </Text>
 
@@ -356,7 +462,7 @@
             ohos:right_of="$id:organ"
             ohos:text="贵人："
             ohos:text_font="sans-serif-medium"
-            ohos:text_size="16fp"
+            ohos:text_size="14fp"
             ohos:weight="1">
         </Text>
 
@@ -367,26 +473,28 @@
             ohos:right_of="$id:magnateOrientationLabel"
             ohos:text="西南"
             ohos:text_font="sans-serif-medium"
-            ohos:text_size="16fp"
+            ohos:text_size="14fp"
             ohos:weight="1">
         </Text>
 
     </DirectionalLayout>
 
     <DirectionalLayout
+        ohos:id="$+id:detailLine2"
         ohos:height="match_content"
         ohos:width="match_parent"
         ohos:orientation="horizontal"
-        ohos:top_margin="270fp">
+        ohos:below="$id:detailLine1"
+        >
 
         <Text
             ohos:id="$+id:luckyNumLabel"
             ohos:height="match_content"
             ohos:width="match_content"
             ohos:left_margin="10fp"
-            ohos:text="谋事："
+            ohos:text="排数："
             ohos:text_font="sans-serif-medium"
-            ohos:text_size="16fp"
+            ohos:text_size="14fp"
             ohos:weight="1">
         </Text>
 
@@ -395,53 +503,53 @@
             ohos:height="match_content"
             ohos:width="match_content"
             ohos:right_of="$id:luckyNumLabel"
-            ohos:text="1,5,7"
+            ohos:text="1,4,5"
             ohos:text_font="sans-serif-medium"
-            ohos:text_size="16fp"
+            ohos:text_size="14fp"
             ohos:weight="1">
         </Text>
 
         <Text
-            ohos:id="$+id:successNumLabel"
+            ohos:id="$+id:representativeLabel"
             ohos:height="match_content"
             ohos:width="match_content"
             ohos:right_of="$id:luckyNum"
-            ohos:text="成数："
+            ohos:text="代表："
             ohos:text_font="sans-serif-medium"
-            ohos:text_size="16fp"
+            ohos:text_size="14fp"
             ohos:weight="1">
         </Text>
 
         <Text
-            ohos:id="$+id:successNum"
+            ohos:id="$+id:representative"
             ohos:height="match_content"
             ohos:width="match_content"
-            ohos:right_of="$id:successNumLabel"
-            ohos:text="3,5,8"
+            ohos:right_of="$id:representativeLabel"
+            ohos:text="森林木"
             ohos:text_font="sans-serif-medium"
-            ohos:text_size="16fp"
+            ohos:text_size="14fp"
             ohos:weight="1">
         </Text>
 
         <Text
-            ohos:id="$+id:ominousNumLabel"
+            ohos:id="$+id:recessiveAffairLabel"
             ohos:height="match_content"
             ohos:width="match_content"
-            ohos:right_of="$id:successNum"
-            ohos:text="忌数："
+            ohos:right_of="$id:representative"
+            ohos:text="藏宫："
             ohos:text_font="sans-serif-medium"
-            ohos:text_size="16fp"
+            ohos:text_size="14fp"
             ohos:weight="1">
         </Text>
 
         <Text
-            ohos:id="$+id:ominousNum"
+            ohos:id="$+id:recessiveAffair"
             ohos:height="match_content"
             ohos:width="match_content"
-            ohos:right_of="$id:ominousNumLabel"
-            ohos:text=""
+            ohos:right_of="$id:recessiveAffairLabel"
+            ohos:text="命运宫"
             ohos:text_font="sans-serif-medium"
-            ohos:text_size="16fp"
+            ohos:text_size="14fp"
             ohos:weight="1">
         </Text>
 
@@ -449,10 +557,10 @@
             ohos:id="$+id:offendOrientationLabel"
             ohos:height="match_content"
             ohos:width="match_content"
-            ohos:right_of="$id:ominousNum"
+            ohos:right_of="$id:recessiveAffair"
             ohos:text="冲犯："
             ohos:text_font="sans-serif-medium"
-            ohos:text_size="16fp"
+            ohos:text_size="14fp"
             ohos:weight="1">
         </Text>
 
@@ -463,25 +571,52 @@
             ohos:right_of="$id:offendOrientationLabel"
             ohos:text="东"
             ohos:text_font="sans-serif-medium"
-            ohos:text_size="16fp"
+            ohos:text_size="14fp"
             ohos:weight="1">
         </Text>
     </DirectionalLayout>
 
     <DirectionalLayout
+        ohos:id="$+id:detailLine3"
         ohos:height="match_content"
         ohos:width="match_parent"
         ohos:orientation="horizontal"
-        ohos:top_margin="290fp">
+        ohos:below="$id:detailLine2"
+        >
+
+        <Text
+            ohos:id="$+id:organLabel"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:fiveElements"
+            ohos:text="器官："
+            ohos:text_font="sans-serif-medium"
+            ohos:left_margin="10fp"
+            ohos:text_size="14fp"
+
+            ohos:weight="1">
+        </Text>
+
+        <Text
+            ohos:id="$+id:organ"
+            ohos:height="match_content"
+            ohos:width="match_content"
+            ohos:right_of="$id:organLabel"
+            ohos:text="四肢"
+            ohos:text_font="sans-serif-medium"
+            ohos:text_size="14fp"
+            ohos:weight="1">
+        </Text>
 
         <Text
             ohos:id="$+id:ghostsAndGodsLabel"
             ohos:height="match_content"
-            ohos:width="match_content"
-            ohos:left_margin="10fp"
+            ohos:width="match_parent"
+            ohos:right_of="$id:organ"
             ohos:text="神鬼："
             ohos:text_font="sans-serif-medium"
-            ohos:text_size="14fp">
+            ohos:text_size="14fp"
+            ohos:weight="1">
         </Text>
 
         <Text
@@ -491,16 +626,19 @@
             ohos:right_of="$id:ghostsAndGodsLabel"
             ohos:text="小孩婆姐六畜惊，大人青面阴神。"
             ohos:text_font="sans-serif-medium"
-            ohos:text_size="14fp">
+            ohos:text_size="14fp"
+            ohos:weight="5">
         </Text>
 
     </DirectionalLayout>
 
     <DirectionalLayout
+        ohos:id="$+id:detailLine4"
         ohos:height="match_content"
         ohos:width="match_parent"
         ohos:orientation="horizontal"
-        ohos:top_margin="310fp">
+        ohos:below="$id:detailLine3"
+        >
 
         <Text
             ohos:id="$+id:assertText"
@@ -517,90 +655,4 @@
 
     </DirectionalLayout>
 
-    <DirectionalLayout
-        ohos:id="$+id:calendarType"
-        ohos:height="match_content"
-        ohos:width="match_parent"
-        ohos:orientation="horizontal"
-        ohos:top_margin="350fp">
-
-        <RadioContainer
-            ohos:id="$+id:calendarRadio"
-            ohos:height="match_content"
-            ohos:width="match_parent"
-            ohos:orientation="horizontal"
-            ohos:left_margin="20fp"
-            ohos:layout_alignment="vertical_center">
-
-            <RadioButton
-                ohos:id="$+id:solarRadio"
-                ohos:height="match_content"
-                ohos:width="match_content"
-                ohos:text_size="20fp"
-                ohos:text="$string:solarRadioString"
-                ohos:weight="1"
-                ohos:marked="true">
-            </RadioButton>
-
-            <RadioButton
-                ohos:id="$+id:lunarRadio"
-                ohos:height="match_content"
-                ohos:width="match_content"
-                ohos:text_size="20fp"
-                ohos:right_of="$id:solarRadio"
-                ohos:text="$string:lunarRadioString"
-                ohos:weight="1">
-            </RadioButton>
-        </RadioContainer>
-    </DirectionalLayout>
-
-    <DirectionalLayout
-        ohos:height="match_content"
-        ohos:width="match_parent"
-        ohos:below="$id:calendarType"
-        ohos:orientation="horizontal">
-
-        <Text
-            ohos:id="$+id:selectDateTabel"
-            ohos:left_margin="20fp"
-            ohos:height="match_content"
-            ohos:width="match_content"
-            ohos:hint="$string:selectDateTabel"
-            ohos:text_font="sans-serif-medium"
-            ohos:text_size="20fp"
-            ohos:layout_alignment="center">
-        </Text>
-
-        <StackLayout
-            ohos:id="$+id:dateSelector"
-            ohos:height="match_content"
-            ohos:width="match_parent"
-            ohos:right_of="$id:selectDateTabel"
-            ohos:top_margin="5fp"
-            ohos:right_margin="20fp">
-
-            <TextField
-                ohos:id="$+id:selectDate"
-                ohos:height="match_parent"
-                ohos:width="match_parent"
-                ohos:hint="$string:selectDateHint"
-                ohos:left_padding="60vp"
-                ohos:top_padding="8vp"
-                ohos:bottom_padding="8vp"
-                ohos:background_element="$graphic:data_select_background"
-                ohos:enabled="false"
-                ohos:text_size="20fp">
-            </TextField>
-
-            <Image
-                ohos:layout_alignment="vertical_center|left"
-                ohos:id="$+id:calendarIcon"
-                ohos:height="30fp"
-                ohos:width="30fp"
-                ohos:image_src="$media:calendarIcon"
-                ohos:scale_mode="clip_center"
-                ohos:left_margin="20vp">
-            </Image>
-        </StackLayout>
-    </DirectionalLayout>
 </DependentLayout>
