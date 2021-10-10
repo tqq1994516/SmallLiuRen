@@ -16,37 +16,48 @@ import java.io.InputStream;
 
 public class ImageUtils {
     private static final HiLogLabel LABEL_LOG = new HiLogLabel(3, 0xD001100, "Demo");
+    private static final String ROOTDIR = "/common/";
 
 
     public static void setImage(ZSONObject zsonObject, int stepNum, String componentId, int type) {
         if (type==1) {
             switch (stepNum) {
                 case 0:
-                    zsonObject.put(componentId, "/common/kongwang.png");
+                    zsonObject.put(componentId, ROOTDIR+"kongwang.png");
                     break;
                 case 1:
-                    zsonObject.put(componentId, "/common/daan.png");
+                    zsonObject.put(componentId, ROOTDIR+"daan.png");
                     break;
                 case 2:
-                    zsonObject.put(componentId, "/common/liulian.png");
+                    zsonObject.put(componentId, ROOTDIR+"liulian.png");
                     break;
                 case 3:
-                    zsonObject.put(componentId, "/common/suxi.png");
+                    zsonObject.put(componentId, ROOTDIR+"suxi.png");
                     break;
                 case 4:
-                    zsonObject.put(componentId, "/common/chikou.png");
+                    zsonObject.put(componentId, ROOTDIR+"chikou.png");
                     break;
                 case 5:
-                    zsonObject.put(componentId, "/common/xiaoji.png");
+                    zsonObject.put(componentId, ROOTDIR+"xiaoji.png");
                     break;
             }
         } else if (type == 2) {
             switch (stepNum) {
                 case 1:
-                    zsonObject.put(componentId, "/common/yang.png");
+                    zsonObject.put(componentId, ROOTDIR+"yang.png");
                     break;
                 case 2:
-                    zsonObject.put(componentId, "/common/yin.png");
+                    zsonObject.put(componentId, ROOTDIR+"yin.png");
+                    break;
+            }
+        } else if (type == 0) {
+            switch (stepNum) {
+                case 99 :
+                    if (componentId.equals("base")) {
+                        zsonObject.put(componentId, ROOTDIR+componentId+".png");
+                    } else {
+                        zsonObject.put(componentId+"_label", ROOTDIR+componentId+".png");
+                    }
                     break;
             }
         }

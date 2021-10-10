@@ -30,7 +30,11 @@
     },
     {
       "name": "selectDateHint",
-      "value": "请选择日期"
+      "value": "请选择日期及小时"
+    },
+    {
+      "name": "selectTimeHint",
+      "value": "请选择时间"
     },
     {
       "name": "confirm",
@@ -39,6 +43,10 @@
     {
       "name": "cancel",
       "value": "取消"
+    },
+    {
+      "name": "adsampleability_description",
+      "value": "hap sample empty service"
     }
   ]
 }

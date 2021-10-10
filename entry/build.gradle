@@ -2,32 +2,20 @@ apply plugin: 'com.huawei.ohos.hap'
 apply plugin: 'com.huawei.ohos.decctest'
 //For instructions on signature configuration, see https://developer.harmonyos.com/cn/docs/documentation/doc-guides/ide_debug_device-0000001053822404#ZH-CN_TOPIC_0000001154985555__section1112183053510
 ohos {
-//    signingConfigs {
-//        debug {
-//            storeFile file('C:\\Users\\chenxu.tian\\.ohos\\config\\auto_debug_2850086000490704150.p12')
-//            storePassword '00000018568A07A16029A05E74864A7EF32040CC508EBFC68A3FA32AD8FFC5C8CBBEC2E99A3FF9EB'
-//            keyAlias = 'debugKey'
-//            keyPassword '000000184378283C2B5C9F05152051D54B9F2DAD1BD0FD655668CBECB384CE902ED29B654E11C6A7'
-//            signAlg = 'SHA256withECDSA'
-//            profile file('C:\\Users\\chenxu.tian\\.ohos\\config\\auto_debug_smallliuren_2850086000490704150.p7b')
-//            certpath file('C:\\Users\\chenxu.tian\\.ohos\\config\\auto_debug_2850086000490704150.cer')
-//        }
-//    }
-
-//    signingConfigs {
-//        debug {
-//            storeFile file('C:\\Users\\Administrator\\.ohos\\config\\auto_debug_2850086000490704150.p12')
-//            storePassword '00000018F05327CC59FEC5E4DD5EEE403191629AF20BFD3AB23B4605A81C508A46589CD94EB9A87C'
-//            keyAlias = 'debugKey'
-//            keyPassword '0000001886E2F87378F052F05E24EFBCDA0890ED7521263421BDE332A2BF4F7E9B762FADF7C79CAD'
-//            signAlg = 'SHA256withECDSA'
-//            profile file('C:\\Users\\Administrator\\.ohos\\config\\auto_debug_smallliuren_2850086000490704150.p7b')
-//            certpath file('C:\\Users\\Administrator\\.ohos\\config\\auto_debug_2850086000490704150.cer')
-//        }
-//    }
-    compileSdkVersion 6
+    signingConfigs {
+        debug {
+            storeFile file('C:\\Users\\Administrator\\.ohos\\config\\auto_debug_smallliuren_2850086000490704150.p12')
+            storePassword '0000001846E3C86BA31E38ED8D81A2577DA47DCDC5299333306189CEA80BE5FFD3C50A3A96DCD297'
+            keyAlias = 'debugKey'
+            keyPassword '00000018347CF409C91DD0074D17EA09D3B74C52DDC9247D6F0C9E629FC0C6EA0B7567A277AC9D57'
+            signAlg = 'SHA256withECDSA'
+            profile file('C:\\Users\\Administrator\\.ohos\\config\\auto_debug_smallliuren_2850086000490704150.p7b')
+            certpath file('C:\\Users\\Administrator\\.ohos\\config\\auto_debug_smallliuren_2850086000490704150.cer')
+        }
+    }
+    compileSdkVersion 5
     defaultConfig {
-        compatibleSdkVersion 6
+        compatibleSdkVersion 5
     }
     buildTypes {
         release {
@@ -44,8 +32,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.har'])
     testImplementation 'junit:junit:4.13'
     ohosTestImplementation 'com.huawei.ohos.testkit:runner:1.0.0.100'
-    compile 'cn.6tail:lunar:1.2.3'
+    implementation 'cn.6tail:lunar:1.2.5'
     implementation 'io.openharmony.tpc.thirdlib:XPopup:1.1.1'
+    implementation 'com.huawei.hms:ads-lite:13.4.46.300'
 }
 decc {
     supportType = ['html', 'xml']

@@ -46,28 +46,27 @@
                     <text class="content single_line_content"> {{ fiveElements }} </text>
                     <text class="content single_line_content"> {{ dominantAffair_label }} </text>
                     <text class="content single_line_content"> {{ dominantAffair }} </text>
-                    <text class="content single_line_content"> {{ magnateOrientation_label }} </text>
-                    <text class="content single_line_content"> {{ magnateOrientation }} </text>
+                    <text class="content single_line_content"> {{ recessiveAffair_label }} </text>
+                    <text class="content single_line_content"> {{ recessiveAffair }} </text>
+
                 </div>
             </div>
             <div class="line_container">
                 <div>
                     <text class="content single_line_content"> {{ luckyNum_label }} </text>
                     <text class="content single_line_content"> {{ luckyNum }} </text>
-                    <text class="content single_line_content"> {{ dominantAffair_label }} </text>
-                    <text class="content single_line_content"> {{ dominantAffair }} </text>
-                    <text class="content single_line_content"> {{ recessiveAffair_label }} </text>
-                    <text class="content single_line_content"> {{ recessiveAffair }} </text>
+                    <text class="content single_line_content w1"> {{ organ_label }} </text>
+                    <text class="content single_line_content w1"> {{ organ }} </text>
+                    <text class="content single_line_content"> {{ magnateOrientation_label }} </text>
+                    <text class="content single_line_content"> {{ magnateOrientation }} </text>
                     <text class="content single_line_content"> {{ offendOrientation_label }} </text>
                     <text class="content single_line_content"> {{ offendOrientation }} </text>
                 </div>
             </div>
             <div class="long_line_container">
                 <div>
-                    <text class="content single_line_content w1"> {{ organ_label }} </text>
-                    <text class="content single_line_content w1"> {{ organ }} </text>
                     <text class="content single_line_content w1"> {{ ghostsAndGods_label }} </text>
-                    <text class="content single_line_content w5"> {{ ghostsAndGods }} </text>
+                    <text class="content single_line_content w7"> {{ ghostsAndGods }} </text>
                 </div>
             </div>
             <div class="multi_line_container">

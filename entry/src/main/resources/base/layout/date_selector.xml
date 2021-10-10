@@ -32,7 +32,7 @@
             ohos:width="match_parent"
             ohos:text="$string:selectDateHint"
             ohos:text_alignment="center"
-            ohos:text_size="18fp"
+            ohos:text_size="14fp"
             ohos:layout_alignment="center"
             ohos:text_color="#000000"
             ohos:weight="1">
@@ -59,17 +59,42 @@
         ohos:image_src="$graphic:cross_line">
     </Image>
 
-    <DatePicker
-        ohos:id="$+id:date_pick"
+    <DirectionalLayout
+        ohos:top_margin="10fp"
         ohos:height="match_content"
         ohos:width="match_parent"
-        ohos:top_margin="10fp"
-        ohos:below="$id:cross_line"
-        ohos:background_element="#ffffff"
-        ohos:selected_text_size="20fp"
-        ohos:normal_text_size="15fp"
-        ohos:selected_normal_text_margin_ratio="3"
-        ohos:bottom_margin="10fp">
-    </DatePicker>
+        ohos:orientation="horizontal">
+
+        <DatePicker
+            ohos:id="$+id:date_pick"
+            ohos:height="match_content"
+            ohos:width="match_parent"
+            ohos:top_margin="10fp"
+            ohos:below="$id:cross_line"
+            ohos:background_element="#ffffff"
+            ohos:selected_text_size="20fp"
+            ohos:normal_text_size="15fp"
+            ohos:selected_normal_text_margin_ratio="3"
+            ohos:bottom_margin="10fp"
+            ohos:weight="3">
+        </DatePicker>
+
+        <TimePicker
+            ohos:id="$+id:time_pick"
+            ohos:height="match_content"
+            ohos:width="match_parent"
+            ohos:top_margin="10fp"
+            ohos:below="$id:cross_line"
+            ohos:background_element="#ffffff"
+            ohos:mode_24_hour="true"
+            ohos:minute="0"
+            ohos:second="0"
+            ohos:selected_text_size="20fp"
+            ohos:normal_text_size="15fp"
+            ohos:selected_normal_text_margin_ratio="3"
+            ohos:bottom_margin="10fp"
+            ohos:weight="1">
+        </TimePicker>
+    </DirectionalLayout>
 
 </DirectionalLayout>

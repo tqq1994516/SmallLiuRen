@@ -82,8 +82,11 @@ public class ZSONObjectUtils {
         int month_yinyang = Objects.requireNonNull(DatabaseUtils.queryTianganByName(lunar.getMonthGanExact(), connect)).getTianganYinyang();
         int day_yinyang = Objects.requireNonNull(DatabaseUtils.queryTianganByName(lunar.getDayGanExact(), connect)).getTianganYinyang();
         int time_yinyang = Objects.requireNonNull(DatabaseUtils.queryTianganByName(lunar.getTimeGan(), connect)).getTianganYinyang();
-
         setDetailText(zsonObject, timeStepNum, dayStepNum, connect);
+        ImageUtils.setImage(zsonObject, 99, "base",0);
+        ImageUtils.setImage(zsonObject, 99, "aided",0);
+        ImageUtils.setImage(zsonObject, 99, "assistant",0);
+        ImageUtils.setImage(zsonObject, 99, "main",0);
         ImageUtils.setImage(zsonObject, monthStepNum, "aided", 1);
         ImageUtils.setImage(zsonObject, dayStepNum, "assistant", 1);
         ImageUtils.setImage(zsonObject, timeStepNum, "main", 1);
@@ -102,19 +105,22 @@ public class ZSONObjectUtils {
      */
     private static void setDetailText(ZSONObject zsonObject, int timeNum, int dayNum, OrmContext connect) {
         Attribute attribute = DatabaseUtils.queryAttributeByNum(timeNum, connect);
+        Jingu jingu = DatabaseUtils.queryJinguByNum(attribute.getJingu(), connect);
         Deity deity = DatabaseUtils.queryDeityById(Objects.requireNonNull(attribute).getDeity(), connect);
         FiveElements fiveElements = DatabaseUtils.queryFiveElementsById(attribute.getFiveElements(), connect);
         Organ organ = DatabaseUtils.queryOrganById(attribute.getOrgan(), connect);
         Orientation magnateOrientation = DatabaseUtils.queryOrientationById(attribute.getMagnateOrientation(), connect);
         Orientation offendOrientation = DatabaseUtils.queryOrientationById(attribute.getOffendOrientation(), connect);
         Assert anAssert = DatabaseUtils.queryAssertByNums(dayNum, timeNum, connect);
+        Affair dominantAffair = DatabaseUtils.queryAffairById(jingu.getDominantAffair(), connect);
+        Affair recessiveAffair = DatabaseUtils.queryAffairById(jingu.getRecessiveAffair(), connect);
         zsonObject.put("deity", Objects.requireNonNull(deity).getDeityName());
         zsonObject.put("fiveElements", Objects.requireNonNull(fiveElements).getFiveElementsName());
         zsonObject.put("organ", Objects.requireNonNull(organ).getOrganName());
         zsonObject.put("magnateOrientation", Objects.requireNonNull(magnateOrientation).getOrientationName());
         zsonObject.put("luckyNum", attribute.getLuckyNum());
-        zsonObject.put("dominantAffair", attribute.getLuckyNum());
-        zsonObject.put("luckyNum", attribute.getLuckyNum());
+        zsonObject.put("dominantAffair", dominantAffair.getAffairName());
+        zsonObject.put("recessiveAffair", recessiveAffair.getAffairName());
         zsonObject.put("offendOrientation", Objects.requireNonNull(offendOrientation).getOrientationName());
         zsonObject.put("ghostsAndGods", attribute.getGhostsAndGods());
         zsonObject.put("assert_text", Objects.requireNonNull(anAssert).getAssertText());

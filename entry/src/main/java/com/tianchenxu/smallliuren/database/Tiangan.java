@@ -13,6 +13,8 @@ public class Tiangan extends OrmObject {
     private int tianganNum;
     private int tianganYinyang;
     private String representative;
+    @Column(name = "fiveElements")
+    private Integer fiveElements;
 
     public String getRepresentative() {
         return representative;
@@ -49,9 +51,6 @@ public class Tiangan extends OrmObject {
     public void setTianganYinyang(int tianganYinyang) {
         this.tianganYinyang = tianganYinyang;
     }
-
-    @Column(name = "fiveElements")
-    private Integer fiveElements;
 
     public void setTianganNum(int tianganNum) {
         this.tianganNum = tianganNum;

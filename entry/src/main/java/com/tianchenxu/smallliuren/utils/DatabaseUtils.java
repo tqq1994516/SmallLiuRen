@@ -29,7 +29,7 @@ public class DatabaseUtils {
     /**
      * delete data
      *
-     * @param formId form id
+     * @param formId  form id
      * @param connect data connection
      */
     public static void deleteFormData(long formId, OrmContext connect) {
@@ -45,7 +45,7 @@ public class DatabaseUtils {
     /**
      * add card info
      *
-     * @param form card object
+     * @param form    card object
      * @param connect data connection
      */
     public static void insertForm(Form form, OrmContext connect) {
@@ -76,8 +76,8 @@ public class DatabaseUtils {
      * update tiangan info
      *
      * @param tianganId tiangan id
-     * @param tiangan object
-     * @param connect data connection
+     * @param tiangan   object
+     * @param connect   data connection
      */
     public static void updateTiangan(Integer tianganId, Tiangan tiangan, OrmContext connect) {
         tiangan.setTianganId(tianganId);
@@ -89,7 +89,7 @@ public class DatabaseUtils {
      * query tiangan object
      *
      * @param tianganName tiangan name
-     * @param connect OrmContext
+     * @param connect     OrmContext
      * @return Tiangan object
      */
     public static Tiangan queryTianganByName(String tianganName, OrmContext connect) {
@@ -103,9 +103,26 @@ public class DatabaseUtils {
     }
 
     /**
+     * query tiangan object
+     *
+     * @param tianganId tiangan Id
+     * @param connect   OrmContext
+     * @return Tiangan object
+     */
+    public static Tiangan queryTianganById(Integer tianganId, OrmContext connect) {
+        OrmPredicates where = connect.where(Tiangan.class);
+        where.equalTo("tianganId", tianganId);
+        List<Tiangan> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
      * add dizhi info
      *
-     * @param dizhi object
+     * @param dizhi   object
      * @param connect data connection
      */
     public static void insertDizhi(Dizhi dizhi, OrmContext connect) {
@@ -120,11 +137,12 @@ public class DatabaseUtils {
             connect.flush();
         }
     }
+
     /**
      * update tiangan info
      *
      * @param dizhiId dizhi id
-     * @param dizhi object
+     * @param dizhi   object
      * @param connect data connection
      */
     public static void updateDizhi(Long dizhiId, Dizhi dizhi, OrmContext connect) {
@@ -137,7 +155,7 @@ public class DatabaseUtils {
      * query dizhi object
      *
      * @param dizhiName dizhi name
-     * @param connect OrmContext
+     * @param connect   OrmContext
      * @return Dizhi object
      */
     public static Dizhi queryDizhiByName(String dizhiName, OrmContext connect) {
@@ -154,7 +172,7 @@ public class DatabaseUtils {
      * add assert info
      *
      * @param anAssert object
-     * @param connect data connection
+     * @param connect  data connection
      */
     public static void insertAssert(Assert anAssert, OrmContext connect) {
         OrmPredicates where = connect.where(Assert.class);
@@ -175,7 +193,7 @@ public class DatabaseUtils {
      *
      * @param assertId dizhi id
      * @param anAssert object
-     * @param connect data connection
+     * @param connect  data connection
      */
     public static void updateAssert(Integer assertId, Assert anAssert, OrmContext connect) {
         anAssert.setAssertId(assertId);
@@ -186,7 +204,7 @@ public class DatabaseUtils {
     /**
      * query assert object
      *
-     * @param dayNum day number
+     * @param dayNum  day number
      * @param timeNum time number
      * @param connect OrmContext
      * @return Assert object
@@ -206,7 +224,7 @@ public class DatabaseUtils {
      * add attribute info
      *
      * @param attribute object
-     * @param connect data connection
+     * @param connect   data connection
      */
     public static void insertAttribute(Attribute attribute, OrmContext connect) {
         OrmPredicates where = connect.where(Attribute.class);
@@ -225,8 +243,8 @@ public class DatabaseUtils {
      * update attribute info
      *
      * @param attributeId attribute id
-     * @param attribute object
-     * @param connect data connection
+     * @param attribute   object
+     * @param connect     data connection
      */
     public static void updateAttribute(Integer attributeId, Attribute attribute, OrmContext connect) {
         attribute.setAttributeId(attributeId);
@@ -238,7 +256,7 @@ public class DatabaseUtils {
      * query attribute object
      *
      * @param attributeId attribute id
-     * @param connect OrmContext
+     * @param connect     OrmContext
      * @return Attribute object
      */
     public static Attribute queryAttributeById(Integer attributeId, OrmContext connect) {
@@ -255,7 +273,7 @@ public class DatabaseUtils {
      * query attribute object
      *
      * @param jinguNum jingu number
-     * @param connect OrmContext
+     * @param connect  OrmContext
      * @return Attribute object
      */
     public static Attribute queryAttributeByNum(int jinguNum, OrmContext connect) {
@@ -272,7 +290,7 @@ public class DatabaseUtils {
     /**
      * add deity info
      *
-     * @param deity object
+     * @param deity   object
      * @param connect data connection
      */
     public static void insertDeity(Deity deity, OrmContext connect) {
@@ -292,7 +310,7 @@ public class DatabaseUtils {
      * update deity info
      *
      * @param deityId deity id
-     * @param deity object
+     * @param deity   object
      * @param connect data connection
      */
     public static void updateDeity(Integer deityId, Deity deity, OrmContext connect) {
@@ -305,7 +323,7 @@ public class DatabaseUtils {
      * query deity object
      *
      * @param deityName deity name
-     * @param connect OrmContext
+     * @param connect   OrmContext
      * @return Deity object
      */
     public static Deity queryDeityByName(String deityName, OrmContext connect) {
@@ -339,7 +357,7 @@ public class DatabaseUtils {
      * add fiveElements info
      *
      * @param fiveElements object
-     * @param connect data connection
+     * @param connect      data connection
      */
     public static void insertFiveElements(FiveElements fiveElements, OrmContext connect) {
         OrmPredicates where = connect.where(FiveElements.class);
@@ -358,8 +376,8 @@ public class DatabaseUtils {
      * update fiveElements info
      *
      * @param fiveElementsId deity id
-     * @param fiveElements object
-     * @param connect data connection
+     * @param fiveElements   object
+     * @param connect        data connection
      */
     public static void updateFiveElements(Integer fiveElementsId, FiveElements fiveElements, OrmContext connect) {
         fiveElements.setFiveElementsId(fiveElementsId);
@@ -371,7 +389,7 @@ public class DatabaseUtils {
      * query fiveElements object
      *
      * @param fiveElementsName fiveElements name
-     * @param connect OrmContext
+     * @param connect          OrmContext
      * @return FiveElements object
      */
     public static FiveElements queryFiveElementsByName(String fiveElementsName, OrmContext connect) {
@@ -388,7 +406,7 @@ public class DatabaseUtils {
      * query fiveElements object
      *
      * @param fiveElementsId fiveElements id
-     * @param connect OrmContext
+     * @param connect        OrmContext
      * @return FiveElements object
      */
     public static FiveElements queryFiveElementsById(Integer fiveElementsId, OrmContext connect) {
@@ -404,7 +422,7 @@ public class DatabaseUtils {
     /**
      * add organ info
      *
-     * @param organ object
+     * @param organ   object
      * @param connect data connection
      */
     public static void insertOrgan(Organ organ, OrmContext connect) {
@@ -424,7 +442,7 @@ public class DatabaseUtils {
      * update organ info
      *
      * @param organId organ id
-     * @param organ object
+     * @param organ   object
      * @param connect data connection
      */
     public static void updateOrgan(Integer organId, Organ organ, OrmContext connect) {
@@ -437,7 +455,7 @@ public class DatabaseUtils {
      * query organ object
      *
      * @param organName organ name
-     * @param connect OrmContext
+     * @param connect   OrmContext
      * @return Organ object
      */
     public static Organ queryOrganByName(String organName, OrmContext connect) {
@@ -471,7 +489,7 @@ public class DatabaseUtils {
      * add orientation info
      *
      * @param orientation object
-     * @param connect data connection
+     * @param connect     data connection
      */
     public static void insertOrientation(Orientation orientation, OrmContext connect) {
         OrmPredicates where = connect.where(Orientation.class);
@@ -490,8 +508,8 @@ public class DatabaseUtils {
      * update orientation info
      *
      * @param orientationId organ id
-     * @param orientation object
-     * @param connect data connection
+     * @param orientation   object
+     * @param connect       data connection
      */
     public static void updateOrientation(Integer orientationId, Orientation orientation, OrmContext connect) {
         orientation.setOrientationId(orientationId);
@@ -503,7 +521,7 @@ public class DatabaseUtils {
      * query orientation object
      *
      * @param orientationName orientation name
-     * @param connect OrmContext
+     * @param connect         OrmContext
      * @return Orientation object
      */
     public static Orientation queryOrientationByName(String orientationName, OrmContext connect) {
@@ -520,7 +538,7 @@ public class DatabaseUtils {
      * query orientation object
      *
      * @param orientationId orientation id
-     * @param connect OrmContext
+     * @param connect       OrmContext
      * @return Orientation object
      */
     public static Orientation queryOrientationById(Integer orientationId, OrmContext connect) {
@@ -536,7 +554,7 @@ public class DatabaseUtils {
     /**
      * add jingu info
      *
-     * @param jingu object
+     * @param jingu   object
      * @param connect data connection
      */
     public static void insertJingu(Jingu jingu, OrmContext connect) {
@@ -556,7 +574,7 @@ public class DatabaseUtils {
      * update jingu info
      *
      * @param jinguId jingu id
-     * @param jingu object
+     * @param jingu   object
      * @param connect data connection
      */
     public static void updateJingu(Integer jinguId, Jingu jingu, OrmContext connect) {
@@ -569,7 +587,7 @@ public class DatabaseUtils {
      * query jingu object
      *
      * @param jinguName jingu name
-     * @param connect OrmContext
+     * @param connect   OrmContext
      * @return Jingu object
      */
     public static Jingu queryJinguByName(String jinguName, OrmContext connect) {
@@ -586,7 +604,7 @@ public class DatabaseUtils {
      * query jingu object
      *
      * @param jinguNum jingu number
-     * @param connect OrmContext
+     * @param connect  OrmContext
      * @return Jingu object
      */
     public static Jingu queryJinguByNum(int jinguNum, OrmContext connect) {
@@ -600,10 +618,27 @@ public class DatabaseUtils {
     }
 
     /**
+     * query jingu object
+     *
+     * @param jinguId jingu Id
+     * @param connect  OrmContext
+     * @return Jingu object
+     */
+    public static Jingu queryJinguById(Integer jinguId, OrmContext connect) {
+        OrmPredicates where = connect.where(Jingu.class);
+        where.equalTo("jinguId", jinguId);
+        List<Jingu> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
      * add oldLunarHour info
      *
      * @param oldLunarHour object
-     * @param connect data connection
+     * @param connect      data connection
      */
     public static void insertOldLunarHour(OldLunarHour oldLunarHour, OrmContext connect) {
         List<OldLunarHour> oldLunarHours = DatabaseUtils.queryOldLunarHour(connect);
@@ -620,8 +655,8 @@ public class DatabaseUtils {
      * update oldLunarHour info
      *
      * @param OldLunarHourId oldLunarHour id
-     * @param oldLunarHour object
-     * @param connect data connection
+     * @param oldLunarHour   object
+     * @param connect        data connection
      */
     public static void updateOldLunarHour(Integer OldLunarHourId, OldLunarHour oldLunarHour, OrmContext connect) {
         oldLunarHour.setOldLunarHourId(OldLunarHourId);
@@ -645,7 +680,7 @@ public class DatabaseUtils {
      * query oldLunarHour object
      *
      * @param oldLunarHourId oldLunarHour id
-     * @param connect OrmContext
+     * @param connect        OrmContext
      * @return OldLunarHour object
      */
     public static OldLunarHour queryOldLunarHourById(Integer oldLunarHourId, OrmContext connect) {
@@ -662,7 +697,7 @@ public class DatabaseUtils {
      * add relation info
      *
      * @param relation object
-     * @param connect data connection
+     * @param connect  data connection
      */
     public static void insertRelation(Relation relation, OrmContext connect) {
         OrmPredicates where = connect.where(Relation.class);
@@ -681,8 +716,8 @@ public class DatabaseUtils {
      * update relation info
      *
      * @param relationId relation id
-     * @param relation object
-     * @param connect data connection
+     * @param relation   object
+     * @param connect    data connection
      */
     public static void updateRelation(Integer relationId, Relation relation, OrmContext connect) {
         relation.setRelationId(relationId);
@@ -694,7 +729,7 @@ public class DatabaseUtils {
      * query relation object
      *
      * @param relationName relation name
-     * @param connect OrmContext
+     * @param connect      OrmContext
      * @return Relation object
      */
     public static Relation queryRelationByName(String relationName, OrmContext connect) {
@@ -710,7 +745,7 @@ public class DatabaseUtils {
     /**
      * add affair info
      *
-     * @param affair object
+     * @param affair  object
      * @param connect data connection
      */
     public static void insertAffair(Affair affair, OrmContext connect) {
@@ -730,8 +765,8 @@ public class DatabaseUtils {
      * update affair info
      *
      * @param affairId affair id
-     * @param affair object
-     * @param connect data connection
+     * @param affair   object
+     * @param connect  data connection
      */
     public static void updateAffair(Integer affairId, Affair affair, OrmContext connect) {
         affair.setAffairId(affairId);
@@ -743,13 +778,211 @@ public class DatabaseUtils {
      * query affair object
      *
      * @param affairName affair name
-     * @param connect OrmContext
+     * @param connect    OrmContext
      * @return Affair object
      */
     public static Affair queryAffairByName(String affairName, OrmContext connect) {
         OrmPredicates where = connect.where(Affair.class);
         where.equalTo("affairName", affairName);
         List<Affair> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * query affair object
+     *
+     * @param affairId affair Id
+     * @param connect  OrmContext
+     * @return Affair object
+     */
+    public static Affair queryAffairById(Integer affairId, OrmContext connect) {
+        OrmPredicates where = connect.where(Affair.class);
+        where.equalTo("affairId", affairId);
+        List<Affair> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * add realms info
+     *
+     * @param realms  object
+     * @param connect data connection
+     */
+    public static void insertRealms(Realms realms, OrmContext connect) {
+        OrmPredicates where = connect.where(Realms.class);
+        where.equalTo("realmsName", realms.getRealmsName());
+        List<Realms> query = connect.query(where);
+        if (!query.isEmpty()) {
+            Realms result = query.get(0);
+            updateRealms(result.getRealmsId(), realms, connect);
+        } else {
+            connect.insert(realms);
+            connect.flush();
+        }
+    }
+
+    /**
+     * update realms info
+     *
+     * @param realmsId realms id
+     * @param realms   object
+     * @param connect  data connection
+     */
+    public static void updateRealms(Integer realmsId, Realms realms, OrmContext connect) {
+        realms.setRealmsId(realmsId);
+        connect.update(realms);
+        connect.flush();
+    }
+
+    /**
+     * query realms object
+     *
+     * @param realmsName realms name
+     * @param connect    OrmContext
+     * @return Realms object
+     */
+    public static Realms queryRealmsByName(String realmsName, OrmContext connect) {
+        OrmPredicates where = connect.where(Realms.class);
+        where.equalTo("realmsName", realmsName);
+        List<Realms> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * query realms object
+     *
+     * @param realmsId realms Id
+     * @param connect  OrmContext
+     * @return Realms object
+     */
+    public static Realms queryRealmsById(Integer realmsId, OrmContext connect) {
+        OrmPredicates where = connect.where(Realms.class);
+        where.equalTo("realmsId", realmsId);
+        List<Realms> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * add star info
+     *
+     * @param star    object
+     * @param connect data connection
+     */
+    public static void insertStar(Star star, OrmContext connect) {
+        OrmPredicates where = connect.where(Star.class);
+        where.equalTo("starName", star.getStarName());
+        List<Star> query = connect.query(where);
+        if (!query.isEmpty()) {
+            Star result = query.get(0);
+            updateStar(result.getStarId(), star, connect);
+        } else {
+            connect.insert(star);
+            connect.flush();
+        }
+    }
+
+    /**
+     * update star info
+     *
+     * @param starId  star id
+     * @param star    object
+     * @param connect data connection
+     */
+    public static void updateStar(Integer starId, Star star, OrmContext connect) {
+        star.setStarId(starId);
+        connect.update(star);
+        connect.flush();
+    }
+
+    /**
+     * query star object
+     *
+     * @param starName star name
+     * @param connect  OrmContext
+     * @return Realms object
+     */
+    public static Star queryStarByName(String starName, OrmContext connect) {
+        OrmPredicates where = connect.where(Star.class);
+        where.equalTo("starName", starName);
+        List<Star> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * query star object
+     *
+     * @param starId  star Id
+     * @param connect OrmContext
+     * @return Realms object
+     */
+    public static Star queryStarById(Integer starId, OrmContext connect) {
+        OrmPredicates where = connect.where(Star.class);
+        where.equalTo("starId", starId);
+        List<Star> query = connect.query(where);
+        if (!query.isEmpty()) {
+            return query.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * add bodyUse info
+     *
+     * @param bodyUse object
+     * @param connect data connection
+     */
+    public static void insertBodyUse(BodyUse bodyUse, OrmContext connect) {
+        OrmPredicates where = connect.where(BodyUse.class);
+        where.equalTo("relationship", bodyUse.getRelationship());
+        List<BodyUse> query = connect.query(where);
+        if (!query.isEmpty()) {
+            BodyUse result = query.get(0);
+            updateBodyUse(result.getBodyUseId(), bodyUse, connect);
+        } else {
+            connect.insert(bodyUse);
+            connect.flush();
+        }
+    }
+
+    /**
+     * update bodyUse info
+     *
+     * @param bodyUseId bodyUse id
+     * @param bodyUse   object
+     * @param connect   data connection
+     */
+    public static void updateBodyUse(Integer bodyUseId, BodyUse bodyUse, OrmContext connect) {
+        bodyUse.setBodyUseId(bodyUseId);
+        connect.update(bodyUse);
+        connect.flush();
+    }
+
+    /**
+     * query bodyUse object
+     *
+     * @param relationship body use relationship
+     * @param connect      OrmContext
+     * @return BodyUse object
+     */
+    public static BodyUse queryBodyUseByText(String relationship, OrmContext connect) {
+        OrmPredicates where = connect.where(BodyUse.class);
+        where.equalTo("relationship", relationship);
+        List<BodyUse> query = connect.query(where);
         if (!query.isEmpty()) {
             return query.get(0);
         }

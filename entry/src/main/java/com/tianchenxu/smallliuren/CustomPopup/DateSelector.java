@@ -9,6 +9,7 @@ import ohos.app.Context;
 
 public class DateSelector extends BottomPopupView implements Component.ClickedListener {
     private String date;
+    private static TimePicker timePicker;
 
     public String getDate() {
         return date;
@@ -32,6 +33,9 @@ public class DateSelector extends BottomPopupView implements Component.ClickedLi
         super.onCreate();
         findComponentById(ResourceTable.Id_tv_confirm).setClickedListener(this);
         findComponentById(ResourceTable.Id_tv_cancel).setClickedListener(this);
+        timePicker = (TimePicker) findComponentById(ResourceTable.Id_time_pick);
+        timePicker.showMinute(false);
+        timePicker.showSecond(false);
     }
 
     @Override
@@ -57,7 +61,10 @@ public class DateSelector extends BottomPopupView implements Component.ClickedLi
                 int year = datePicker.getYear();
                 int month = datePicker.getMonth();
                 int day = datePicker.getDayOfMonth();
-                setDate(String.format("%4d-%02d-%02d", year, month, day));
+                int hour = timePicker.getHour();
+                int minute = timePicker.getMinute();
+                int second = timePicker.getSecond();
+                setDate(String.format("%4d-%02d-%02d %02d:%02d:%02d", year, month, day, hour, minute, second));
                 smartDismiss();
                 break;
             case ResourceTable.Id_tv_cancel:

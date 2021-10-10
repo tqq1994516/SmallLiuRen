@@ -19,6 +19,7 @@ import com.nlf.calendar.Lunar;
 import com.nlf.calendar.Solar;
 import com.tianchenxu.smallliuren.database.OldLunarHour;
 import ohos.data.orm.OrmContext;
+import ohos.utils.system.SystemCapability;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -48,10 +49,15 @@ public class DateUtils {
 
 
     public static Lunar getLunar(String dateString) {
-        int year = Integer.parseInt(dateString.split("-")[0]);
-        int month = Integer.parseInt(dateString.split("-")[1]);
-        int day = Integer.parseInt(dateString.split("-")[2]);
-        Solar solar = Solar.fromYmd(year, month, day);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sdf.setLenient(false);
+        Date parse=null;
+        try {
+            parse = sdf.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Solar solar = Solar.fromDate(parse);
         return solar.getLunar();
     }
 
@@ -62,10 +68,15 @@ public class DateUtils {
 
 
     public static Solar getSolar(String dateString) {
-        int year = Integer.parseInt(dateString.split("-")[0]);
-        int month = Integer.parseInt(dateString.split("-")[1]);
-        int day = Integer.parseInt(dateString.split("-")[2]);
-        Lunar lunar = Lunar.fromYmd(year, month, day);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sdf.setLenient(false);
+        Date parse=null;
+        try {
+            parse = sdf.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Lunar lunar = Lunar.fromDate(parse);
         return lunar.getSolar();
     }
 

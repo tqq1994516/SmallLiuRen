@@ -136,13 +136,13 @@ public class HostSlice extends AbilitySlice implements Component.ClickedListener
                         calendarIcon.setWidth(0);
                         String solar = selectDate.getText();
                         Lunar lunar = DateUtils.getLunar(solar);
-                        selectDate.setText(String.format("%4d-%02d-%02d", lunar.getYear(), lunar.getMonth(), lunar.getDay()));
+                        selectDate.setText(String.format("%4d-%02d-%02d %02d:%02d:%02d", lunar.getYear(), lunar.getMonth(), lunar.getDay(), lunar.getHour(), 0, 0));
                     } else if (i == 0) {
                         calendarIcon.setHeight(90);
                         calendarIcon.setWidth(90);
                         String lunar = selectDate.getText();
                         Solar solar = DateUtils.getSolar(lunar);
-                        selectDate.setText(String.format("%4d-%02d-%02d", solar.getYear(), solar.getMonth(), solar.getDay()));
+                        selectDate.setText(String.format("%4d-%02d-%02d %02d:%02d:%02d", solar.getYear(), solar.getMonth(), solar.getDay(), solar.getHour(), 0, 0));
                     }
                 });
                 break;
@@ -169,8 +169,10 @@ public class HostSlice extends AbilitySlice implements Component.ClickedListener
                                     dateString = oldDate;
                                     selectDate.setText(dateString);
                                 }
-                                timer.cancel();
-                                ComponentUtils.setComponentValue(slice, 1, connect, dateString);
+                                if (dateString !=null) {
+                                    timer.cancel();
+                                    ComponentUtils.setComponentValue(slice, connect, dateString);
+                                }
                             }
                         })
                         .isComponentMode(true, component)

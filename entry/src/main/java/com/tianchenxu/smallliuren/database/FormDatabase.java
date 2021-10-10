@@ -33,7 +33,12 @@ import ohos.data.orm.annotation.Database;
                 Organ.class,
                 Attribute.class,
                 Jingu.class,
-                OldLunarHour.class
+                OldLunarHour.class,
+                Affair.class,
+                Relation.class,
+                Realms.class,
+                Star.class,
+                BodyUse.class,
         },
         version = 1)
 public abstract class FormDatabase extends OrmDatabase { }
